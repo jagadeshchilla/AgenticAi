@@ -1,0 +1,624 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Implementing simple Chatbot Using LangGraph &#8212; Agentic AI Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1-langgraph Basics/2-chatbot';</script>
+    <link rel="canonical" href="/1-langgraph Basics/2-chatbot.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="State Schema With DataClasses" href="3-DataclassStateSchema.html" />
+    <link rel="prev" title="Build a Simple Workflow or Graph Using LangGraph" href="1-simplegraph.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Agentic AI Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Implementing simple Chatbot Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="3-DataclassStateSchema.html">State Schema With DataClasses</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="4-pydantic.html">Pydantic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5-ChainsLangGraph.html">Chain Using LangGraph</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7-ReActAgents.html">ReAct Agent Architecture</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/1-prompting_chaining.html">Prompt Chaining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/2-parallelization.html">What is Parallelization in LangGraph?</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/3-Routing.html">What is Routing in LangGraph?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/4-orchestrator-worker.html">Orchestrator-Worker</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/1-langgraph Basics/2-chatbot.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Implementing simple Chatbot Using LangGraph</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Implementing simple Chatbot Using LangGraph</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#we-will-start-with-creating-nodes">We Will start With Creating Nodes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#streaming-the-responses">Streaming The responses</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="implementing-simple-chatbot-using-langgraph">
+<h1>Implementing simple Chatbot Using LangGraph<a class="headerlink" href="#implementing-simple-chatbot-using-langgraph" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">START</span><span class="p">,</span> <span class="n">END</span>
+
+<span class="c1">## Reducers</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_messages</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">messages</span><span class="p">:</span><span class="n">Annotated</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span><span class="n">add_messages</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;GROQ_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;GROQ_API_KEY&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="n">llm</span><span class="o">=</span><span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">)</span>
+<span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hi there! How can I assist you today?&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 10, &#39;prompt_tokens&#39;: 8, &#39;total_tokens&#39;: 18, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_provider&#39;: &#39;openai&#39;, &#39;model_name&#39;: &#39;gpt-4o-2024-08-06&#39;, &#39;system_fingerprint&#39;: &#39;fp_cbf1785567&#39;, &#39;id&#39;: &#39;chatcmpl-CVBwrLw8wm0IfTtyUm8B6RjJEWC2L&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, id=&#39;lc_run--cbf00413-dcbd-4b4c-97bc-70737a211c51-0&#39;, usage_metadata={&#39;input_tokens&#39;: 8, &#39;output_tokens&#39;: 10, &#39;total_tokens&#39;: 18, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}})
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_groq</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatGroq</span>
+
+<span class="n">llm_groq</span><span class="o">=</span><span class="n">ChatGroq</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;qwen/qwen3-32b&quot;</span><span class="p">)</span>
+<span class="n">llm_groq</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;Hey I am jagadesh and i like to play cricket&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&quot;&lt;think&gt;\nOkay, the user introduced himself as Jagadesh and mentioned he likes to play cricket. I need to respond warmly. Let me start by acknowledging his name and expressing happiness to meet him. Then, since he mentioned cricket, I should ask a follow-up question to keep the conversation going. Maybe ask about his favorite team or if he plays any specific position. That way, I can understand his interests better and engage him in a more detailed discussion. Also, I should keep the tone friendly and approachable. Let me make sure the question is open-ended so he can elaborate. I should check for any typos or errors in the response. Alright, that should cover it.\n&lt;/think&gt;\n\nHello Jagadesh! Nice to meet you. 🏏 I&#39;m glad you enjoy cricket—it&#39;s such an exciting sport! Do you play any specific position, or are you a fan of a particular team? I&#39;d love to hear more about your cricket experience!&quot;, additional_kwargs={}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 193, &#39;prompt_tokens&#39;: 19, &#39;total_tokens&#39;: 212, &#39;completion_time&#39;: 0.45646968, &#39;prompt_time&#39;: 0.000904425, &#39;queue_time&#39;: 0.055373305, &#39;total_time&#39;: 0.457374105}, &#39;model_name&#39;: &#39;qwen/qwen3-32b&#39;, &#39;system_fingerprint&#39;: &#39;fp_5cf921caa2&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--56e9ac56-e068-4ffa-87b4-096aaade6afb-0&#39;, usage_metadata={&#39;input_tokens&#39;: 19, &#39;output_tokens&#39;: 193, &#39;total_tokens&#39;: 212})
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="we-will-start-with-creating-nodes">
+<h1>We Will start With Creating Nodes<a class="headerlink" href="#we-will-start-with-creating-nodes" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">superbot</span><span class="p">(</span><span class="n">state</span><span class="p">:</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;messages&quot;</span><span class="p">:[</span><span class="n">llm_groq</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">])]}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">=</span><span class="n">StateGraph</span><span class="p">(</span><span class="n">State</span><span class="p">)</span>
+
+<span class="c1">## node</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;SuperBot&quot;</span><span class="p">,</span><span class="n">superbot</span><span class="p">)</span>
+<span class="c1">## Edges</span>
+
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">START</span><span class="p">,</span><span class="s2">&quot;SuperBot&quot;</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;SuperBot&quot;</span><span class="p">,</span><span class="n">END</span><span class="p">)</span>
+
+
+<span class="n">graph_builder</span><span class="o">=</span><span class="n">graph</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+
+
+<span class="c1">## Display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">graph_builder</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">draw_mermaid_png</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8cdf0b775d172a8d65657074e620d3bbaf9c8d9e5cc26c5b3ce3602f6d23f3d8.png" src="../_images/8cdf0b775d172a8d65657074e620d3bbaf9c8d9e5cc26c5b3ce3602f6d23f3d8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Invocation</span>
+
+<span class="n">graph_builder</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s1">&#39;messages&#39;</span><span class="p">:</span><span class="s2">&quot;Hi,My name is jagadesh And I like cricket&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;messages&#39;: [HumanMessage(content=&#39;Hi,My name is jagadesh And I like cricket&#39;, additional_kwargs={}, response_metadata={}, id=&#39;01a6a451-bdb3-4feb-977d-32e918f8c617&#39;),
+  AIMessage(content=&quot;&lt;think&gt;\nOkay, let&#39;s see. The user introduced himself as Jagadesh and mentioned he likes cricket. I need to respond appropriately.\n\nFirst, I should acknowledge his introduction and express that I&#39;m nice to meet him. Maybe use an emoji to keep it friendly. Then, since he likes cricket, I should ask a question to engage him further. Like, what&#39;s his favorite part about cricket? That way, he can elaborate. Also, maybe ask if he plays or follows a particular team. But I should keep it open-ended so he can choose how to respond. Let me make sure the tone is welcoming and not too formal. Avoid any jargon, keep it simple. Check for any possible follow-up questions. Yeah, that should work.\n&lt;/think&gt;\n\nHi Jagadesh! Nice to meet you! 🏏 I love cricket too—such an exciting game! Do you follow any particular team or player? Or do you play yourself? Let me know your favorite part about the sport!&quot;, additional_kwargs={}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 201, &#39;prompt_tokens&#39;: 19, &#39;total_tokens&#39;: 220, &#39;completion_time&#39;: 0.516464411, &#39;prompt_time&#39;: 0.000770899, &#39;queue_time&#39;: 0.246872401, &#39;total_time&#39;: 0.51723531}, &#39;model_name&#39;: &#39;qwen/qwen3-32b&#39;, &#39;system_fingerprint&#39;: &#39;fp_efa9879028&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--8b591a61-ddf8-4066-a172-e8d667cffd46-0&#39;, usage_metadata={&#39;input_tokens&#39;: 19, &#39;output_tokens&#39;: 201, &#39;total_tokens&#39;: 220})]}
+</pre></div>
+</div>
+</div>
+</div>
+<section id="streaming-the-responses">
+<h2>Streaming The responses<a class="headerlink" href="#streaming-the-responses" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">graph_builder</span><span class="o">.</span><span class="n">stream</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="s2">&quot;Hello My name is jagadesh&quot;</span><span class="p">}):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;SuperBot&#39;: {&#39;messages&#39;: [AIMessage(content=&#39;&lt;think&gt;\nOkay, the user greeted me with their name, Jagadesh. I should respond in a friendly and welcoming manner. Let me make sure to acknowledge their name and offer assistance. Maybe something like, &quot;Hello Jagadesh! How can I assist you today?&quot; That\&#39;s straightforward and inviting. I should keep it simple and open-ended to encourage them to ask questions or share what they need help with. No need for any complex language or additional info unless they ask. Just a warm, polite response.\n&lt;/think&gt;\n\nHello Jagadesh! How can I assist you today?&#39;, additional_kwargs={}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 115, &#39;prompt_tokens&#39;: 14, &#39;total_tokens&#39;: 129, &#39;completion_time&#39;: 0.255507479, &#39;prompt_time&#39;: 0.000558631, &#39;queue_time&#39;: 0.050822449, &#39;total_time&#39;: 0.25606611}, &#39;model_name&#39;: &#39;qwen/qwen3-32b&#39;, &#39;system_fingerprint&#39;: &#39;fp_5cf921caa2&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--cf8e2ec0-ae3d-4fd2-a758-ffa6d61e4a83-0&#39;, usage_metadata={&#39;input_tokens&#39;: 14, &#39;output_tokens&#39;: 115, &#39;total_tokens&#39;: 129})]}}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./1-langgraph Basics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1-simplegraph.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Build a Simple Workflow or Graph Using LangGraph</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3-DataclassStateSchema.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">State Schema With DataClasses</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Implementing simple Chatbot Using LangGraph</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#we-will-start-with-creating-nodes">We Will start With Creating Nodes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#streaming-the-responses">Streaming The responses</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Your Name
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

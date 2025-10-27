@@ -1,0 +1,922 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chain Using LangGraph &#8212; Agentic AI Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1-langgraph Basics/5-ChainsLangGraph';</script>
+    <link rel="canonical" href="/1-langgraph Basics/5-ChainsLangGraph.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Building Chatbot With Multiple Tools Using Langgraph" href="6-chatbotswithmultipletools.html" />
+    <link rel="prev" title="Pydantic Data Validation" href="4-pydantic.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Agentic AI Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="3-DataclassStateSchema.html">State Schema With DataClasses</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="4-pydantic.html">Pydantic</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Chain Using LangGraph</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7-ReActAgents.html">ReAct Agent Architecture</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/1-prompting_chaining.html">Prompt Chaining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/2-parallelization.html">What is Parallelization in LangGraph?</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/3-Routing.html">What is Routing in LangGraph?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/4-orchestrator-worker.html">Orchestrator-Worker</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/1-langgraph Basics/5-ChainsLangGraph.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chain Using LangGraph</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chain Using LangGraph</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-chat-messages-as-our-graph-state">How to use chat messages as our graph state</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#messages">Messages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#chat-models">Chat Models</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tools">Tools</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#using-messages-as-state">Using messages as state</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reducers">Reducers</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reducers-with-add-messages">Reducers with add_messages</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="chain-using-langgraph">
+<h1>Chain Using LangGraph<a class="headerlink" href="#chain-using-langgraph" title="Link to this heading">#</a></h1>
+<p>In this we will see how we can build a simple chain using Langgraph that uses 4 important concepts</p>
+<ul class="simple">
+<li><p>How to use chat messages as our graph state</p></li>
+<li><p>How to use chat models in graph nodes</p></li>
+<li><p>How to bind tools to our LLM in chat models</p></li>
+<li><p>How to execute the tools call in our graph nodes</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;GROQ_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;GROQ_API_KEY&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="how-to-use-chat-messages-as-our-graph-state">
+<h2>How to use chat messages as our graph state<a class="headerlink" href="#how-to-use-chat-messages-as-our-graph-state" title="Link to this heading">#</a></h2>
+<section id="messages">
+<h3>Messages<a class="headerlink" href="#messages" title="Link to this heading">#</a></h3>
+<p>We can use messages which can be used to capture different roles within a conversation.
+LangChain has various message types including HumanMessage, AIMessage, SystemMessage and ToolMessage.
+These represent a message from the user, from chat model, for the chat model to instruct behavior, and from a tool call.</p>
+<p>Every message have these important components.</p>
+<ul class="simple">
+<li><p>content - content of the message</p></li>
+<li><p>name - Specify the name of author</p></li>
+<li><p>response_metadata - optionally, a dict of metadata (e.g., often populated by model provider for AIMessages)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">AIMessage</span><span class="p">,</span><span class="n">HumanMessage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="n">messages</span><span class="o">=</span><span class="p">[</span><span class="n">AIMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Please tell me how can I help&quot;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;LLMModel&quot;</span><span class="p">)]</span>
+<span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;I want to learn coding&quot;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;jagadesh&quot;</span><span class="p">))</span>
+<span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AIMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Which programming language you want to learn&quot;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;LLMModel&quot;</span><span class="p">))</span>
+<span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;I want to learn python programming language&quot;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;jagadesh&quot;</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+    <span class="n">message</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Name: LLMModel
+
+Please tell me how can I help
+================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+Name: jagadesh
+
+I want to learn coding
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Name: LLMModel
+
+Which programming language you want to learn
+================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+Name: jagadesh
+
+I want to learn python programming language
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="chat-models">
+<h1>Chat Models<a class="headerlink" href="#chat-models" title="Link to this heading">#</a></h1>
+<p>We can use the sequence of message as input with the chatmodels using LLM’s and OPENAI.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_groq</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatGroq</span>
+<span class="n">llm</span><span class="o">=</span><span class="n">ChatGroq</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;qwen/qwen3-32b&quot;</span><span class="p">)</span>
+<span class="n">result</span><span class="o">=</span><span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">response_metadata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 1698,
+  &#39;prompt_tokens&#39;: 54,
+  &#39;total_tokens&#39;: 1752,
+  &#39;completion_time&#39;: 3.902922492,
+  &#39;prompt_time&#39;: 0.001973048,
+  &#39;queue_time&#39;: 0.048847412,
+  &#39;total_time&#39;: 3.90489554},
+ &#39;model_name&#39;: &#39;qwen/qwen3-32b&#39;,
+ &#39;system_fingerprint&#39;: &#39;fp_5cf921caa2&#39;,
+ &#39;service_tier&#39;: &#39;on_demand&#39;,
+ &#39;finish_reason&#39;: &#39;stop&#39;,
+ &#39;logprobs&#39;: None,
+ &#39;model_provider&#39;: &#39;groq&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tools">
+<h1>Tools<a class="headerlink" href="#tools" title="Link to this heading">#</a></h1>
+<p>Tools can be integrated with the LLM models to interact with external systems. External systems can be API’s, third party tools.</p>
+<p>Whenever a query is asked the model can choose to call the tool and this query is based on the
+natural language input and this will return an output that matches the tool’s schema</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">b</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Add a and b</span>
+<span class="sd">    Args:</span>
+<span class="sd">        a (int): first int</span>
+<span class="sd">        b (int): second int</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">llm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ChatGroq(client=&lt;groq.resources.chat.completions.Completions object at 0x00000206133615B0&gt;, async_client=&lt;groq.resources.chat.completions.AsyncCompletions object at 0x000002061340EAB0&gt;, model_name=&#39;qwen/qwen3-32b&#39;, model_kwargs={}, groq_api_key=SecretStr(&#39;**********&#39;))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Binding tool with llm</span>
+
+<span class="n">llm_with_tools</span><span class="o">=</span><span class="n">llm</span><span class="o">.</span><span class="n">bind_tools</span><span class="p">([</span><span class="n">add</span><span class="p">])</span>
+
+<span class="n">tool_call</span><span class="o">=</span><span class="n">llm_with_tools</span><span class="o">.</span><span class="n">invoke</span><span class="p">([</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;What is 2 plus 2&quot;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;jagadesh&quot;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tool_call</span><span class="o">.</span><span class="n">tool_calls</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;name&#39;: &#39;add&#39;,
+  &#39;args&#39;: {&#39;a&#39;: 2, &#39;b&#39;: 2},
+  &#39;id&#39;: &#39;9jb6vj4bk&#39;,
+  &#39;type&#39;: &#39;tool_call&#39;}]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="using-messages-as-state">
+<h1>Using messages as state<a class="headerlink" href="#using-messages-as-state" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnyMessage</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">message</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="n">AnyMessage</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="reducers">
+<h2>Reducers<a class="headerlink" href="#reducers" title="Link to this heading">#</a></h2>
+<p>Now, we have a minor problem!</p>
+<p>As we discussed, each node will return a new value for our state key messages.</p>
+<p>But, this new value will override the prior messages value.</p>
+<p>As our graph runs, we want to append messages to our messages state key.</p>
+<p>We can use reducer functions to address this.</p>
+<p>Reducers allow us to specify how state updates are performed.</p>
+<p>If no reducer function is specified, then it is assumed that updates to the key should override it as we saw before.</p>
+<p>But, to append messages, we can use the pre-built add_messages reducer.</p>
+<p>This ensures that any messages are appended to the existing list of messages.</p>
+<p>We simply need to annotate our messages key with the add_messages reducer function as metadata.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_messages</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">messages</span><span class="p">:</span><span class="n">Annotated</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">AnyMessage</span><span class="p">],</span><span class="n">add_messages</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="reducers-with-add-messages">
+<h1>Reducers with add_messages<a class="headerlink" href="#reducers-with-add-messages" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">initial_messages</span><span class="o">=</span><span class="p">[</span><span class="n">AIMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Please tell me how can I help&quot;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;LLMModel&quot;</span><span class="p">)]</span>
+<span class="n">initial_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;I want to learn coding&quot;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;jagadesh&quot;</span><span class="p">))</span>
+<span class="n">initial_messages</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[AIMessage(content=&#39;Please tell me how can I help&#39;, additional_kwargs={}, response_metadata={}, name=&#39;LLMModel&#39;),
+ HumanMessage(content=&#39;I want to learn coding&#39;, additional_kwargs={}, response_metadata={}, name=&#39;jagadesh&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ai_message</span><span class="o">=</span><span class="n">AIMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Which programming language you want to learn&quot;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;LLMModel&quot;</span><span class="p">)</span>
+<span class="n">ai_message</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Which programming language you want to learn&#39;, additional_kwargs={}, response_metadata={}, name=&#39;LLMModel&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Reducers add_messages is to append instead of override</span>
+<span class="n">add_messages</span><span class="p">(</span><span class="n">initial_messages</span><span class="p">,</span><span class="n">ai_message</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[AIMessage(content=&#39;Please tell me how can I help&#39;, additional_kwargs={}, response_metadata={}, name=&#39;LLMModel&#39;, id=&#39;91d71d0d-3e1a-4a0c-86d7-8ddc9d9b037b&#39;),
+ HumanMessage(content=&#39;I want to learn coding&#39;, additional_kwargs={}, response_metadata={}, name=&#39;jagadesh&#39;, id=&#39;fc081514-c1d1-4010-8ae1-98e5cdc9fbe7&#39;),
+ AIMessage(content=&#39;Which programming language you want to learn&#39;, additional_kwargs={}, response_metadata={}, name=&#39;LLMModel&#39;, id=&#39;0f675482-0a06-4810-9057-a1d45622605e&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## chatbot node functionality</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">llm_tool</span><span class="p">(</span><span class="n">state</span><span class="p">:</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;messages&quot;</span><span class="p">:[</span><span class="n">llm_with_tools</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">])]}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">START</span><span class="p">,</span> <span class="n">END</span>
+<span class="n">builder</span><span class="o">=</span><span class="n">StateGraph</span><span class="p">(</span><span class="n">State</span><span class="p">)</span>
+
+<span class="n">builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;llm_tool&quot;</span><span class="p">,</span><span class="n">llm_tool</span><span class="p">)</span>
+
+<span class="n">builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">START</span><span class="p">,</span><span class="s2">&quot;llm_tool&quot;</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;llm_tool&quot;</span><span class="p">,</span><span class="n">END</span><span class="p">)</span>
+
+<span class="n">graph</span><span class="o">=</span><span class="n">builder</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">draw_mermaid_png</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6c91b5129ab85140e15084df0deec5cf109ac2cff1d3f4ac602347d56714c13a.png" src="../_images/6c91b5129ab85140e15084df0deec5cf109ac2cff1d3f4ac602347d56714c13a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## invocation</span>
+
+<span class="n">messages</span><span class="o">=</span><span class="n">graph</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="s2">&quot;What is 2 plus 2&quot;</span><span class="p">})</span>
+
+<span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">]:</span>
+    <span class="n">message</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+What is 2 plus 2
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  add (19g9e9zzp)
+ Call ID: 19g9e9zzp
+  Args:
+    a: 2
+    b: 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">add</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.prebuilt</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.prebuilt</span><span class="w"> </span><span class="kn">import</span> <span class="n">tools_condition</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">START</span><span class="p">,</span> <span class="n">END</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="n">builder</span><span class="o">=</span><span class="n">StateGraph</span><span class="p">(</span><span class="n">State</span><span class="p">)</span>
+
+<span class="c1">## Add nodes</span>
+
+<span class="n">builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;llm_tool&quot;</span><span class="p">,</span><span class="n">llm_tool</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span><span class="n">ToolNode</span><span class="p">(</span><span class="n">tools</span><span class="p">))</span>
+
+<span class="c1">## Add Edge</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">START</span><span class="p">,</span><span class="s2">&quot;llm_tool&quot;</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_conditional_edges</span><span class="p">(</span>
+    <span class="s2">&quot;llm_tool&quot;</span><span class="p">,</span>
+    <span class="c1"># If the latest message (result) from assistant is a tool call -&gt; tools_condition routes to tools</span>
+    <span class="c1"># If the latest message (result) from assistant is a not a tool call -&gt; tools_condition routes to END</span>
+    <span class="n">tools_condition</span>
+<span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span><span class="n">END</span><span class="p">)</span>
+
+
+<span class="n">graph_builder</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">graph_builder</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">draw_mermaid_png</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/772a116f1d33561159943a568cae1e20626264d47d51b18eb12ea7aeac8b2bee.png" src="../_images/772a116f1d33561159943a568cae1e20626264d47d51b18eb12ea7aeac8b2bee.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## invocation</span>
+
+<span class="n">messages</span><span class="o">=</span><span class="n">graph_builder</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="s2">&quot;What is 2 plus 2&quot;</span><span class="p">})</span>
+
+<span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">]:</span>
+    <span class="n">message</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+What is 2 plus 2
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  add (s121g0cp9)
+ Call ID: s121g0cp9
+  Args:
+    a: 2
+    b: 2
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: add
+
+4
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span><span class="o">=</span><span class="n">graph_builder</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="s2">&quot;What Machine Learning&quot;</span><span class="p">})</span>
+
+<span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">]:</span>
+    <span class="n">message</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+What Machine Learning
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+
+The available functions do not include any that can provide information or explanations about machine learning concepts. However, I can explain it directly.
+
+**Machine learning** is a subset of artificial intelligence (AI) that enables computer systems to automatically improve their performance on tasks through experience (data) without being explicitly programmed. It involves developing algorithms that analyze data, identify patterns, and make decisions or predictions with minimal human intervention. Key types include:
+- **Supervised learning** (labeled data, e.g., classification, regression)
+- **Unsupervised learning** (unlabeled data, e.g., clustering)
+- **Reinforcement learning** (learning through trial-and-error with rewards/penalties)
+
+Let me know if you&#39;d like further clarification!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./1-langgraph Basics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="4-pydantic.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Pydantic Data Validation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="6-chatbotswithmultipletools.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Building Chatbot With Multiple Tools Using Langgraph</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chain Using LangGraph</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-chat-messages-as-our-graph-state">How to use chat messages as our graph state</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#messages">Messages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#chat-models">Chat Models</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tools">Tools</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#using-messages-as-state">Using messages as state</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reducers">Reducers</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reducers-with-add-messages">Reducers with add_messages</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Your Name
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

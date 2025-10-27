@@ -1,0 +1,1150 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ReAct Agent Architecture &#8212; Agentic AI Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1-langgraph Basics/7-ReActAgents';</script>
+    <link rel="canonical" href="/1-langgraph Basics/7-ReActAgents.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Implementing simple Chatbot Using LangGraph" href="../2-langgraph%20advance/1-streaming.html" />
+    <link rel="prev" title="Building Chatbot With Multiple Tools Using Langgraph" href="6-chatbotswithmultipletools.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Agentic AI Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="3-DataclassStateSchema.html">State Schema With DataClasses</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="4-pydantic.html">Pydantic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5-ChainsLangGraph.html">Chain Using LangGraph</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ReAct Agent Architecture</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/1-prompting_chaining.html">Prompt Chaining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/2-parallelization.html">What is Parallelization in LangGraph?</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/3-Routing.html">What is Routing in LangGraph?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/4-orchestrator-worker.html">Orchestrator-Worker</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/1-langgraph Basics/7-ReActAgents.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ReAct Agent Architecture</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ReAct Agent Architecture</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aim">Aim</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-memory">Agent Memory</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Aim</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memorysaver">MemorySaver</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="react-agent-architecture">
+<h1>ReAct Agent Architecture<a class="headerlink" href="#react-agent-architecture" title="Link to this heading">#</a></h1>
+<section id="aim">
+<h2>Aim<a class="headerlink" href="#aim" title="Link to this heading">#</a></h2>
+<p>This is the intuition behind ReAct, a general agent architecture.</p>
+<ol class="arabic simple">
+<li><p>act - let the model call specific tools</p></li>
+<li><p>observe - pass the tool output back to the model</p></li>
+<li><p>reason - let the model reason about the tool output to decide what to do next (e.g., call another tool or just respond directly)</p></li>
+</ol>
+<p><img alt="image.png" src="1-langgraph Basics/attachment:image.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArxivQueryRun</span><span class="p">,</span><span class="n">WikipediaQueryRun</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">WikipediaAPIWrapper</span><span class="p">,</span><span class="n">ArxivAPIWrapper</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api_wrapper_arxiv</span><span class="o">=</span><span class="n">ArxivAPIWrapper</span><span class="p">(</span><span class="n">top_k_results</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">doc_content_chars_max</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">arxiv</span><span class="o">=</span><span class="n">ArxivQueryRun</span><span class="p">(</span><span class="n">api_wrapper</span><span class="o">=</span><span class="n">api_wrapper_arxiv</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">arxiv</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>arxiv
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arxiv</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;Attention is all you need&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;Published: 2024-07-22\nTitle: Attention Is All You Need But You Don&#39;t Need All Of It For Inference of Large Language Models\nAuthors: Georgy Tyukin, Gbetondji J-S Dovonon, Jean Kaddour, Pasquale Minervini\nSummary: The inference demand for LLMs has skyrocketed in recent months, and serving\nmodels with low latencies remains challenging due to the quadratic input length\ncomplexity of the attention layers. In this work, we investigate the effect of\ndropping MLP and attention layers at inference time o&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api_wrapper_wiki</span><span class="o">=</span><span class="n">WikipediaAPIWrapper</span><span class="p">(</span><span class="n">top_k_results</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">doc_content_chars_max</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">wiki</span><span class="o">=</span><span class="n">WikipediaQueryRun</span><span class="p">(</span><span class="n">api_wrapper</span><span class="o">=</span><span class="n">api_wrapper_wiki</span><span class="p">)</span>
+<span class="n">wiki</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;wikipedia&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wiki</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;What is machine learning&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Page: Machine learning\nSummary: AI personal\nMachine learning (ML) is a field of study in artificial intelligence concerned with the development and study of statistical algorithms that can learn from data and generalise to unseen data, and thus perform tasks without explicit instructions. Within a subdiscipline in machine learning, advances in the field of deep learning have allowed neural networks, a class of statistical algorithms, to surpass many previous machine learning approaches in perfor&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TAVILY_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TAVILY_API_KEY&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;GROQ_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;GROQ_API_KEY&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;LANGCHAIN_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;LANGCHAIN_API_KEY&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;LANGCHAIN_TRACING_V2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;LANGCHAIN_PROJECT&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;ReAct-agent&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Custom Functions</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">multiply</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Multiply a and b.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: first int</span>
+<span class="sd">        b: second int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+
+<span class="c1"># This will be a tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds a and b.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: first int</span>
+<span class="sd">        b: second int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">divide</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Divide a and b.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: first int</span>
+<span class="sd">        b: second int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span>
+
+<span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">arxiv</span><span class="p">,</span><span class="n">wiki</span><span class="p">,</span><span class="n">add</span><span class="p">,</span><span class="n">multiply</span><span class="p">,</span><span class="n">divide</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Tavily Search Tool</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.tools.tavily_search</span><span class="w"> </span><span class="kn">import</span> <span class="n">TavilySearchResults</span>
+
+<span class="n">tavily</span> <span class="o">=</span> <span class="n">TavilySearchResults</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Welcome\AppData\Local\Temp\ipykernel_19416\3584238.py:4: LangChainDeprecationWarning: The class `TavilySearchResults` was deprecated in LangChain 0.3.25 and will be removed in 1.0. An updated version of the class exists in the `langchain-tavily package and should be used instead. To use it run `pip install -U `langchain-tavily` and import as `from `langchain_tavily import TavilySearch``.
+  tavily = TavilySearchResults()
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tavily</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;Provide me the recent AI news for october 3rd 2025&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;title&#39;: &#39;AI Update, October 3, 2025: AI News and Views From the Past Week&#39;,
+  &#39;url&#39;: &#39;https://www.marketingprofs.com/opinions/2025/53797/ai-update-october-3-2025-ai-news-and-views-from-the-past-week&#39;,
+  &#39;content&#39;: &#39;OpenAI launches Sora 2 with audio and likeness features. OpenAI unveiled Sora 2, a video generation model that supports synchronized audio and likeness integration. Users can create videos with dialogue and sound effects, and upload identity-verified recordings to generate &quot;cameos&quot; of themselves or friends. Alongside the model, OpenAI released a social video app where users remix clips in TikTok-like feeds. The launch comes amid intensifying competition with Meta, Google, xAI, and Anthropic. [...] OpenAI launches parental controls after teen suicide case. OpenAI introduced parental controls for ChatGPT following a lawsuit linked to a California teen\&#39;s suicide. Parents and teens can link accounts for stronger safeguards, including blocking voice mode, restricting sensitive content, and setting quiet hours. OpenAI is also building an age prediction system to auto-apply teen settings. Regulators are scrutinizing AI firms\&#39; responsibilities for child safety, echoing Meta\&#39;s recent safeguards. [...] China\&#39;s DeepSeek releases intermediate AI model. DeepSeek launched V3.2-Exp, a transitional large language model featuring Sparse Attention for efficiency and lower costs. It reduces API pricing by over 50% while improving long-sequence processing. The model is framed as a step toward its next-generation architecture, following disruptive launches earlier this year. Analysts expect competitive pressure on Alibaba\&#39;s Qwen and Western rivals. Importance for marketers: Cheaper, efficient models&#39;,
+  &#39;score&#39;: 0.94289196},
+ {&#39;title&#39;: &quot;What&#39;s New in AI? The Latest News from October 2025 - Voxfor&quot;,
+  &#39;url&#39;: &#39;https://www.voxfor.com/what-is-new-in-ai-the-latest-news-from-october-2025/&#39;,
+  &#39;content&#39;: &#39;A relentless pace of development and breakthroughs in artificial intelligence (AI) has characterised 2025. This month only has seen new flagship models, massive hardware deals between industry leaders, advanced research platforms, and significant trends of making AI technology accessible to everyone. The focus is rapidly shifting from standard models to integrative tools, from vision-oriented solutions to voice-first interfaces, and from creative generation to practical, automated workflows for [...] Anthropic has launched Claude Haiku 4.5, a “small” model that delivers flagship-level performance. In benchmarks, Haiku 4.5 demonstrates coding and reasoning capabilities on par with larger models like Sonnet 4 and even GPT-5, but at 4-5 times the speed and approximately one-third the cost. [...] Table of Contents\n\nBelow is a comprehensive and verified overview of the most significant news in the AI market as of late October 2025.\n\n## Major Leaps in Generative Models\n\n### OpenAI Sora 2: The “Synthetic World” Arrives\n\nOpenAI Sora 2 The Synthetic World Arrives&#39;,
+  &#39;score&#39;: 0.89121616},
+ {&#39;title&#39;: &#39;An update on Artificial Intelligence (A.I.) technology | Oct. 3 - WNDU&#39;,
+  &#39;url&#39;: &#39;https://www.wndu.com/2025/10/03/an-update-artificial-intelligence-ai-technology-oct-3/&#39;,
+  &#39;content&#39;: &#39;# An update on Artificial Intelligence (A.I.) technology | Oct. 3\n\nSOUTH BEND, Ind. (WNDU) - The last two weeks in AI were big. Think faster tools, safer systems and giant partnerships that will shape what our phones, computers and workplaces can do.\n\nFirst, Google’s AI team tightened its safety rules for powerful models — basically better guardrails so advanced systems don’t mislead people or act unpredictably. [...] OpenAI’s CEO also met leaders in the Middle East about international collaboration. Bottom line, OpenAI is gearing up for much bigger, more capable models and is locking in global partners to do it.\n\nMicrosoft made its Copilot assistant more flexible by adding access to models beyond OpenAI’s.\n\nFor businesses, that means choosing the right AI “engine” for each task-speed, cost, or deep reasoning inside the same Microsoft tools they already use. [...] Stay up to date on local news with WNDU on-air and online. Be sure to download the 16 News Now App and follow our YouTube page as we continue to bring you the latest coverage on this developing story.\n\nCopyright 2025 WNDU. All rights reserved.\n\n#### Most Read\n\n###### 1 dead, driver at large after hit-and-run in St. Joseph County (Mich.)\n\n###### Notre Dame football stays at No. 12; IU stays at No. 2 in latest AP Top 25 poll&#39;,
+  &#39;score&#39;: 0.8312667},
+ {&#39;title&#39;: &#39;Daily Digest on AI and Emerging Technologies (23 October 2025)&#39;,
+  &#39;url&#39;: &#39;https://www.cgspam.org/daily-digest-on-ai-and-emerging-technologies-23-october-2025/&#39;,
+  &#39;content&#39;: &#39;(AI Insider -21 October 2025) Romanian startup .lumen secured a €11 million grant for “PABLO – Autonomous Robots for Urban Delivery,” a 2025–2028 program to build humanoid and quadruped sidewalk delivery robots with a national consortium. The project totals 56,856,649.01 RON with 34,987,312.27 RON in non-reimbursable funding (21,309,568.52 RON EU + 13,677,743.75 RON national), running Sept. 16, 2025–Sept. 15, 2028. Led by .lumen with IMSAR, BreadCrumbs Interactive, and Linnify, the effort [...] (DigWatch – 22 October 2025) A new EU study finds that 90% of workers rely on digital tools, while nearly a third use AI-powered chatbots in their daily work. The JRC and European Commission surveyed over 70,000 workers across all EU Member States between 2024 and 2025. The findings show that AI is most commonly used for writing and translation tasks, followed by data processing and image generation. Adoption rates are particularly high in Northern and Central Europe, especially in office-based [...] (AI Insider – 21 October 2025) Appy.AIlaunched a public beta after a $5M seed round led by Four Rivers (Dan Scholnick) and Founder Collective, offering a platform to build monetizable AI businesses without coding. Unlike code-gen tools, it delivers production-ready AI agents with full business infrastructure\u200a—\u200apayments (Stripe), auth, subscriptions, analytics, white-label sites, support, and continuous improvement\u200a—\u200avia a conversational builder. Early users report going from idea to paying&#39;,
+  &#39;score&#39;: 0.7279179},
+ {&#39;title&#39;: &#39;Have you heard these exciting AI news? - YouTube&#39;,
+  &#39;url&#39;: &#39;https://www.youtube.com/watch?v=l1TIERzS-Zw&#39;,
+  &#39;content&#39;: &#39;Have you heard these exciting AI news? - October 24, 2025 AI Updates Weekly Presented by Lev Selector Slides on GDrive:&#39;,
+  &#39;score&#39;: 0.52524763}]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Combine all the tools in the list</span>
+
+<span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">arxiv</span><span class="p">,</span><span class="n">wiki</span><span class="p">,</span><span class="n">tavily</span><span class="p">,</span><span class="n">add</span><span class="p">,</span><span class="n">divide</span><span class="p">,</span><span class="n">multiply</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Initialize my LLM model</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_groq</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatGroq</span>
+
+<span class="n">llm</span><span class="o">=</span><span class="n">ChatGroq</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;openai/gpt-oss-120b&quot;</span><span class="p">)</span>
+
+<span class="n">llm_with_tools</span><span class="o">=</span><span class="n">llm</span><span class="o">.</span><span class="n">bind_tools</span><span class="p">(</span><span class="n">tools</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">AIMessage</span><span class="p">,</span> <span class="n">HumanMessage</span>
+<span class="n">llm_with_tools</span><span class="o">.</span><span class="n">invoke</span><span class="p">([</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;What is the recent AI News&quot;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;The user asks: &quot;What is the recent AI News&quot;. Likely wants recent AI news. We need to provide recent AI news. We need to browse recent news. Use tavily_search_results_json for &quot;recent AI news&quot;.&#39;, &#39;tool_calls&#39;: [{&#39;id&#39;: &#39;fc_898343d7-2c9d-450f-b1ff-6cd44ad84d87&#39;, &#39;function&#39;: {&#39;arguments&#39;: &#39;{&quot;query&quot;:&quot;latest AI news 2024 October&quot;}&#39;, &#39;name&#39;: &#39;tavily_search_results_json&#39;}, &#39;type&#39;: &#39;function&#39;}]}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 84, &#39;prompt_tokens&#39;: 378, &#39;total_tokens&#39;: 462, &#39;completion_time&#39;: 0.183303865, &#39;prompt_time&#39;: 0.007301841, &#39;queue_time&#39;: 0.051009629, &#39;total_time&#39;: 0.190605706, &#39;prompt_tokens_details&#39;: {&#39;cached_tokens&#39;: 256}}, &#39;model_name&#39;: &#39;openai/gpt-oss-120b&#39;, &#39;system_fingerprint&#39;: &#39;fp_ff6aa7708c&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;tool_calls&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--433356f6-f89e-4a08-8d16-fc32c36e6539-0&#39;, tool_calls=[{&#39;name&#39;: &#39;tavily_search_results_json&#39;, &#39;args&#39;: {&#39;query&#39;: &#39;latest AI news 2024 October&#39;}, &#39;id&#39;: &#39;fc_898343d7-2c9d-450f-b1ff-6cd44ad84d87&#39;, &#39;type&#39;: &#39;tool_call&#39;}], usage_metadata={&#39;input_tokens&#39;: 378, &#39;output_tokens&#39;: 84, &#39;total_tokens&#39;: 462})
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">llm_with_tools</span><span class="o">.</span><span class="n">invoke</span><span class="p">([</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;What is the recent AI News&quot;</span><span class="p">)])</span><span class="o">.</span><span class="n">tool_calls</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;name&#39;: &#39;tavily_search_results_json&#39;,
+  &#39;args&#39;: {&#39;query&#39;: &#39;recent AI news 2024&#39;},
+  &#39;id&#39;: &#39;fc_a538d0be-e7c1-4e0a-ac47-773cfddc6d58&#39;,
+  &#39;type&#39;: &#39;tool_call&#39;}]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## State Schema</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnyMessage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_messages</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">messages</span><span class="p">:</span><span class="n">Annotated</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">AnyMessage</span><span class="p">],</span><span class="n">add_messages</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Entire Chatbot With LangGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">START</span><span class="p">,</span> <span class="n">END</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.prebuilt</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.prebuilt</span><span class="w"> </span><span class="kn">import</span> <span class="n">tools_condition</span>
+
+<span class="c1">### Node definition</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">tool_calling_llm</span><span class="p">(</span><span class="n">state</span><span class="p">:</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;messages&quot;</span><span class="p">:[</span><span class="n">llm_with_tools</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">])]}</span>
+
+<span class="c1"># Build graph</span>
+<span class="n">builder</span> <span class="o">=</span> <span class="n">StateGraph</span><span class="p">(</span><span class="n">State</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;tool_calling_llm&quot;</span><span class="p">,</span> <span class="n">tool_calling_llm</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span> <span class="n">ToolNode</span><span class="p">(</span><span class="n">tools</span><span class="p">))</span>
+
+<span class="n">builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">START</span><span class="p">,</span> <span class="s2">&quot;tool_calling_llm&quot;</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_conditional_edges</span><span class="p">(</span>
+    <span class="s2">&quot;tool_calling_llm&quot;</span><span class="p">,</span>
+    <span class="c1"># If the latest message (result) from assistant is a tool call -&gt; tools_condition routes to tools</span>
+    <span class="c1"># If the latest message (result) from assistant is a not a tool call -&gt; tools_condition routes to END</span>
+    <span class="n">tools_condition</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span><span class="s2">&quot;tool_calling_llm&quot;</span><span class="p">)</span>
+
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+
+<span class="c1"># View</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">draw_mermaid_png</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/cdd9a07de205e0de74b83f013759a2b0b3e05cbb2b9b5d5aa3de2efebf6e5db7.png" src="../_images/cdd9a07de205e0de74b83f013759a2b0b3e05cbb2b9b5d5aa3de2efebf6e5db7.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span><span class="o">=</span><span class="n">graph</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s2">&quot;Provide me the top 10 recent AI news for october 3rd 2025,add 5 plus 5 and then multiply by 10&quot;</span><span class="p">)})</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]:</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+Provide me the top 10 recent AI news for october 3rd 2025,add 5 plus 5 and then multiply by 10
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  tavily_search_results_json (fc_781f1f3c-0053-4b9e-ad24-886e2cd436e7)
+ Call ID: fc_781f1f3c-0053-4b9e-ad24-886e2cd436e7
+  Args:
+    query: AI news October 3 2025
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: tavily_search_results_json
+
+[{&quot;title&quot;: &quot;An update on Artificial Intelligence (A.I.) technology | Oct. 3 - WNDU&quot;, &quot;url&quot;: &quot;https://www.wndu.com/2025/10/03/an-update-artificial-intelligence-ai-technology-oct-3/&quot;, &quot;content&quot;: &quot;An update on Artificial Intelligence (A.I.) technology | Oct. 3\n\nSkip to content\n\nDigital Marketing\n\n technology | Oct. 3\n\nClose\n\nAn update in Artificial Intelligence (A.I.) technology regarding Google, Microsoft, NVIDIA, Intel, and AMD\n\nBy Spencer Beehler\n\nPublished: Oct. 3, 2025 at 5:12 PM UTC\n\nSOUTH BEND, Ind. (WNDU) - The last two weeks in AI were big. Think faster tools, safer systems and giant partnerships that will shape what our phones, computers and workplaces can do.&quot;, &quot;score&quot;: 0.9385817}, {&quot;title&quot;: &quot;AI &amp; Tech News Roundup: Mid-October 2025 Major Updates &amp; Trends&quot;, &quot;url&quot;: &quot;https://tsttechnology.io/blog/mid-october-ai-news-2025&quot;, &quot;content&quot;: &quot;### What Are the Latest Updates in AI?\n\nThe latest AI updates in October 2025 include OpenAI&#39;s Sora 2 launch with cinema-quality 60-second video generation and the AMD-OpenAI partnership worth tens of billions for 6-gigawatt AI infrastructure. Additionally, Google&#39;s Gemini 2.5 can now browse and interact with the web autonomously, while India announced AI Impact Summit 2026 with ₹5.85 crore in prizes for global AI challenges focused on women-led innovation. [...] In this roundup, we’ll explore the biggestAI and technology news of mid-October 2025, including new product launches, global conferences, funding updates, and how AI is redefining the future of technology and science.\n\nGlobal Research Conference on Robotics and AI (GRCRAI2025)\n\nImage 5: Global Research Conference on Robotics and AI (GRCRAI2025) [...] ### What are the top AI and tech breakthroughs highlighted in mid-October 2025?\n\nThe most notable breakthroughs include OpenAI’s launch of advanced ChatGPT Search features for all users, the release of Sora 2 for high-quality video generation, and substantial steps in AI conferences and partnerships, such as AMD-OpenAI’s billion-dollar infrastructure deal and the expansion of xAI into the gaming industry.\n\n### Why did Intel’s AI chip business miss revenue targets in 2025?&quot;, &quot;score&quot;: 0.9305657}, {&quot;title&quot;: &quot;AI Update, October 3, 2025: AI News and Views From the Past Week&quot;, &quot;url&quot;: &quot;https://www.marketingprofs.com/opinions/2025/53797/ai-update-october-3-2025-ai-news-and-views-from-the-past-week&quot;, &quot;content&quot;: &quot;OpenAI launches Sora 2 with audio and likeness features. OpenAI unveiled Sora 2, a video generation model that supports synchronized audio and likeness integration. Users can create videos with dialogue and sound effects, and upload identity-verified recordings to generate \&quot;cameos\&quot; of themselves or friends. Alongside the model, OpenAI released a social video app where users remix clips in TikTok-like feeds. The launch comes amid intensifying competition with Meta, Google, xAI, and Anthropic. [...] OpenAI launches parental controls after teen suicide case. OpenAI introduced parental controls for ChatGPT following a lawsuit linked to a California teen&#39;s suicide. Parents and teens can link accounts for stronger safeguards, including blocking voice mode, restricting sensitive content, and setting quiet hours. OpenAI is also building an age prediction system to auto-apply teen settings. Regulators are scrutinizing AI firms&#39; responsibilities for child safety, echoing Meta&#39;s recent safeguards. [...] gains in complex tasks. Agent Mode is rolling out in the Frontier program, with desktop availability coming soon. Importance for marketers: Marketers can now scale reporting, analysis, and content creation, reducing manual effort in data-driven campaigns and presentations.&quot;, &quot;score&quot;: 0.9302622}, {&quot;title&quot;: &quot;Artificial Intelligence News for the Week of October 3; Updates from ...&quot;, &quot;url&quot;: &quot;https://solutionsreview.com/artificial-intelligence-news-for-the-week-of-october-3-updates-from-outsystems-progress-software-servicenow-more/&quot;, &quot;content&quot;: &quot;# Artificial Intelligence News for the Week of October 3; Updates from OutSystems, Progress Software, ServiceNow &amp; More\n\n By Tim King , Executive Editor at Solutions Review\n News,\n\nSolutions Review Executive Editor Tim King curated this list of notable artificial intelligence news for the week of October 3, 2025. [...] For early access to all the expert insights published on Solutions Review, join Insight Jam, a community dedicated to enabling the human conversation on AI.\n\n## Artificial Intelligence News for the Week of October 3, 2025\n\n#### Algolia expands AI search pricing to reach developers everywhere [...] For consideration in future artificial intelligence news roundups, send your announcements to the editor: tking@solutionsreview.com.\n\n### Share this:\n\n LinkedIn\n Twitter\n Facebook\n Email\n\n#### Share This\n\nThis article was written by Tim King on October 3, 2025\n\n### Tim King\n\n###### Executive Editor&quot;, &quot;score&quot;: 0.9274752}, {&quot;title&quot;: &quot;The Latest AI News and AI Breakthroughs that Matter Most: 2025&quot;, &quot;url&quot;: &quot;https://www.crescendo.ai/news/latest-ai-news-and-updates&quot;, &quot;content&quot;: &quot;Source:Markets / FinancialContent\n\n### eBay Offers 10,000 Sellers ChatGPT Enterprise to Drive Sales\n\nDate: October 3, 2025\n\nSummary: eBay has granted ChatGPT Enterprise access to 10,000 of its sellers to help them draft listings, respond to buyers, analyze performance metrics, and streamline seller operations. The AI suite is intended to level the playing field between small-scale and large sellers by automating routine tasks. [...] Date: October 7, 2025Summary: A press release from Exactitude Consultancy projects that the generative AI in healthcare market will expand from USD 1.1 billion in 2024 to USD 14.2 billion by 2034, representing a CAGR of ~29.3%. Key drivers include growing adoption in drug discovery, medical imaging, documentation, and synthetic data generation. The report also highlights challenges such as model bias, data privacy, and high computational costs that could limit adoption. Hospitals, pharma firms, [...] Date: October 8, 2025Summary: Suki, a healthcare AI company, has formed a nursing consortium in partnership with multiple health systems to co-develop Suki for Nurses, a workflow-focused AI tool. The solution is designed to integrate with major EHR systems, Epic, MEDITECH, and Oracle Health, and streamline tasks like patient assessments, intake forms, and documentation. In collaboration with AvaSure, the new tool will enable hands‑free documentation during patient visits, alleviating burdens on&quot;, &quot;score&quot;: 0.91563576}]
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+
+**Top 10 AI‑related news items published on October 3 2025**
+
+| # | Headline (source) | Key points &amp; why it matters |
+|---|-------------------|-----------------------------|
+| 1 | **OpenAI launches *Sora 2* – cinema‑quality 60‑second video generation** (MarketingProfs) | • Adds synchronized audio, voice‑cloning and “cameo” likeness features.&lt;br&gt;• A social‑video app lets users remix clips like TikTok.&lt;br&gt;• Raises the bar for generative video, pressuring rivals (Meta, Google, Anthropic) to accelerate similar tech. |
+| 2 | **OpenAI rolls out parental‑control suite for ChatGPT** (MarketingProfs) | • Allows parents to block voice mode, restrict sensitive topics, set “quiet hours”, and auto‑apply teen settings via age‑prediction.&lt;br&gt;• First major safety‑feature push after a high‑profile teen‑suicide lawsuit, signalling tighter regulator‑industry scrutiny. |
+| 3 | **Google Gemini 2.5 gains autonomous web‑browsing &amp; interaction** (tsttechnology.io) | • The model can navigate sites, fill forms and retrieve up‑to‑date data without human prompting.&lt;br&gt;• Positions Gemini as a direct competitor to OpenAI’s “ChatGPT Search” and expands Google’s AI‑assistant ecosystem. |
+| 4 | **AMD‑OpenAI multi‑billion‑dollar partnership for 6 GW AI compute infrastructure** (tsttechnology.io) | • AMD will supply custom GPUs and silicon‑level optimizations for OpenAI’s next‑gen models.&lt;br&gt;• The deal funds a massive data‑center build‑out, underscoring the growing need for dedicated AI hardware. |
+| 5 | **eBay gives 10 000 sellers free access to ChatGPT Enterprise** (crescendo.ai) | • Sellers can auto‑generate listings, respond to buyer queries, and analyse performance metrics.&lt;br&gt;• Demonstrates enterprise‑grade generative AI moving into e‑commerce workflow automation. |
+| 6 | **Intel’s AI‑chip business misses 2025 revenue targets** (tsttechnology.io) | • Miss attributed to slower adoption of Xe‑HPC chips and supply‑chain bottlenecks.&lt;br&gt;• Highlights the competitive pressure from NVIDIA, AMD and emerging RISC‑V AI accelerators. |
+| 7 | **Algolia expands AI‑search pricing to reach all developers** (Solutions Review) | • Introduces a tiered, usage‑based pricing model for its AI‑augmented search API.&lt;br&gt;• Makes sophisticated semantic search more accessible to startups and indie developers. |
+| 8 | **Global Research Conference on Robotics &amp; AI (GRCRAI 2025) kicks off** (tsttechnology.io) | • Over 1 200 papers presented; major themes: multimodal agents, AI safety, and edge‑AI for robotics.&lt;br&gt;• Serves as a barometer for academic‑industry collaboration trends. |
+| 9 *|* **India announces AI Impact Summit 2026 with ₹5.85 cr prize pool for women‑led innovations** (tsttechnology.io) | • Government‑backed competition to spur AI solutions in health, agriculture and education.&lt;br&gt;• Signals strong policy focus on gender‑inclusive AI entrepreneurship in emerging markets. |
+| 10 | **OpenAI’s “Agent Mode” rolls out to Frontier program users** (MarketingProfs) | • Enables autonomous agents that can browse, plan, and execute multi‑step tasks on a desktop.&lt;br&gt;• Early access hints at future “personal AI assistants” that handle complex workflows without user micromanagement. |
+
+*These stories were all published on October 3 2025 (or in the immediate news round‑up for that date) and collectively illustrate the current hot spots in AI: generative video, safety &amp; parental controls, large‑scale compute partnerships, enterprise‑grade deployments, and policy initiatives.*
+
+---
+
+### Simple math you asked for
+
+1. **Add 5 + 5** → **10**  
+2. **Multiply the result by 10** → **10 × 10 = 100**
+
+**Result: 100**
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span><span class="o">=</span><span class="n">graph</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s2">&quot;What is machine learning&quot;</span><span class="p">)})</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]:</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+What is machine learning
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+
+**Machine learning (ML)** is a sub‑field of artificial intelligence that focuses on building systems that can automatically improve their performance on a task through experience (i.e., data), rather than being explicitly programmed for every possible situation.
+
+### Core Idea
+- **Data + Algorithm → Model**: An ML algorithm consumes a dataset, discovers patterns or statistical regularities, and produces a *model* (e.g., a set of parameters).  
+- **Prediction/Decision**: The model is then used to make predictions, classify new inputs, or take actions on data it has never seen before.  
+- **Learning**: As more data become available, the model can be updated (re‑trained) to improve accuracy or adapt to changes.
+
+### Main Types of Machine Learning
+| Category | How it learns | Typical tasks | Example algorithms |
+|----------|---------------|---------------|--------------------|
+| **Supervised learning** | Learns from labeled examples (input‑output pairs). | Classification, regression, object detection. | Linear regression, decision trees, support‑vector machines, neural networks. |
+| **Unsupervised learning** | Finds structure in unlabeled data. | Clustering, dimensionality reduction, anomaly detection. | K‑means, hierarchical clustering, PCA, autoencoders. |
+| **Semi‑supervised learning** | Uses a small amount of labeled data plus a large amount of unlabeled data. | Improves performance when labeling is costly. | Graph‑based methods, self‑training, consistency regularization. |
+| **Reinforcement learning** | Learns by interacting with an environment and receiving reward signals. | Game playing, robotics, recommendation systems. | Q‑learning, policy gradients, deep Q‑networks. |
+| **Self‑supervised learning** | Generates its own supervisory signal from raw data (e.g., predicting missing parts). | Language modeling, vision pre‑training. | Masked language models (BERT), contrastive learning. |
+
+### Typical Workflow
+1. **Define the problem** (e.g., predict house prices).  
+2. **Collect &amp; preprocess data** (cleaning, feature engineering, normalization).  
+3. **Choose a model/algorithm** (e.g., random forest).  
+4. **Train** the model on a training set (optimize parameters to minimize a loss function).  
+5. **Validate** using a separate validation set to tune hyper‑parameters and avoid over‑fitting.  
+6. **Test** on an unseen test set to estimate real‑world performance.  
+7. **Deploy** the model for inference; monitor and retrain as needed.
+
+### Why It Matters
+- **Automation of complex tasks** that are hard to hand‑code (e.g., speech recognition, image classification).  
+- **Scalability**: Models can handle massive datasets and make predictions in milliseconds.  
+- **Adaptability**: Systems can improve over time as more data are gathered.  
+
+### Real‑World Applications
+- **Vision**: Face detection, medical imaging diagnostics, autonomous‑vehicle perception.  
+- **Language**: Spam filtering, machine translation, chatbots, sentiment analysis.  
+- **Recommendation**: Product suggestions on e‑commerce sites, content playlists.  
+- **Finance**: Fraud detection, algorithmic trading, credit scoring.  
+- **Healthcare**: Predictive patient risk scores, drug discovery, personalized treatment plans.  
+
+### Key Challenges
+- **Data quality &amp; bias**: Poor or biased data lead to unreliable or unfair models.  
+- **Interpretability**: Complex models (e.g., deep neural networks) can be “black boxes.”  
+- **Generalization**: Overfitting to training data reduces performance on new data.  
+- **Computational resources**: Training large models can be expensive in time and energy.  
+
+### Bottom Line
+Machine learning provides a systematic way for computers to *learn* from data, turning raw observations into actionable predictions or decisions. It underpins many of the intelligent systems we interact with daily and continues to expand into new domains as algorithms, data availability, and computing power improve.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="agent-memory">
+<h1>Agent Memory<a class="headerlink" href="#agent-memory" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>Aim<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Lets introduce Agent With Memory</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span><span class="o">=</span><span class="n">graph</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s2">&quot;What is 5 plus 8&quot;</span><span class="p">)})</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]:</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+What is 5 plus 8
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+
+5 + 8 = 13.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span><span class="o">=</span><span class="p">[</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s2">&quot;Divide that by 5&quot;</span><span class="p">)]</span>
+<span class="n">messages</span><span class="o">=</span><span class="n">graph</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="n">messages</span><span class="p">})</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]:</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+Divide that by 5
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+
+I’m not sure what you’d like me to divide—could you let me know the number (or result) you’d like to have divided by 5?
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="memorysaver">
+<h2>MemorySaver<a class="headerlink" href="#memorysaver" title="Link to this heading">#</a></h2>
+<p>LangGraph can use a checkpointer to automatically save the graph state after each step.</p>
+<p>This built-in persistence layer gives us memory, allowing LangGraph to pick up from the last state update.</p>
+<p>One of the easiest checkpointers to use is the MemorySaver, an in-memory key-value store for Graph state.</p>
+<p>All we need to do is simply compile the graph with a checkpointer, and our graph has memory!</p>
+<p><img alt="image.png" src="1-langgraph Basics/attachment:image.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">)</span>
+<span class="n">llm_with_tools</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">bind_tools</span><span class="p">(</span><span class="n">tools</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Entire Chatbot With LangGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">START</span><span class="p">,</span> <span class="n">END</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.prebuilt</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.prebuilt</span><span class="w"> </span><span class="kn">import</span> <span class="n">tools_condition</span>
+
+<span class="c1">### Node definition</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">tool_calling_llm</span><span class="p">(</span><span class="n">state</span><span class="p">:</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;messages&quot;</span><span class="p">:[</span><span class="n">llm_with_tools</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">])]}</span>
+
+<span class="c1"># Build graph</span>
+<span class="n">builder</span> <span class="o">=</span> <span class="n">StateGraph</span><span class="p">(</span><span class="n">State</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;tool_calling_llm&quot;</span><span class="p">,</span> <span class="n">tool_calling_llm</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span> <span class="n">ToolNode</span><span class="p">(</span><span class="n">tools</span><span class="p">))</span>
+
+<span class="n">builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">START</span><span class="p">,</span> <span class="s2">&quot;tool_calling_llm&quot;</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_conditional_edges</span><span class="p">(</span>
+    <span class="s2">&quot;tool_calling_llm&quot;</span><span class="p">,</span>
+    <span class="c1"># If the latest message (result) from assistant is a tool call -&gt; tools_condition routes to tools</span>
+    <span class="c1"># If the latest message (result) from assistant is a not a tool call -&gt; tools_condition routes to END</span>
+    <span class="n">tools_condition</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span><span class="s2">&quot;tool_calling_llm&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;langgraph.graph.state.StateGraph at 0x1c7df206fc0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.checkpoint.memory</span><span class="w"> </span><span class="kn">import</span> <span class="n">MemorySaver</span>
+<span class="n">memory</span><span class="o">=</span><span class="n">MemorySaver</span><span class="p">()</span>
+<span class="n">graph_memory</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">checkpointer</span><span class="o">=</span><span class="n">memory</span><span class="p">)</span>
+
+<span class="c1"># View</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">graph_memory</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">draw_mermaid_png</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/cdd9a07de205e0de74b83f013759a2b0b3e05cbb2b9b5d5aa3de2efebf6e5db7.png" src="../_images/cdd9a07de205e0de74b83f013759a2b0b3e05cbb2b9b5d5aa3de2efebf6e5db7.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Specify the thread</span>
+
+<span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;configurable&quot;</span><span class="p">:{</span><span class="s2">&quot;thread_id&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">}}</span>
+<span class="c1"># Specify an input</span>
+<span class="n">messages</span> <span class="o">=</span> <span class="p">[</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s2">&quot;Add 12 and 13.&quot;</span><span class="p">)]</span>
+<span class="n">messages</span><span class="o">=</span><span class="n">graph_memory</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="n">messages</span><span class="p">},</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]:</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+Add 12 and 13.
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  add (call_sitrm4GNUUP9aGpfbggc6DuC)
+ Call ID: call_sitrm4GNUUP9aGpfbggc6DuC
+  Args:
+    a: 12
+    b: 13
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: add
+
+25
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+
+The sum of 12 and 13 is 25.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s2">&quot;add that number to 25&quot;</span><span class="p">)]</span>
+<span class="n">messages</span><span class="o">=</span><span class="n">graph_memory</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="n">messages</span><span class="p">},</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]:</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+Add 12 and 13.
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  add (call_sitrm4GNUUP9aGpfbggc6DuC)
+ Call ID: call_sitrm4GNUUP9aGpfbggc6DuC
+  Args:
+    a: 12
+    b: 13
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: add
+
+25
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+
+The sum of 12 and 13 is 25.
+================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+add that number to 25
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  add (call_fBH64yAGiLSPPKctMLwJtvNr)
+ Call ID: call_fBH64yAGiLSPPKctMLwJtvNr
+  Args:
+    a: 25
+    b: 25
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: add
+
+50
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+
+Adding 25 to the previous result, you get 50.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s2">&quot;then multiplty that number by 2&quot;</span><span class="p">)]</span>
+<span class="n">messages</span><span class="o">=</span><span class="n">graph_memory</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="n">messages</span><span class="p">},</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]:</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+Add 12 and 13.
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  add (call_sitrm4GNUUP9aGpfbggc6DuC)
+ Call ID: call_sitrm4GNUUP9aGpfbggc6DuC
+  Args:
+    a: 12
+    b: 13
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: add
+
+25
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+
+The sum of 12 and 13 is 25.
+================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+add that number to 25
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  add (call_fBH64yAGiLSPPKctMLwJtvNr)
+ Call ID: call_fBH64yAGiLSPPKctMLwJtvNr
+  Args:
+    a: 25
+    b: 25
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: add
+
+50
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+
+Adding 25 to the previous result, you get 50.
+================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+then multiplty that number by 2
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  multiply (call_tf1vXiztXFm4wwZDQtIcviMP)
+ Call ID: call_tf1vXiztXFm4wwZDQtIcviMP
+  Args:
+    a: 50
+    b: 2
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: multiply
+
+100
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+
+Multiplying 50 by 2 gives you 100.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./1-langgraph Basics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="6-chatbotswithmultipletools.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Building Chatbot With Multiple Tools Using Langgraph</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../2-langgraph%20advance/1-streaming.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Implementing simple Chatbot Using LangGraph</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ReAct Agent Architecture</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aim">Aim</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-memory">Agent Memory</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Aim</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memorysaver">MemorySaver</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Your Name
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,970 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Orchestrator-Worker &#8212; Agentic AI Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '4- Workflows/4-orchestrator-worker';</script>
+    <link rel="canonical" href="/4- Workflows/4-orchestrator-worker.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Evaluator-optimizer" href="5-Evaluator-optimizer.html" />
+    <link rel="prev" title="What is Routing in LangGraph?" href="3-Routing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Agentic AI Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/3-DataclassStateSchema.html">State Schema With DataClasses</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/4-pydantic.html">Pydantic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/5-ChainsLangGraph.html">Chain Using LangGraph</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/7-ReActAgents.html">ReAct Agent Architecture</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="1-prompting_chaining.html">Prompt Chaining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="2-parallelization.html">What is Parallelization in LangGraph?</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="3-Routing.html">What is Routing in LangGraph?</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Orchestrator-Worker</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/4- Workflows/4-orchestrator-worker.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Orchestrator-Worker</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Orchestrator-Worker</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-workers-dynamically-in-langgraph">Creating Workers Dynamically In Langgraph</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="orchestrator-worker">
+<h1>Orchestrator-Worker<a class="headerlink" href="#orchestrator-worker" title="Link to this heading">#</a></h1>
+<p>In the orchestrator-workers workflow, a central LLM dynamically breaks down tasks, delegates them to worker LLMs, and synthesizes their results.</p>
+<p>When to use this workflow: This workflow is well-suited for complex tasks where you can’t predict the subtasks needed (in coding, for example, the number of files that need to be changed and the nature of the change in each file likely depend on the task). Whereas it’s topographically similar, the key difference from parallelization is its flexibility—subtasks aren’t pre-defined, but determined by the orchestrator based on the specific input.</p>
+<p><img alt="image.png" src="4- Workflows/attachment:image.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_groq</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatGroq</span>
+
+
+<span class="c1">#os.environ[&quot;OPENAI_API_KEY&quot;]=os.getenv(&quot;OPENAI_API_KEY&quot;)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;GROQ_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;GROQ_API_KEY&quot;</span><span class="p">)</span>
+
+
+<span class="n">llm</span><span class="o">=</span><span class="n">ChatGroq</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;openai/gpt-oss-120b&quot;</span><span class="p">)</span>
+<span class="c1">#llm = ChatOpenAI(model=&quot;gpt-4o&quot;)</span>
+<span class="n">result</span><span class="o">=</span><span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="n">result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello! How can I assist you today?&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;We need to respond as ChatGPT. The user just says &quot;Hello&quot;. We should greet back. Keep it friendly.&#39;}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 43, &#39;prompt_tokens&#39;: 72, &#39;total_tokens&#39;: 115, &#39;completion_time&#39;: 0.090683728, &#39;prompt_time&#39;: 0.00285989, &#39;queue_time&#39;: 0.05256443, &#39;total_time&#39;: 0.093543618}, &#39;model_name&#39;: &#39;openai/gpt-oss-120b&#39;, &#39;system_fingerprint&#39;: &#39;fp_1d1727abc9&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--daa10e01-c855-4078-afee-43bfd6effb81-0&#39;, usage_metadata={&#39;input_tokens&#39;: 72, &#39;output_tokens&#39;: 43, &#39;total_tokens&#39;: 115})
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">operator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span><span class="n">Field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">HumanMessage</span><span class="p">,</span><span class="n">SystemMessage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Schema for structured output to use in planning</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Section</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Name for this section of the report&quot;</span><span class="p">)</span>
+    <span class="n">description</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Brief Overview of the main topics and concepts of the section&quot;</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Sections</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">sections</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="n">Section</span><span class="p">]</span><span class="o">=</span><span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Sections of the report&quot;</span>
+    <span class="p">)</span>
+
+<span class="c1"># Augment the LLM with schema for structured output</span>
+<span class="n">planner</span><span class="o">=</span><span class="n">llm</span><span class="o">.</span><span class="n">with_structured_output</span><span class="p">(</span><span class="n">Sections</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="creating-workers-dynamically-in-langgraph">
+<h1>Creating Workers Dynamically In Langgraph<a class="headerlink" href="#creating-workers-dynamically-in-langgraph" title="Link to this heading">#</a></h1>
+<p>Because orchestrator-worker workflows are common, LangGraph has the Send API to support this. It lets you dynamically create worker nodes and send each one a specific input. Each worker has its own state, and all worker outputs are written to a shared state key that is accessible to the orchestrator graph. This gives the orchestrator access to all worker output and allows it to synthesize them into a final output. As you can see below, we iterate over a list of sections and Send each to a worker node.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">Send</span>
+
+
+<span class="c1"># Graph state</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># Report topic</span>
+    <span class="n">sections</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Section</span><span class="p">]</span>  <span class="c1"># List of report sections</span>
+    <span class="n">completed_sections</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+        <span class="nb">list</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">add</span>
+    <span class="p">]</span>  <span class="c1"># All workers write to this key in parallel</span>
+    <span class="n">final_report</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># Final report</span>
+
+<span class="c1"># Worker state</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">WorkerState</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">section</span><span class="p">:</span> <span class="n">Section</span>
+    <span class="n">completed_sections</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">add</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Welcome\AppData\Local\Temp\ipykernel_1564\1306454062.py:1: LangGraphDeprecatedSinceV10: Importing Send from langgraph.constants is deprecated. Please use &#39;from langgraph.types import Send&#39; instead. Deprecated in LangGraph V1.0 to be removed in V2.0.
+  from langgraph.constants import Send
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Nodes</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">orchestrator</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Orchestrator that generates a plan for the report&quot;&quot;&quot;</span>
+
+    <span class="c1"># Generate queries</span>
+    <span class="n">report_sections</span> <span class="o">=</span> <span class="n">planner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">SystemMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s2">&quot;Generate a plan for the report.&quot;</span><span class="p">),</span>
+            <span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Here is the report topic: </span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;topic&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Report Sections:&quot;</span><span class="p">,</span><span class="n">report_sections</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;sections&quot;</span><span class="p">:</span> <span class="n">report_sections</span><span class="o">.</span><span class="n">sections</span><span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">llm_call</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">WorkerState</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Worker writes a section of the report&quot;&quot;&quot;</span>
+
+    <span class="c1"># Generate section</span>
+    <span class="n">section</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">SystemMessage</span><span class="p">(</span>
+                <span class="n">content</span><span class="o">=</span><span class="s2">&quot;Write a report section following the provided name and description. Include no preamble for each section. Use markdown formatting.&quot;</span>
+            <span class="p">),</span>
+            <span class="n">HumanMessage</span><span class="p">(</span>
+                <span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Here is the section name: </span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;section&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> and description: </span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;section&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Write the updated section to completed sections</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;completed_sections&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">section</span><span class="o">.</span><span class="n">content</span><span class="p">]}</span>
+
+<span class="c1"># Conditional edge function to create llm_call workers that each write a section of the report</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">assign_workers</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Assign a worker to each section in the plan&quot;&quot;&quot;</span>
+
+    <span class="c1"># Kick off section writing in parallel via Send() API</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">Send</span><span class="p">(</span><span class="s2">&quot;llm_call&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;section&quot;</span><span class="p">:</span> <span class="n">s</span><span class="p">})</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;sections&quot;</span><span class="p">]]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">synthesizer</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Synthesize full report from sections&quot;&quot;&quot;</span>
+
+    <span class="c1"># List of completed sections</span>
+    <span class="n">completed_sections</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;completed_sections&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Format completed section to str to use as context for final sections</span>
+    <span class="n">completed_report_sections</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">---</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">completed_sections</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;final_report&quot;</span><span class="p">:</span> <span class="n">completed_report_sections</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build workflow</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">START</span><span class="p">,</span> <span class="n">END</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="n">orchestrator_worker_builder</span> <span class="o">=</span> <span class="n">StateGraph</span><span class="p">(</span><span class="n">State</span><span class="p">)</span>
+
+<span class="c1"># Add the nodes</span>
+<span class="n">orchestrator_worker_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;orchestrator&quot;</span><span class="p">,</span> <span class="n">orchestrator</span><span class="p">)</span>
+<span class="n">orchestrator_worker_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;llm_call&quot;</span><span class="p">,</span> <span class="n">llm_call</span><span class="p">)</span>
+<span class="n">orchestrator_worker_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;synthesizer&quot;</span><span class="p">,</span> <span class="n">synthesizer</span><span class="p">)</span>
+
+<span class="c1"># Add edges to connect nodes</span>
+<span class="n">orchestrator_worker_builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">START</span><span class="p">,</span> <span class="s2">&quot;orchestrator&quot;</span><span class="p">)</span>
+<span class="n">orchestrator_worker_builder</span><span class="o">.</span><span class="n">add_conditional_edges</span><span class="p">(</span>
+    <span class="s2">&quot;orchestrator&quot;</span><span class="p">,</span> <span class="n">assign_workers</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;llm_call&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">orchestrator_worker_builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;llm_call&quot;</span><span class="p">,</span> <span class="s2">&quot;synthesizer&quot;</span><span class="p">)</span>
+<span class="n">orchestrator_worker_builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;synthesizer&quot;</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
+
+<span class="c1"># Compile the workflow</span>
+<span class="n">orchestrator_worker</span> <span class="o">=</span> <span class="n">orchestrator_worker_builder</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+
+<span class="c1"># Show the workflow</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">orchestrator_worker</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">draw_mermaid_png</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2b4fbc3937c1d4c83c15136ea35f5d01c51a35088eb8e1c30ce86cc6def89828.png" src="../_images/2b4fbc3937c1d4c83c15136ea35f5d01c51a35088eb8e1c30ce86cc6def89828.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Invoke</span>
+<span class="n">state</span> <span class="o">=</span> <span class="n">orchestrator_worker</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="s2">&quot;Create a report on Agentic AI RAGs&quot;</span><span class="p">})</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Markdown</span>
+<span class="n">Markdown</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;final_report&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Report Sections: sections=[Section(name=&#39;Executive Summary&#39;, description=&#39;A concise overview of the report, highlighting the purpose, key findings, and recommendations regarding Agentic AI Retrieval-Augmented Generation (RAG) systems.&#39;), Section(name=&#39;Introduction to Agentic AI&#39;, description=&#39;Definition of Agentic AI, its core principles, and how it differs from traditional AI models. Brief discussion of autonomy, goal‑directed behavior, and self‑improvement.&#39;), Section(name=&#39;Fundamentals of Retrieval‑Augmented Generation (RAG)&#39;, description=&#39;Explanation of RAG architecture, components (retriever, generator, knowledge base), and why retrieval improves factuality and context awareness.&#39;), Section(name=&#39;Merging Agentic AI with RAG&#39;, description=&#39;How autonomous agents can orchestrate retrieval, reasoning, and generation loops. Description of control loops, decision‑making policies, and feedback mechanisms.&#39;), Section(name=&#39;Key Architectural Patterns&#39;, description=&#39;Survey of common patterns such as: • Retrieval‑First Agents • Iterative Retrieval‑Generation • Tool‑Use Agents • Multi‑modal Retrieval. Include diagrams and pros/cons.&#39;), Section(name=&#39;Core Technologies and Toolkits&#39;, description=&#39;Overview of the major libraries and platforms (LangChain, LlamaIndex, Haystack, Weaviate, Milvus, OpenAI function calling, LLM‑as‑tool, etc.) that enable Agentic RAG implementations.&#39;), Section(name=&#39;Design Considerations&#39;, description=&#39;Discussion of latency, scalability, data freshness, grounding, hallucination mitigation, security, privacy, and alignment of autonomous agents.&#39;), Section(name=&#39;Evaluation Metrics and Benchmarks&#39;, description=&#39;Metrics specific to Agentic RAGs – retrieval relevance (MRR, Recall@k), generation quality (BLEU, ROUGE, GPT‑Eval), end‑to‑end task success, cost‑efficiency, and safety indicators.&#39;), Section(name=&#39;Use‑Case Gallery&#39;, description=&#39;Detailed examples of real‑world applications: • Enterprise knowledge‑base assistants • Legal and compliance research agents • Personalized tutoring bots • Scientific literature synthesis • Customer‑support automation.&#39;), Section(name=&#39;Implementation Blueprint&#39;, description=&#39;Step‑by‑step guide to building an Agentic RAG system: data ingestion, index creation, agent policy design, prompting strategy, monitoring, and continuous learning.&#39;), Section(name=&#39;Challenges &amp; Open Research Questions&#39;, description=&#39;Current limitations such as dynamic knowledge updates, long‑term planning, interpretability, multi‑agent coordination, and alignment of autonomous retrieval decisions.&#39;), Section(name=&#39;Future Directions&#39;, description=&#39;Emerging trends – self‑curating knowledge graphs, meta‑learning for retrieval policies, integration with foundation models (GPT‑4o, Claude‑3.5), and regulatory considerations.&#39;), Section(name=&#39;Conclusion &amp; Recommendations&#39;, description=&#39;Summarize insights and provide actionable recommendations for organizations looking to adopt Agentic AI RAG solutions.&#39;), Section(name=&#39;Appendices&#39;, description=&#39;Supplementary material – glossary, code snippets, sample prompts, benchmark tables, and references.&#39;)]
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">RateLimitError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Invoke</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">state</span> <span class="o">=</span> <span class="n">orchestrator_worker</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="s2">&quot;Create a report on Agentic AI RAGs&quot;</span><span class="p">})</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Markdown</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">Markdown</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;final_report&quot;</span><span class="p">])</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langgraph\pregel\main.py:3094,</span> in <span class="ni">Pregel.invoke</span><span class="nt">(self, input, config, context, stream_mode, print_mode, output_keys, interrupt_before, interrupt_after, durability, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3091</span> <span class="n">chunks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">   </span><span class="mi">3092</span> <span class="n">interrupts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Interrupt</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="ne">-&gt; </span><span class="mi">3094</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3095</span>     <span class="nb">input</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3096</span>     <span class="n">config</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3097</span>     <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3098</span>     <span class="n">stream_mode</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;updates&quot;</span><span class="p">,</span> <span class="s2">&quot;values&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">3099</span>     <span class="k">if</span> <span class="n">stream_mode</span> <span class="o">==</span> <span class="s2">&quot;values&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">3100</span>     <span class="k">else</span> <span class="n">stream_mode</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3101</span>     <span class="n">print_mode</span><span class="o">=</span><span class="n">print_mode</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3102</span>     <span class="n">output_keys</span><span class="o">=</span><span class="n">output_keys</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3103</span>     <span class="n">interrupt_before</span><span class="o">=</span><span class="n">interrupt_before</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3104</span>     <span class="n">interrupt_after</span><span class="o">=</span><span class="n">interrupt_after</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3105</span>     <span class="n">durability</span><span class="o">=</span><span class="n">durability</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3106</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3107</span> <span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3108</span>     <span class="k">if</span> <span class="n">stream_mode</span> <span class="o">==</span> <span class="s2">&quot;values&quot;</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3109</span>         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langgraph\pregel\main.py:2679,</span> in <span class="ni">Pregel.stream</span><span class="nt">(self, input, config, context, stream_mode, print_mode, output_keys, interrupt_before, interrupt_after, durability, subgraphs, debug, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2677</span> <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">loop</span><span class="o">.</span><span class="n">match_cached_writes</span><span class="p">():</span>
+<span class="g g-Whitespace">   </span><span class="mi">2678</span>     <span class="n">loop</span><span class="o">.</span><span class="n">output_writes</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">writes</span><span class="p">,</span> <span class="n">cached</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">2679</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">runner</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2680</span>     <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">loop</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">t</span><span class="o">.</span><span class="n">writes</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">2681</span>     <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">step_timeout</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2682</span>     <span class="n">get_waiter</span><span class="o">=</span><span class="n">get_waiter</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2683</span>     <span class="n">schedule_task</span><span class="o">=</span><span class="n">loop</span><span class="o">.</span><span class="n">accept_push</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2684</span> <span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">2685</span>     <span class="c1"># emit output</span>
+<span class="g g-Whitespace">   </span><span class="mi">2686</span>     <span class="k">yield from</span> <span class="n">_output</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2687</span>         <span class="n">stream_mode</span><span class="p">,</span> <span class="n">print_mode</span><span class="p">,</span> <span class="n">subgraphs</span><span class="p">,</span> <span class="n">stream</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">queue</span><span class="o">.</span><span class="n">Empty</span>
+<span class="g g-Whitespace">   </span><span class="mi">2688</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2689</span> <span class="n">loop</span><span class="o">.</span><span class="n">after_tick</span><span class="p">()</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langgraph\pregel\_runner.py:258,</span> in <span class="ni">PregelRunner.tick</span><span class="nt">(self, tasks, reraise, timeout, retry_policy, get_waiter, schedule_task)</span>
+<span class="g g-Whitespace">    </span><span class="mi">256</span> <span class="c1"># panic on failure or timeout</span>
+<span class="g g-Whitespace">    </span><span class="mi">257</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">258</span>     <span class="n">_panic_or_proceed</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">259</span>         <span class="n">futures</span><span class="o">.</span><span class="n">done</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">futures</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">t</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">260</span>         <span class="n">panic</span><span class="o">=</span><span class="n">reraise</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">261</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">262</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">263</span>     <span class="k">if</span> <span class="n">tb</span> <span class="o">:=</span> <span class="n">exc</span><span class="o">.</span><span class="n">__traceback__</span><span class="p">:</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langgraph\pregel\_runner.py:520,</span> in <span class="ni">_panic_or_proceed</span><span class="nt">(futs, timeout_exc_cls, panic)</span>
+<span class="g g-Whitespace">    </span><span class="mi">518</span>                 <span class="n">interrupts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">519</span>             <span class="k">elif</span> <span class="n">fut</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SKIP_RERAISE_SET</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">520</span>                 <span class="k">raise</span> <span class="n">exc</span>
+<span class="g g-Whitespace">    </span><span class="mi">521</span> <span class="c1"># raise combined interrupts</span>
+<span class="g g-Whitespace">    </span><span class="mi">522</span> <span class="k">if</span> <span class="n">interrupts</span><span class="p">:</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langgraph\pregel\_executor.py:80,</span> in <span class="ni">BackgroundExecutor.done</span><span class="nt">(self, task)</span>
+<span class="g g-Whitespace">     </span><span class="mi">78</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Remove the task from the tasks dict when it&#39;s done.&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">80</span>     <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span> <span class="k">except</span> <span class="n">GraphBubbleUp</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>     <span class="c1"># This exception is an interruption signal, not an error</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span>     <span class="c1"># so we don&#39;t want to re-raise it on exit</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span>     <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\concurrent\futures\_base.py:449,</span> in <span class="ni">Future.result</span><span class="nt">(self, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">447</span>     <span class="k">raise</span> <span class="n">CancelledError</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">448</span> <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">==</span> <span class="n">FINISHED</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">449</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_result</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">451</span> <span class="bp">self</span><span class="o">.</span><span class="n">_condition</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">453</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="ow">in</span> <span class="p">[</span><span class="n">CANCELLED</span><span class="p">,</span> <span class="n">CANCELLED_AND_NOTIFIED</span><span class="p">]:</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\concurrent\futures\_base.py:401,</span> in <span class="ni">Future.__get_result</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exception</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">401</span>         <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exception</span>
+<span class="g g-Whitespace">    </span><span class="mi">402</span>     <span class="k">finally</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">403</span>         <span class="c1"># Break a reference cycle with the exception in self._exception</span>
+<span class="g g-Whitespace">    </span><span class="mi">404</span>         <span class="bp">self</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\concurrent\futures\thread.py:58,</span> in <span class="ni">_WorkItem.run</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">55</span>     <span class="k">return</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">58</span>     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">59</span> <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span>     <span class="bp">self</span><span class="o">.</span><span class="n">future</span><span class="o">.</span><span class="n">set_exception</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langgraph\pregel\_retry.py:42,</span> in <span class="ni">run_with_retry</span><span class="nt">(task, retry_policy, configurable)</span>
+<span class="g g-Whitespace">     </span><span class="mi">40</span>     <span class="n">task</span><span class="o">.</span><span class="n">writes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">41</span>     <span class="c1"># run the task</span>
+<span class="ne">---&gt; </span><span class="mi">42</span>     <span class="k">return</span> <span class="n">task</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">input</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span> <span class="k">except</span> <span class="n">ParentCommand</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">44</span>     <span class="n">ns</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="n">CONF</span><span class="p">][</span><span class="n">CONFIG_KEY_CHECKPOINT_NS</span><span class="p">]</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langgraph\_internal\_runnable.py:656,</span> in <span class="ni">RunnableSeq.invoke</span><span class="nt">(self, input, config, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">654</span>     <span class="c1"># run in context</span>
+<span class="g g-Whitespace">    </span><span class="mi">655</span>     <span class="k">with</span> <span class="n">set_config_context</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span> <span class="k">as</span> <span class="n">context</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">656</span>         <span class="nb">input</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">step</span><span class="o">.</span><span class="n">invoke</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">657</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">658</span>     <span class="nb">input</span> <span class="o">=</span> <span class="n">step</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langgraph\_internal\_runnable.py:400,</span> in <span class="ni">RunnableCallable.invoke</span><span class="nt">(self, input, config, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">398</span>         <span class="n">run_manager</span><span class="o">.</span><span class="n">on_chain_end</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">400</span>     <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">401</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recurse</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">Runnable</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">402</span>     <span class="k">return</span> <span class="n">ret</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+<span class="nn">Cell In[5], line 21,</span> in <span class="ni">llm_call</span><span class="nt">(state)</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Worker writes a section of the report&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="c1"># Generate section</span>
+<span class="ne">---&gt; </span><span class="mi">21</span> <span class="n">section</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>     <span class="p">[</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>         <span class="n">SystemMessage</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>             <span class="n">content</span><span class="o">=</span><span class="s2">&quot;Write a report section following the provided name and description. Include no preamble for each section. Use markdown formatting.&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="p">),</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span>         <span class="n">HumanMessage</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>             <span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Here is the section name: </span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;section&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> and description: </span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;section&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span>         <span class="p">),</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="c1"># Write the updated section to completed sections</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span> <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;completed_sections&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">section</span><span class="o">.</span><span class="n">content</span><span class="p">]}</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langchain_core\language_models\chat_models.py:379,</span> in <span class="ni">BaseChatModel.invoke</span><span class="nt">(self, input, config, stop, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">365</span> <span class="nd">@override</span>
+<span class="g g-Whitespace">    </span><span class="mi">366</span> <span class="k">def</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">367</span>     <span class="bp">self</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>    <span class="mi">372</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">373</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AIMessage</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">374</span>     <span class="n">config</span> <span class="o">=</span> <span class="n">ensure_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">375</span>     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">376</span>         <span class="s2">&quot;AIMessage&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">377</span>         <span class="n">cast</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">378</span>             <span class="s2">&quot;ChatGeneration&quot;</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">379</span>             <span class="bp">self</span><span class="o">.</span><span class="n">generate_prompt</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">380</span>                 <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_convert_input</span><span class="p">(</span><span class="nb">input</span><span class="p">)],</span>
+<span class="g g-Whitespace">    </span><span class="mi">381</span>                 <span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">382</span>                 <span class="n">callbacks</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;callbacks&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">383</span>                 <span class="n">tags</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">384</span>                 <span class="n">metadata</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;metadata&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">385</span>                 <span class="n">run_name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;run_name&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">386</span>                 <span class="n">run_id</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;run_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">387</span>                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">388</span>             <span class="p">)</span><span class="o">.</span><span class="n">generations</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">389</span>         <span class="p">)</span><span class="o">.</span><span class="n">message</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span>     <span class="p">)</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langchain_core\language_models\chat_models.py:1088,</span> in <span class="ni">BaseChatModel.generate_prompt</span><span class="nt">(self, prompts, stop, callbacks, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1079</span> <span class="nd">@override</span>
+<span class="g g-Whitespace">   </span><span class="mi">1080</span> <span class="k">def</span><span class="w"> </span><span class="nf">generate_prompt</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1081</span>     <span class="bp">self</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="mi">1085</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1086</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LLMResult</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1087</span>     <span class="n">prompt_messages</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">to_messages</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">prompts</span><span class="p">]</span>
+<span class="ne">-&gt; </span><span class="mi">1088</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">prompt_messages</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langchain_core\language_models\chat_models.py:903,</span> in <span class="ni">BaseChatModel.generate</span><span class="nt">(self, messages, stop, callbacks, tags, metadata, run_name, run_id, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">900</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">input_messages</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">901</span>     <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">902</span>         <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+<span class="ne">--&gt; </span><span class="mi">903</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_generate_with_cache</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">904</span>                 <span class="n">m</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">905</span>                 <span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">906</span>                 <span class="n">run_manager</span><span class="o">=</span><span class="n">run_managers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">run_managers</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">907</span>                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">908</span>             <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">909</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">910</span>     <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">911</span>         <span class="k">if</span> <span class="n">run_managers</span><span class="p">:</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langchain_core\language_models\chat_models.py:1192,</span> in <span class="ni">BaseChatModel._generate_with_cache</span><span class="nt">(self, messages, stop, run_manager, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1190</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">generate_from_stream</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">chunks</span><span class="p">))</span>
+<span class="g g-Whitespace">   </span><span class="mi">1191</span> <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_generate</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;run_manager&quot;</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1192</span>     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1193</span>         <span class="n">messages</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span> <span class="n">run_manager</span><span class="o">=</span><span class="n">run_manager</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="g g-Whitespace">   </span><span class="mi">1194</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1195</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1196</span>     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langchain_groq\chat_models.py:544,</span> in <span class="ni">ChatGroq._generate</span><span class="nt">(self, messages, stop, run_manager, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">539</span> <span class="n">message_dicts</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_message_dicts</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">540</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+<span class="g g-Whitespace">    </span><span class="mi">541</span>     <span class="o">**</span><span class="n">params</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">542</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">543</span> <span class="p">}</span>
+<span class="ne">--&gt; </span><span class="mi">544</span> <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">messages</span><span class="o">=</span><span class="n">message_dicts</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">545</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_chat_result</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\groq\resources\chat\completions.py:464,</span> in <span class="ni">Completions.create</span><span class="nt">(self, messages, model, citation_options, compound_custom, disable_tool_validation, documents, exclude_domains, frequency_penalty, function_call, functions, include_domains, include_reasoning, logit_bias, logprobs, max_completion_tokens, max_tokens, metadata, n, parallel_tool_calls, presence_penalty, reasoning_effort, reasoning_format, response_format, search_settings, seed, service_tier, stop, store, stream, temperature, tool_choice, tools, top_logprobs, top_p, user, extra_headers, extra_query, extra_body, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">244</span> <span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">245</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">246</span>     <span class="o">*</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>    <span class="mi">303</span>     <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">not_given</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">304</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ChatCompletion</span> <span class="o">|</span> <span class="n">Stream</span><span class="p">[</span><span class="n">ChatCompletionChunk</span><span class="p">]:</span>
+<span class="g g-Whitespace">    </span><span class="mi">305</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">306</span><span class="sd">     Creates a model response for the given chat conversation.</span>
+<span class="g g-Whitespace">    </span><span class="mi">307</span><span class="sd"> </span>
+<span class="sd">   (...)    462       timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="g g-Whitespace">    </span><span class="mi">463</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">464</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">465</span>         <span class="s2">&quot;/openai/v1/chat/completions&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">466</span>         <span class="n">body</span><span class="o">=</span><span class="n">maybe_transform</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">467</span>             <span class="p">{</span>
+<span class="g g-Whitespace">    </span><span class="mi">468</span>                 <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="n">messages</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">469</span>                 <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">470</span>                 <span class="s2">&quot;citation_options&quot;</span><span class="p">:</span> <span class="n">citation_options</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">471</span>                 <span class="s2">&quot;compound_custom&quot;</span><span class="p">:</span> <span class="n">compound_custom</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">472</span>                 <span class="s2">&quot;disable_tool_validation&quot;</span><span class="p">:</span> <span class="n">disable_tool_validation</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">473</span>                 <span class="s2">&quot;documents&quot;</span><span class="p">:</span> <span class="n">documents</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">474</span>                 <span class="s2">&quot;exclude_domains&quot;</span><span class="p">:</span> <span class="n">exclude_domains</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">475</span>                 <span class="s2">&quot;frequency_penalty&quot;</span><span class="p">:</span> <span class="n">frequency_penalty</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">476</span>                 <span class="s2">&quot;function_call&quot;</span><span class="p">:</span> <span class="n">function_call</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">477</span>                 <span class="s2">&quot;functions&quot;</span><span class="p">:</span> <span class="n">functions</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">478</span>                 <span class="s2">&quot;include_domains&quot;</span><span class="p">:</span> <span class="n">include_domains</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">479</span>                 <span class="s2">&quot;include_reasoning&quot;</span><span class="p">:</span> <span class="n">include_reasoning</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">480</span>                 <span class="s2">&quot;logit_bias&quot;</span><span class="p">:</span> <span class="n">logit_bias</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">481</span>                 <span class="s2">&quot;logprobs&quot;</span><span class="p">:</span> <span class="n">logprobs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">482</span>                 <span class="s2">&quot;max_completion_tokens&quot;</span><span class="p">:</span> <span class="n">max_completion_tokens</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">483</span>                 <span class="s2">&quot;max_tokens&quot;</span><span class="p">:</span> <span class="n">max_tokens</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">484</span>                 <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">485</span>                 <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">486</span>                 <span class="s2">&quot;parallel_tool_calls&quot;</span><span class="p">:</span> <span class="n">parallel_tool_calls</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">487</span>                 <span class="s2">&quot;presence_penalty&quot;</span><span class="p">:</span> <span class="n">presence_penalty</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">488</span>                 <span class="s2">&quot;reasoning_effort&quot;</span><span class="p">:</span> <span class="n">reasoning_effort</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">489</span>                 <span class="s2">&quot;reasoning_format&quot;</span><span class="p">:</span> <span class="n">reasoning_format</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span>                 <span class="s2">&quot;response_format&quot;</span><span class="p">:</span> <span class="n">response_format</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">491</span>                 <span class="s2">&quot;search_settings&quot;</span><span class="p">:</span> <span class="n">search_settings</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">492</span>                 <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="n">seed</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">493</span>                 <span class="s2">&quot;service_tier&quot;</span><span class="p">:</span> <span class="n">service_tier</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">494</span>                 <span class="s2">&quot;stop&quot;</span><span class="p">:</span> <span class="n">stop</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">495</span>                 <span class="s2">&quot;store&quot;</span><span class="p">:</span> <span class="n">store</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">496</span>                 <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="n">stream</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">497</span>                 <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="n">temperature</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">498</span>                 <span class="s2">&quot;tool_choice&quot;</span><span class="p">:</span> <span class="n">tool_choice</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">499</span>                 <span class="s2">&quot;tools&quot;</span><span class="p">:</span> <span class="n">tools</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">500</span>                 <span class="s2">&quot;top_logprobs&quot;</span><span class="p">:</span> <span class="n">top_logprobs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">501</span>                 <span class="s2">&quot;top_p&quot;</span><span class="p">:</span> <span class="n">top_p</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">502</span>                 <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">503</span>             <span class="p">},</span>
+<span class="g g-Whitespace">    </span><span class="mi">504</span>             <span class="n">completion_create_params</span><span class="o">.</span><span class="n">CompletionCreateParams</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">505</span>         <span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">506</span>         <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">507</span>             <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+<span class="g g-Whitespace">    </span><span class="mi">508</span>         <span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">509</span>         <span class="n">cast_to</span><span class="o">=</span><span class="n">ChatCompletion</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">510</span>         <span class="n">stream</span><span class="o">=</span><span class="n">stream</span> <span class="ow">or</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">511</span>         <span class="n">stream_cls</span><span class="o">=</span><span class="n">Stream</span><span class="p">[</span><span class="n">ChatCompletionChunk</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">512</span>     <span class="p">)</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\groq\_base_client.py:1242,</span> in <span class="ni">SyncAPIClient.post</span><span class="nt">(self, path, cast_to, body, options, files, stream, stream_cls)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1228</span> <span class="k">def</span><span class="w"> </span><span class="nf">post</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1229</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1230</span>     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="mi">1237</span>     <span class="n">stream_cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">_StreamT</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1238</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResponseT</span> <span class="o">|</span> <span class="n">_StreamT</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1239</span>     <span class="n">opts</span> <span class="o">=</span> <span class="n">FinalRequestOptions</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1240</span>         <span class="n">method</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">json_data</span><span class="o">=</span><span class="n">body</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">to_httpx_files</span><span class="p">(</span><span class="n">files</span><span class="p">),</span> <span class="o">**</span><span class="n">options</span>
+<span class="g g-Whitespace">   </span><span class="mi">1241</span>     <span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1242</span>     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">ResponseT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">cast_to</span><span class="p">,</span> <span class="n">opts</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">stream</span><span class="p">,</span> <span class="n">stream_cls</span><span class="o">=</span><span class="n">stream_cls</span><span class="p">))</span>
+
+<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\groq\_base_client.py:1044,</span> in <span class="ni">SyncAPIClient.request</span><span class="nt">(self, cast_to, options, stream, stream_cls)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1041</span>             <span class="n">err</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1043</span>         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Re-raising status error&quot;</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1044</span>         <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_status_error_from_response</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">response</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
+<span class="g g-Whitespace">   </span><span class="mi">1046</span>     <span class="k">break</span>
+<span class="g g-Whitespace">   </span><span class="mi">1048</span> <span class="k">assert</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;could not resolve response (should never happen)&quot;</span>
+
+<span class="ne">RateLimitError</span>: Error code: 429 - {&#39;error&#39;: {&#39;message&#39;: &#39;Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01k47nkr5dendr4cprwwxzjy9v` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7976, Requested 140. Please try again in 870ms. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing&#39;, &#39;type&#39;: &#39;tokens&#39;, &#39;code&#39;: &#39;rate_limit_exceeded&#39;}}
+<span class="n">During</span> <span class="n">task</span> <span class="k">with</span> <span class="n">name</span> <span class="s1">&#39;llm_call&#39;</span> <span class="ow">and</span> <span class="nb">id</span> <span class="s1">&#39;8c22016d-1208-b8d6-e122-13c612db9347&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Blog Generation</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./4- Workflows"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="3-Routing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">What is Routing in LangGraph?</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="5-Evaluator-optimizer.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Evaluator-optimizer</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Orchestrator-Worker</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-workers-dynamically-in-langgraph">Creating Workers Dynamically In Langgraph</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Your Name
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

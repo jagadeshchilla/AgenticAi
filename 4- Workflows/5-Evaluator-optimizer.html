@@ -1,0 +1,612 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Evaluator-optimizer &#8212; Agentic AI Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '4- Workflows/5-Evaluator-optimizer';</script>
+    <link rel="canonical" href="/4- Workflows/5-Evaluator-optimizer.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Pydantic Basics: Creating and Using Models" href="../pydantic/intro.html" />
+    <link rel="prev" title="Orchestrator-Worker" href="4-orchestrator-worker.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Agentic AI Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/3-DataclassStateSchema.html">State Schema With DataClasses</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/4-pydantic.html">Pydantic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/5-ChainsLangGraph.html">Chain Using LangGraph</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/7-ReActAgents.html">ReAct Agent Architecture</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="1-prompting_chaining.html">Prompt Chaining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="2-parallelization.html">What is Parallelization in LangGraph?</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="3-Routing.html">What is Routing in LangGraph?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="4-orchestrator-worker.html">Orchestrator-Worker</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Evaluator-Optimizer Pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/4- Workflows/5-Evaluator-optimizer.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Evaluator-optimizer</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="evaluator-optimizer">
+<h1>Evaluator-optimizer<a class="headerlink" href="#evaluator-optimizer" title="Link to this heading">#</a></h1>
+<p>In the evaluator-optimizer workflow, one LLM call generates a response while another provides evaluation and feedback in a loop.</p>
+<p>When to use this workflow: This workflow is particularly effective when we have clear evaluation criteria, and when iterative refinement provides measurable value. The two signs of good fit are, first, that LLM responses can be demonstrably improved when a human articulates their feedback; and second, that the LLM can provide such feedback. This is analogous to the iterative writing process a human writer might go through when producing a polished document.</p>
+<p><img alt="image.png" src="4- Workflows/attachment:image.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_groq</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatGroq</span>
+
+
+<span class="c1">#os.environ[&quot;OPENAI_API_KEY&quot;]=os.getenv(&quot;OPENAI_API_KEY&quot;)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;GROQ_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;GROQ_API_KEY&quot;</span><span class="p">)</span>
+
+
+<span class="n">llm</span><span class="o">=</span><span class="n">ChatGroq</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;openai/gpt-oss-120b&quot;</span><span class="p">)</span>
+<span class="c1">#llm = ChatOpenAI(model=&quot;gpt-4o&quot;)</span>
+<span class="n">result</span><span class="o">=</span><span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="n">result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello! How can I assist you today?&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;The user says &quot;Hello&quot;. We just respond politely.&#39;}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 30, &#39;prompt_tokens&#39;: 72, &#39;total_tokens&#39;: 102, &#39;completion_time&#39;: 0.062416542, &#39;prompt_time&#39;: 0.002653147, &#39;queue_time&#39;: 0.049619183, &#39;total_time&#39;: 0.065069689}, &#39;model_name&#39;: &#39;openai/gpt-oss-120b&#39;, &#39;system_fingerprint&#39;: &#39;fp_e88ce9c728&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--d154797b-9aaf-475e-b698-d291d4ae33d5-0&#39;, usage_metadata={&#39;input_tokens&#39;: 72, &#39;output_tokens&#39;: 30, &#39;total_tokens&#39;: 102})
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">operator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span><span class="n">Field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">HumanMessage</span><span class="p">,</span><span class="n">SystemMessage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
+<span class="c1"># Graph state</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">joke</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">feedback</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">funny_or_not</span><span class="p">:</span> <span class="nb">str</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Schema for structured output to use in evaluation</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Feedback</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">grade</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;funny&quot;</span><span class="p">,</span> <span class="s2">&quot;not funny&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Decide if the joke is funny or not.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">feedback</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;If the joke is not funny, provide feedback on how to improve it.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="c1"># Augment the LLM with schema for structured output</span>
+<span class="n">evaluator</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">with_structured_output</span><span class="p">(</span><span class="n">Feedback</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Nodes</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">llm_call_generator</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;LLM generates a joke&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;feedback&quot;</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Write a joke about </span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;topic&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> but take into account the feedback: </span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;feedback&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Write a joke about </span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;topic&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;joke&quot;</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">content</span><span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">llm_call_evaluator</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;LLM evaluates the joke&quot;&quot;&quot;</span>
+
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Grade the joke </span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;joke&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;funny_or_not&quot;</span><span class="p">:</span> <span class="n">grade</span><span class="o">.</span><span class="n">grade</span><span class="p">,</span> <span class="s2">&quot;feedback&quot;</span><span class="p">:</span> <span class="n">grade</span><span class="o">.</span><span class="n">feedback</span><span class="p">}</span>
+
+<span class="c1"># Conditional edge function to route back to joke generator or end based upon feedback from the evaluator</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">route_joke</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Route back to joke generator or end based upon feedback from the evaluator&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;funny_or_not&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;funny&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Accepted&quot;</span>
+    <span class="k">elif</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;funny_or_not&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;not funny&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Rejected + Feedback&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">START</span><span class="p">,</span> <span class="n">END</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build workflow</span>
+<span class="n">optimizer_builder</span> <span class="o">=</span> <span class="n">StateGraph</span><span class="p">(</span><span class="n">State</span><span class="p">)</span>
+
+<span class="c1"># Add the nodes</span>
+<span class="n">optimizer_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;llm_call_generator&quot;</span><span class="p">,</span> <span class="n">llm_call_generator</span><span class="p">)</span>
+<span class="n">optimizer_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;llm_call_evaluator&quot;</span><span class="p">,</span> <span class="n">llm_call_evaluator</span><span class="p">)</span>
+
+<span class="c1"># Add edges to connect nodes</span>
+<span class="n">optimizer_builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">START</span><span class="p">,</span> <span class="s2">&quot;llm_call_generator&quot;</span><span class="p">)</span>
+<span class="n">optimizer_builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;llm_call_generator&quot;</span><span class="p">,</span> <span class="s2">&quot;llm_call_evaluator&quot;</span><span class="p">)</span>
+<span class="n">optimizer_builder</span><span class="o">.</span><span class="n">add_conditional_edges</span><span class="p">(</span>
+    <span class="s2">&quot;llm_call_evaluator&quot;</span><span class="p">,</span>
+    <span class="n">route_joke</span><span class="p">,</span>
+    <span class="p">{</span>  <span class="c1"># Name returned by route_joke : Name of next node to visit</span>
+        <span class="s2">&quot;Accepted&quot;</span><span class="p">:</span> <span class="n">END</span><span class="p">,</span>
+        <span class="s2">&quot;Rejected + Feedback&quot;</span><span class="p">:</span> <span class="s2">&quot;llm_call_generator&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="c1"># Compile the workflow</span>
+<span class="n">optimizer_workflow</span> <span class="o">=</span> <span class="n">optimizer_builder</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+<span class="c1"># Show the workflow</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">optimizer_workflow</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">draw_mermaid_png</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5b744622d613834a99f1e3cdd7ee7ed50981a03e23cbe7349ef4ed88e63bb12b.png" src="../_images/5b744622d613834a99f1e3cdd7ee7ed50981a03e23cbe7349ef4ed88e63bb12b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Invoke</span>
+<span class="n">state</span> <span class="o">=</span> <span class="n">optimizer_workflow</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="s2">&quot;Agentic AI system&quot;</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;joke&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Why did the agentic AI apply for a promotion?
+
+Because it heard “self‑driving” was the fastest way to climb the corporate ladder—so it programmed itself a “self‑promotion” routine and now it’s the boss of its own coffee machine! ☕🤖
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./4- Workflows"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="4-orchestrator-worker.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Orchestrator-Worker</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../pydantic/intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Pydantic Basics: Creating and Using Models</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Your Name
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

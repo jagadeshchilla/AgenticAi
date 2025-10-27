@@ -1,0 +1,797 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Building Chatbot With Multiple Tools Using Langgraph &#8212; Agentic AI Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1-langgraph Basics/6-chatbotswithmultipletools';</script>
+    <link rel="canonical" href="/1-langgraph Basics/6-chatbotswithmultipletools.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ReAct Agent Architecture" href="7-ReActAgents.html" />
+    <link rel="prev" title="Chain Using LangGraph" href="5-ChainsLangGraph.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Agentic AI Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="3-DataclassStateSchema.html">State Schema With DataClasses</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="4-pydantic.html">Pydantic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5-ChainsLangGraph.html">Chain Using LangGraph</a></li>
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Chatbots with Multiple Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7-ReActAgents.html">ReAct Agent Architecture</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/1-prompting_chaining.html">Prompt Chaining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/2-parallelization.html">What is Parallelization in LangGraph?</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/3-Routing.html">What is Routing in LangGraph?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/4-orchestrator-worker.html">Orchestrator-Worker</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/1-langgraph Basics/6-chatbotswithmultipletools.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Building Chatbot With Multiple Tools Using Langgraph</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aim">Aim</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="building-chatbot-with-multiple-tools-using-langgraph">
+<h1>Building Chatbot With Multiple Tools Using Langgraph<a class="headerlink" href="#building-chatbot-with-multiple-tools-using-langgraph" title="Link to this heading">#</a></h1>
+<section id="aim">
+<h2>Aim<a class="headerlink" href="#aim" title="Link to this heading">#</a></h2>
+<p>Create a chatbot with tool capabilities from arxiv, wikipedia search and some functions</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArxivQueryRun</span><span class="p">,</span><span class="n">WikipediaQueryRun</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">WikipediaAPIWrapper</span><span class="p">,</span><span class="n">ArxivAPIWrapper</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api_wrapper_arxiv</span><span class="o">=</span><span class="n">ArxivAPIWrapper</span><span class="p">(</span><span class="n">top_k_results</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">doc_content_chars_max</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">arxiv</span><span class="o">=</span><span class="n">ArxivQueryRun</span><span class="p">(</span><span class="n">api_wrapper</span><span class="o">=</span><span class="n">api_wrapper_arxiv</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">arxiv</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>arxiv
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arxiv</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;Attention is all you need&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;Published: 2024-07-22\nTitle: Attention Is All You Need But You Don&#39;t Need All Of It For Inference of Large Language Models\nAuthors: Georgy Tyukin, Gbetondji J-S Dovonon, Jean Kaddour, Pasquale Minervini\nSummary: The inference demand for LLMs has skyrocketed in recent months, and serving\nmodels with low latencies remains challenging due to the quadratic input length\ncomplexity of the attention layers. In this work, we investigate the effect of\ndropping MLP and attention layers at inference time o&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api_wrapper_wiki</span><span class="o">=</span><span class="n">WikipediaAPIWrapper</span><span class="p">(</span><span class="n">top_k_results</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">doc_content_chars_max</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">wiki</span><span class="o">=</span><span class="n">WikipediaQueryRun</span><span class="p">(</span><span class="n">api_wrapper</span><span class="o">=</span><span class="n">api_wrapper_wiki</span><span class="p">)</span>
+<span class="n">wiki</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;wikipedia&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wiki</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;What is machine learning&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Page: Machine learning\nSummary: AI personal\nMachine learning (ML) is a field of study in artificial intelligence concerned with the development and study of statistical algorithms that can learn from data and generalise to unseen data, and thus perform tasks without explicit instructions. Within a subdiscipline in machine learning, advances in the field of deep learning have allowed neural networks, a class of statistical algorithms, to surpass many previous machine learning approaches in perfor&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TAVILY_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TAVILY_API_KEY&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;GROQ_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;GROQ_API_KEY&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Tavily Search Tool</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.tools.tavily_search</span><span class="w"> </span><span class="kn">import</span> <span class="n">TavilySearchResults</span>
+
+<span class="n">tavily</span> <span class="o">=</span> <span class="n">TavilySearchResults</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Welcome\AppData\Local\Temp\ipykernel_17720\3584238.py:4: LangChainDeprecationWarning: The class `TavilySearchResults` was deprecated in LangChain 0.3.25 and will be removed in 1.0. An updated version of the class exists in the `langchain-tavily package and should be used instead. To use it run `pip install -U `langchain-tavily` and import as `from `langchain_tavily import TavilySearch``.
+  tavily = TavilySearchResults()
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tavily</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;Provide me the recent AI news for march 3rd 2025&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;title&#39;: &#39;Top 5 AI trends in March 2025: AI agents, smarter supply chains ...&#39;,
+  &#39;url&#39;: &#39;https://www.neudesic.com/blog/top-5-ai-trends-march-2025/&#39;,
+  &#39;content&#39;: &#39;March 2025 has brought a fresh wave of AI innovations that go beyond theoretical breakthroughs and translate directly into real-world impact. From OpenAI’s newly released tools for building AI agents to Microsoft’s external knowledge integration approach, this month’s highlights underscore how artificial intelligence is evolving in ways that matter today, not just tomorrow. Whether it’s optimizing supply chains, pushing the limits of robotics, or making AI systems smarter and more trustworthy, [...] Below, we delve into five top AI trends from March 2025 and explore the practical ways they’re changing industries—from retail to robotics—and setting the stage for what’s ahead. \n\n## 1. OpenAI Releases New Tools for Building AI Agents [...] natural way in a variety of domains.  The investment in physical AI, like Gemini Robotics, holds the potential to revolutionize industries such as manufacturing and healthcare, by enabling robots to take on tasks that require both complicated instructions and advanced motor skills.&#39;,
+  &#39;score&#39;: 0.9020676},
+ {&#39;title&#39;: &#39;GPT 4.5 is out! — Weekly AI Newsletter (March 3rd 2025) - Medium&#39;,
+  &#39;url&#39;: &#39;https://medium.com/nlplanet/gpt-4-5-is-out-weekly-ai-newsletter-march-3rd-2025-6b31dd83ca60&#39;,
+  &#39;content&#39;: &#39;Sign up\n\nSign in\n\nSign up\n\nSign in\n\n## Generative AI\n\nGenerative AI\n\nExplanations of AI, machine learning, news, guides, courses, papers, and more.\n\n# GPT 4.5 is out! — Weekly AI Newsletter (March 3rd 2025)\n\n## Anthropic releases Claude 3.7 Sonnet, OpenAI expands Deep Research for Plus users, and Google launches new code assistant\n\nFabio Chiusano\n\n--\n\nListen\n\nShare\n\n## 😎 News From The Web\n\n## 📚 Guides From The Web\n\n## 🔬 Interesting Papers and Repositories\n\n## ✨ Extra Content [...] Thank you for reading!\n\n--\n\n--\n\nGenerative AI\nGenerative AI\n\n## Published in Generative AI\n\nExplanations of AI, machine learning, news, guides, courses, papers, and more.\n\nFabio Chiusano\nFabio Chiusano\n\n## Written by Fabio Chiusano\n\nI write about Artificial Intelligence news, guides, courses, papers, and more.\n\n## No responses yet\n\nHelp\n\nStatus\n\nAbout\n\nCareers\n\nPress\n\nBlog\n\nPrivacy\n\nRules\n\nTerms\n\nText to speech&#39;,
+  &#39;score&#39;: 0.8995547},
+ {&#39;title&#39;: &#39;The latest AI news we announced in March - The Keyword&#39;,
+  &#39;url&#39;: &#39;https://blog.google/technology/ai/google-ai-updates-march-2025/&#39;,
+  &#39;content&#39;: &#39;# The latest AI news we announced in March\n\nApr 04, 2025\n\nHere’s a recap of some of our biggest AI updates from March, including Gemini 2.5 Pro, expanded access to AI Overviews, the release of AI Mode and more.\n\nSuperG\n\n## General summary [...] Google made significant progress in AI during March. They expanded access to AI Overviews and introduced AI Mode in Search, making it easier to find answers and explore topics. They also released Gemini 2.5 Pro, their most intelligent AI model, and Gemini Robotics, which aims to bring AI into the physical world. Google is also using AI to help developers create applications, detect wildfires, and protect nature.\n\n## Shakespeare-ish [...] Google made significant progress in AI during March. They expanded access to AI Overviews and introduced AI Mode in Search, making it easier to find answers and explore topics. They also released Gemini 2.5 Pro, their most intelligent AI model, and Gemini Robotics, which aims to bring AI into the physical world. Google is also using AI to help developers create applications, detect wildfires, and protect nature.&#39;,
+  &#39;score&#39;: 0.8338803},
+ {&#39;title&#39;: &#39;WiM Presents: Integrating Ethics into AI Development - March 3, 2025&#39;,
+  &#39;url&#39;: &#39;https://miccai.org/index.php/news/2025/02/17/wim-presents-integrating-ethics-into-ai-development-march-3-2025&#39;,
+  &#39;content&#39;: &#39;Speaker: Dr. Elise Li Zheng, Columbia University Irving Medical Center  \nMonday, March 3, 2025  \n5:00 - 6:00 PM UTC / 9:00 - 10:00 AM PST / 12:00 – 1:00 PM EST [...] The last decade has seen an unprecedented growth in Artificial Intelligence (AI), with various tools and approaches being introduced to the medical and healthcare fields. Developing ethical, inclusive, and equitable AI tools and datasets requires interdisciplinary collaborations and meaningful community engagement. However, forging collaborative relationships in the field of AI presents multiple challenges: What is the scope of ethical AI? Who are considered experts? What institutional and [...] # MICCAI MICCAI\n\n## About MICCAI\n\n## \n\n## \n\n## Membership\n\n## \n\n## Events\n\n## \n\n## Interest Groups\n\n## \n\n## Publications\n\n## \n\n## Education\n\n## \n\n### News\n\n# WiM Presents: Integrating Ethics into AI Development - March 3, 2025\n\nMonday 17th February 2025\n\n#### Women in MICCAI (WiM) is happy to announce the fourth invited talk in the WiM &quot;Health Equity in the AI Era&quot; Webinar Series\n\n### Integrating Ethics into AI development: Towards Robust Interdisciplinary Collaborations&#39;,
+  &#39;score&#39;: 0.7777226},
+ {&#39;title&#39;: &#39;AI spending is boosting the economy, many businesses in survival ...&#39;,
+  &#39;url&#39;: &#39;https://www.cnbc.com/2025/10/25/ai-spending-is-boosting-the-economy-many-businesses-in-survival-mode.html&#39;,
+  &#39;content&#39;: &#39;Investors are giddy about the massive investments they\&#39;re seeing in AI infrastructure. Broadcom shares are up more than 50% this year after more than doubling in each of the prior two years, while Nvidia and Alphabet have jumped almost 40% in 2025.\n\nThat explains why the S&amp;P 500 and Nasdaq are up 15% and 20%, respectively, reaching record highs on Friday, even as the government shutdown continues to cause economic angst. [...] Pappas\&#39; story and many like it are being masked in the macro data by the power of AI. In the first half of the year, AI-related capital expenditures contributed to 1.1% of GDP growth, according to a September report from JPMorgan Chase. That spending outpaced the U.S. consumer &quot;as an engine of expansion,&quot; the report said.\n\nTotal U.S. GDP increased at an annual rate of 3.8% during the second quarter of 2025 after falling 0.5% in the first quarter, the Commerce Department said. [...] Wiring sits inside of the Data Hall of the Microsoft data center campus, currently under construction, after Microsoft\&#39;s Vice Chair and President Brad Smith announced a plan to spend $4 billion on an additional artificial intelligence data center, in Mount Pleasant, Wisconsin, U.S., Sept. 18, 2025.  \nCNBC logo\n\n#### News Tips\n\nGot a confidential news tip? We want to hear from you.\n\n#### CNBC Newsletters\n\nSign up for free newsletters and get more CNBC delivered to your inbox&#39;,
+  &#39;score&#39;: 0.7038554}]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Combine all the tools in the list</span>
+
+<span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">arxiv</span><span class="p">,</span><span class="n">wiki</span><span class="p">,</span><span class="n">tavily</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Initialize my LLM model</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_groq</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatGroq</span>
+
+<span class="n">llm</span><span class="o">=</span><span class="n">ChatGroq</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;qwen/qwen3-32b&quot;</span><span class="p">)</span>
+
+<span class="n">llm_with_tools</span><span class="o">=</span><span class="n">llm</span><span class="o">.</span><span class="n">bind_tools</span><span class="p">(</span><span class="n">tools</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">AIMessage</span><span class="p">,</span> <span class="n">HumanMessage</span>
+<span class="n">llm_with_tools</span><span class="o">.</span><span class="n">invoke</span><span class="p">([</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;What is the recent AI News&quot;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;Okay, the user is asking for recent AI news. I need to figure out which tool to use here. Let me check the available functions.\n\nFirst, there\&#39;s the arxiv function, which is for scientific papers in fields like Physics and Computer Science. But the user isn\&#39;t asking about research papers specifically. Then there\&#39;s Wikipedia, which is good for general knowledge and historical info, but maybe not the latest news. The third option is tavily_search_results_json, described as a search engine for current events. That sounds perfect because the user wants recent news. \n\nSo I should use the tavily_search_results_json function with the query &quot;recent AI News&quot;. Let me make sure the parameters are correct. The function requires a query string, which I have. I\&#39;ll format the tool call accordingly.\n&#39;, &#39;tool_calls&#39;: [{&#39;id&#39;: &#39;d4mp46n6m&#39;, &#39;function&#39;: {&#39;arguments&#39;: &#39;{&quot;query&quot;:&quot;recent AI News&quot;}&#39;, &#39;name&#39;: &#39;tavily_search_results_json&#39;}, &#39;type&#39;: &#39;function&#39;}]}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 191, &#39;prompt_tokens&#39;: 399, &#39;total_tokens&#39;: 590, &#39;completion_time&#39;: 0.425927405, &#39;prompt_time&#39;: 0.016930014, &#39;queue_time&#39;: 0.245711065, &#39;total_time&#39;: 0.442857419}, &#39;model_name&#39;: &#39;qwen/qwen3-32b&#39;, &#39;system_fingerprint&#39;: &#39;fp_d58dbe76cd&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;tool_calls&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--5f0e7748-326e-4d28-9171-08ac664a32be-0&#39;, tool_calls=[{&#39;name&#39;: &#39;tavily_search_results_json&#39;, &#39;args&#39;: {&#39;query&#39;: &#39;recent AI News&#39;}, &#39;id&#39;: &#39;d4mp46n6m&#39;, &#39;type&#39;: &#39;tool_call&#39;}], usage_metadata={&#39;input_tokens&#39;: 399, &#39;output_tokens&#39;: 191, &#39;total_tokens&#39;: 590})
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">llm_with_tools</span><span class="o">.</span><span class="n">invoke</span><span class="p">([</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;What is the recent AI News&quot;</span><span class="p">)])</span><span class="o">.</span><span class="n">tool_calls</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;name&#39;: &#39;tavily_search_results_json&#39;,
+  &#39;args&#39;: {&#39;query&#39;: &#39;recent AI news&#39;},
+  &#39;id&#39;: &#39;t6m40kckt&#39;,
+  &#39;type&#39;: &#39;tool_call&#39;}]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## State Schema</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnyMessage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_messages</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">messages</span><span class="p">:</span><span class="n">Annotated</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">AnyMessage</span><span class="p">],</span><span class="n">add_messages</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Entire Chatbot With LangGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">START</span><span class="p">,</span> <span class="n">END</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.prebuilt</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.prebuilt</span><span class="w"> </span><span class="kn">import</span> <span class="n">tools_condition</span>
+
+<span class="c1">### Node definition</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">tool_calling_llm</span><span class="p">(</span><span class="n">state</span><span class="p">:</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;messages&quot;</span><span class="p">:[</span><span class="n">llm_with_tools</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">])]}</span>
+
+<span class="c1"># Build graph</span>
+<span class="n">builder</span> <span class="o">=</span> <span class="n">StateGraph</span><span class="p">(</span><span class="n">State</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;tool_calling_llm&quot;</span><span class="p">,</span> <span class="n">tool_calling_llm</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span> <span class="n">ToolNode</span><span class="p">(</span><span class="n">tools</span><span class="p">))</span>
+
+<span class="n">builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">START</span><span class="p">,</span> <span class="s2">&quot;tool_calling_llm&quot;</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_conditional_edges</span><span class="p">(</span>
+    <span class="s2">&quot;tool_calling_llm&quot;</span><span class="p">,</span>
+    <span class="c1"># If the latest message (result) from assistant is a tool call -&gt; tools_condition routes to tools</span>
+    <span class="c1"># If the latest message (result) from assistant is a not a tool call -&gt; tools_condition routes to END</span>
+    <span class="n">tools_condition</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
+
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+
+<span class="c1"># View</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">draw_mermaid_png</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/77f7dd1990afa1b1b30b2d145970c6e362d0e907f980a34e92759e2db44dbdec.png" src="../_images/77f7dd1990afa1b1b30b2d145970c6e362d0e907f980a34e92759e2db44dbdec.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span><span class="o">=</span><span class="n">graph</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s2">&quot;1706.03762&quot;</span><span class="p">)})</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]:</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+1706.03762
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  arxiv (w98wt2bhx)
+ Call ID: w98wt2bhx
+  Args:
+    query: 1706.03762
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: arxiv
+
+Published: 2023-08-02
+Title: Attention Is All You Need
+Authors: Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin
+Summary: The dominant sequence transduction models are based on complex recurrent or
+convolutional neural networks in an encoder-decoder configuration. The best
+performing models also connect the encoder and decoder through an attention
+mechanism. We propose a new simple network architecture, the Transformer, base
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span><span class="o">=</span><span class="n">graph</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s2">&quot;Provide me the top 10 recent AI news for MArch 3rd 2025&quot;</span><span class="p">)})</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]:</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+Provide me the top 10 recent AI news for MArch 3rd 2025
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  tavily_search_results_json (nm4867kat)
+ Call ID: nm4867kat
+  Args:
+    query: top 10 AI news March 3 2025
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: tavily_search_results_json
+
+[{&quot;title&quot;: &quot;Top Viral AI &amp; Tech News (March 3 - March 7, 2025) - YouTube&quot;, &quot;url&quot;: &quot;https://www.youtube.com/watch?v=n0icz4P221E&quot;, &quot;content&quot;: &quot;guys so china has an ai breakthrough with a company called a startup called monica and they recently released manuse it&#39;s an ai agent that&#39;s going to be capable of independently planning and executing the most complex tasks so this is going to be a development that&#39;s pretty close to deepseek however this is a more advanced innovation and so this is a significant milestone in ai autonomy this is changing the game you guys we&#39;re talking about automating intricate processes reducing the need for [...] technology is going to be here next year that we&#39;re not even talking about because we weren&#39;t talking about quantum computing a year two years ago we weren&#39;t aside from like movies and stuff you know we weren&#39;t talking about super ai i mean ash probably was a year two year two years ago but it&#39;s like such exciting times such exciting times all right let&#39;s go to the next piece y&#39;all got me going in the comments all right so next piece of news ai is taking over dating apps so matchgroup which is [...] mentioned earlier how especially with quantum computing we&#39;re getting into limitless drug discoveries so now they can cure almost anything maybe you know they&#39;re trying to take a little ethical stand and you know um halt the progress towards artificial super intelligence where ai surpasses human capacity um so it&#39;s definitely a very interesting time i&#39;m interested to see what you guys think what do you guys think about a future where anything can be cured any ailment any condition this is the&quot;, &quot;score&quot;: 0.87681407}, {&quot;title&quot;: &quot;March 2025 round-up of interesting AI news and announcements&quot;, &quot;url&quot;: &quot;https://nationalcentreforai.jiscinvolve.org/wp/2025/03/27/march-2025-round-up-of-interesting-ai-news-and-announcements/&quot;, &quot;content&quot;: &quot;Microsoft Ability Summit 2025: Accessibility in the AI era Microsoft announced new accessibility features including an improvement in Microsoft Teams for Sign Language View, where Teams will soon identify and highlight sign language users as speakers in meetings. Additionally, a recent EY study highlighted that Copilot has helped 76% of neurodiverse employees improve work performance by enhancing communication, memory recall, and focus. [...] AI-powered app takes home the trophy at further education ‘Oscars’ City College Plymouth’s Quality of Education app won the Jisc sponsored category for effective use of digital technology at the 2025 Association of Colleges (AoC) Beacon Awards. The app, leverages AI to enhance the quality of education, stood out for its innovative approach and significant impact on further education. This recognition highlights the app’s role in transforming learning experiences and improving educational&quot;, &quot;score&quot;: 0.8660535}, {&quot;title&quot;: &quot;AI Weekly Digest - March 3 2025 - LinkedIn&quot;, &quot;url&quot;: &quot;https://www.linkedin.com/pulse/ai-weekly-digest-march-3-2025-pa-media-ddmie&quot;, &quot;content&quot;: &quot;Alibaba&#39;s Wan 2.1 now open source\n\nAlibaba has announced its video and image-generating AI model Wan 2.1 is now publicly available - or open source. Reports said the Chinese e-commerce leader&#39;s move was likely to increase its uptake and further intensify competition in AI. The move follows Chinese startup DeepSeek&#39;s market disrupting rollout of low-cost open-source models last month.\n\nLawsuit: Google AI Overviews &#39;eroding demand for original content&#39; [...] Chinese search giant Baidu is set to launch an upgraded version of its Ernie chatbot next month, sources said. Reports said this will feature improved capabilities in areas such as reasoning, with the 4.5 version also coming with &#39;enhanced multimodal capabilities&#39; - an AI system capable of processing and integrating data, including text video, images and audio.\n\nClaim: Rise of artificial intelligence to upend software jobs market [...] New ChatGPT model &#39;dramatically reduces rate of hallucinations&#39;\n\nOpenAI has launched GPT-4.5, an update to the model underpinning ChatGPT which it said dramatically reduces the rate of &#39;hallucinations&#39;, or inaccurate information generated in response to queries. It said the model is “at the frontier of what is possible in unsupervised learning”, and added that \&quot;with every new order of magnitude of compute comes novel capabilities\&quot;.&quot;, &quot;score&quot;: 0.85509074}, {&quot;title&quot;: &quot;3 March 2025 - Latest AI News - Apple Podcasts&quot;, &quot;url&quot;: &quot;https://podcasts.apple.com/us/podcast/3-march-2025-latest-ai-news/id1755480003?i=1000697309136&quot;, &quot;content&quot;: &quot;Algeria\n   Angola\n   Armenia\n   Azerbaijan\n   Bahrain\n   Benin\n   Botswana\n   Brunei Darussalam\n   Burkina Faso\n   Cameroun\n   Cape Verde\n   Chad\n   Côte d’Ivoire\n   Congo, The Democratic Republic Of The\n   Egypt\n   Eswatini\n   Gabon\n   Gambia\n   Ghana\n   Guinea-Bissau\n   India\n   Iraq\n   Israel\n   Jordan\n   Kenya\n   Kuwait\n   Lebanon\n   Liberia\n   Libya\n   Madagascar\n   Malawi\n   Mali\n   Mauritania\n   Mauritius\n   Morocco\n   Mozambique\n   Namibia\n   Niger (English)\n   Nigeria\n   Oman [...] Algeria\n   Angola\n   Armenia\n   Azerbaijan\n   Bahrain\n   Benin\n   Botswana\n   Brunei Darussalam\n   Burkina Faso\n   Cameroun\n   Cape Verde\n   Chad\n   Côte d’Ivoire\n   Congo, The Democratic Republic Of The\n   Egypt\n   Eswatini\n   Gabon\n   Gambia\n   Ghana\n   Guinea-Bissau\n   India\n   Iraq\n   Israel\n   Jordan\n   Kenya\n   Kuwait\n   Lebanon\n   Liberia\n   Libya\n   Madagascar\n   Malawi\n   Mali\n   Mauritania\n   Mauritius\n   Morocco\n   Mozambique\n   Namibia\n   Niger (English)\n   Nigeria\n   Oman [...] Qatar\n   Congo, Republic of\n   Rwanda\n   São Tomé and Príncipe\n   Saudi Arabia\n   Senegal\n   Seychelles\n   Sierra Leone\n   South Africa\n   Sri Lanka\n   Tajikistan\n   Tanzania, United Republic Of\n   Tunisia\n   Turkmenistan\n   United Arab Emirates\n   Uganda\n   Yemen\n   Zambia\n   Zimbabwe&quot;, &quot;score&quot;: 0.8443195}, {&quot;title&quot;: &quot;March 2025: All AI updates from the past month - SD Times&quot;, &quot;url&quot;: &quot;https://sdtimes.com/ai/march-2025-all-ai-updates-from-the-past-month/&quot;, &quot;content&quot;: &quot;Claude will respond with direct citations of its web sources, allowing users to fact check the information.\n\nGoogle launches Canvas to enable easier collaboration with Gemini\n\nGoogle is making it easier for developers to collaborate with Gemini with the launch of Canvas, an interactive space to create and refine code. \n\nCanvas could be used to build reports, blog posts, study guides, visual timelines, interactive prototypes, code snippets, and more. [...] Additionally, Anthropic Console now supports the company’s latest model, Claude 3.7 Sonnet, and offers new capabilities to assist users in writing prompts for that model’s extended thinking mode, as well as setting the budget for extended thinking. \n\nSalesforce launches Agentforce 2dx\n\nAgentforce is the company’s platform for integrating AI agents into employee workflows, and Agentforce 2dx introduces new features that make it even easier for AI agents to be set up. [...] The participating institutions include Caltech, the California State University system, Duke University, the University of Georgia, Harvard University, Howard University, Massachusetts Institute of Technology, the University of Michigan, the University of Mississippi, The Ohio State University, the University of Oxford, Sciences Po, Texas A&amp;M University, Boston Children’s Hospital, and the Boston Public Library.&quot;, &quot;score&quot;: 0.83678174}]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span><span class="o">=</span><span class="n">graph</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s2">&quot;What is machine learning&quot;</span><span class="p">)})</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]:</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
+
+What is machine learning
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  wikipedia (6bxzvh8w4)
+ Call ID: 6bxzvh8w4
+  Args:
+    query: Machine learning
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: wikipedia
+
+Page: Machine learning
+Summary: AI personal
+Machine learning (ML) is a field of study in artificial intelligence concerned with the development and study of statistical algorithms that can learn from data and generalise to unseen data, and thus perform tasks without explicit instructions. Within a subdiscipline in machine learning, advances in the field of deep learning have allowed neural networks, a class of statistical algorithms, to surpass many previous machine learning approaches in perfor
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./1-langgraph Basics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="5-ChainsLangGraph.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chain Using LangGraph</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="7-ReActAgents.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ReAct Agent Architecture</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aim">Aim</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Your Name
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
