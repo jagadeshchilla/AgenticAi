@@ -1,2 +1,5 @@
 .env
 venv/
+_build/
+.jupyter_cache/
+*.ipynb_checkpoints

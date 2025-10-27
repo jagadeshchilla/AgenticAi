@@ -1,0 +1,32 @@
+format: jb-book
+root: introduction
+
+chapters:
+  - file: 1-langgraph Basics/1-simplegraph
+    title: Simple Graph
+  - file: 1-langgraph Basics/2-chatbot
+    title: Chatbot
+  - file: 1-langgraph Basics/3-DataclassStateSchema
+    title: Dataclass State Schema
+  - file: 1-langgraph Basics/4-pydantic
+    title: Pydantic
+  - file: 1-langgraph Basics/5-ChainsLangGraph
+    title: Chains in LangGraph
+  - file: 1-langgraph Basics/6-chatbotswithmultipletools
+    title: Chatbots with Multiple Tools
+  - file: 1-langgraph Basics/7-ReActAgents
+    title: ReAct Agents
+  - file: 2-langgraph advance/1-streaming
+    title: Streaming
+  - file: 4- Workflows/1-prompting_chaining
+    title: Prompting and Chaining
+  - file: 4- Workflows/2-parallelization
+    title: Parallelization
+  - file: 4- Workflows/3-Routing
+    title: Routing
+  - file: 4- Workflows/4-orchestrator-worker
+    title: Orchestrator-Worker Pattern
+  - file: 4- Workflows/5-Evaluator-optimizer
+    title: Evaluator-Optimizer Pattern
+  - file: pydantic/intro
+    title: Pydantic Introduction
