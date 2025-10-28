@@ -37,12 +37,18 @@ parts:
       - file: 4- Workflows/5-Evaluator-optimizer
         title: Evaluator-Optimizer Pattern
 
-  - caption: Advanced Topics
+  - caption: Human in the Loop
     chapters:
       - file: 5-HumanintheLoop/1-Humanintheloop
         title: Human in the Loop
+
+  - caption: RAGS
+    chapters:
       - file: 6-RAGS/1-AgenticRAG
         title: Agentic RAG
+
+  - caption: Agentic RAG
+    chapters:
       - file: 7-AgenticRag/1-agenticrag
         title: Agentic RAG
       - file: 7-AgenticRag/2-ReAct
