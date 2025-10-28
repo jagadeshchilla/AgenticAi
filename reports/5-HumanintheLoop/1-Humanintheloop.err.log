@@ -1,0 +1,68 @@
+Traceback (most recent call last):
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\nbclient\client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\asyncio\base_events.py", line 664, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\nbclient\client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Input
+initial_input = {"messages": "Multiply 2 and 3"}
+
+# Thread
+thread = {"configurable": {"thread_id": "5"}}
+
+# Run the graph until the first interruption
+for event in graph.stream(initial_input, thread, stream_mode="values"):
+    event["messages"][-1].pretty_print()
+
+## get user input
+
+user_input=input("Tell me how you want to update the state:")
+graph.update_state(thread,{"messages":user_input},as_node="human_feedback")
+
+# Continue the graph execution
+for event in graph.stream(None, thread, stream_mode="values"):
+    event["messages"][-1].pretty_print()
+------------------
+
+----- stdout -----
+================================[1m Human Message [0m=================================
+
+Multiply 2 and 3
+------------------
+
+[31m---------------------------------------------------------------------------[39m
+[31mStdinNotImplementedError[39m                  Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[20][39m[32m, line 13[39m
+[32m      9[39m     event[[33m"[39m[33mmessages[39m[33m"[39m][-[32m1[39m].pretty_print()
+[32m     11[39m [38;5;66;03m## get user input[39;00m
+[32m---> [39m[32m13[39m user_input=[38;5;28;43minput[39;49m[43m([49m[33;43m"[39;49m[33;43mTell me how you want to update the state:[39;49m[33;43m"[39;49m[43m)[49m
+[32m     14[39m graph.update_state(thread,{[33m"[39m[33mmessages[39m[33m"[39m:user_input},as_node=[33m"[39m[33mhuman_feedback[39m[33m"[39m)
+[32m     16[39m [38;5;66;03m# Continue the graph execution[39;00m
+
+[36mFile [39m[32m~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\ipykernel\kernelbase.py:1472[39m, in [36mKernel.raw_input[39m[34m(self, prompt)[39m
+[32m   1470[39m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m [38;5;28mself[39m._allow_stdin:
+[32m   1471[39m     msg = [33m"[39m[33mraw_input was called, but this frontend does not support input requests.[39m[33m"[39m
+[32m-> [39m[32m1472[39m     [38;5;28;01mraise[39;00m StdinNotImplementedError(msg)
+[32m   1473[39m [38;5;28;01mreturn[39;00m [38;5;28mself[39m._input_request(
+[32m   1474[39m     [38;5;28mstr[39m(prompt),
+[32m   1475[39m     [38;5;28mself[39m._shell_parent_ident.get(),
+[32m   1476[39m     [38;5;28mself[39m.get_parent([33m"[39m[33mshell[39m[33m"[39m),
+[32m   1477[39m     password=[38;5;28;01mFalse[39;00m,
+[32m   1478[39m )
+
+[31mStdinNotImplementedError[39m: raw_input was called, but this frontend does not support input requests.
+

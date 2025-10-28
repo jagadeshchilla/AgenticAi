@@ -1,0 +1,69 @@
+Traceback (most recent call last):
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\nbclient\client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\asyncio\base_events.py", line 664, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\nbclient\client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\Welcome\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# --------------------------
+# 1. Create Retriever Tool
+# --------------------------
+
+# Load content from blog
+docs = WebBaseLoader("https://lilianweng.github.io/posts/2023-06-23-agent/").load()
+splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+chunks = splitter.split_documents(docs)
+
+embedding = OpenAIEmbeddings()
+vectorstore = FAISS.from_documents(chunks, embedding)
+retriever = vectorstore.as_retriever()
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mOpenAIError[39m                               Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[2][39m[32m, line 10[39m
+[32m      7[39m splitter = RecursiveCharacterTextSplitter(chunk_size=[32m500[39m, chunk_overlap=[32m50[39m)
+[32m      8[39m chunks = splitter.split_documents(docs)
+[32m---> [39m[32m10[39m embedding = [43mOpenAIEmbeddings[49m[43m([49m[43m)[49m
+[32m     11[39m vectorstore = FAISS.from_documents(chunks, embedding)
+[32m     12[39m retriever = vectorstore.as_retriever()
+
+    [31m[... skipping hidden 1 frame][39m
+
+[36mFile [39m[32m~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langchain_openai\embeddings\base.py:366[39m, in [36mOpenAIEmbeddings.validate_environment[39m[34m(self)[39m
+[32m    361[39m         [38;5;28mself[39m.http_async_client = httpx.AsyncClient(proxy=[38;5;28mself[39m.openai_proxy)
+[32m    362[39m     async_specific = {
+[32m    363[39m         [33m"[39m[33mhttp_client[39m[33m"[39m: [38;5;28mself[39m.http_async_client,
+[32m    364[39m         [33m"[39m[33mapi_key[39m[33m"[39m: async_api_key_value,
+[32m    365[39m     }
+[32m--> [39m[32m366[39m     [38;5;28mself[39m.async_client = [43mopenai[49m[43m.[49m[43mAsyncOpenAI[49m[43m([49m
+[32m    367[39m [43m        [49m[43m*[49m[43m*[49m[43mclient_params[49m[43m,[49m
+[32m    368[39m [43m        [49m[43m*[49m[43m*[49m[43masync_specific[49m[43m,[49m[43m  [49m[38;5;66;43;03m# type: ignore[arg-type][39;49;00m
+[32m    369[39m [43m    [49m[43m)[49m.embeddings
+[32m    370[39m [38;5;28;01mreturn[39;00m [38;5;28mself[39m
+
+[36mFile [39m[32m~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\openai\_client.py:488[39m, in [36mAsyncOpenAI.__init__[39m[34m(self, api_key, organization, project, webhook_secret, base_url, websocket_base_url, timeout, max_retries, default_headers, default_query, http_client, _strict_response_validation)[39m
+[32m    486[39m     api_key = os.environ.get([33m"[39m[33mOPENAI_API_KEY[39m[33m"[39m)
+[32m    487[39m [38;5;28;01mif[39;00m api_key [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[32m--> [39m[32m488[39m     [38;5;28;01mraise[39;00m OpenAIError(
+[32m    489[39m         [33m"[39m[33mThe api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable[39m[33m"[39m
+[32m    490[39m     )
+[32m    491[39m [38;5;28;01mif[39;00m [38;5;28mcallable[39m(api_key):
+[32m    492[39m     [38;5;28mself[39m.api_key = [33m"[39m[33m"[39m
+
+[31mOpenAIError[39m: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+

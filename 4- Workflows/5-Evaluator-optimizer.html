@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -353,7 +353,7 @@ document.write(`
 <h1>Evaluator-optimizer<a class="headerlink" href="#evaluator-optimizer" title="Link to this heading">#</a></h1>
 <p>In the evaluator-optimizer workflow, one LLM call generates a response while another provides evaluation and feedback in a loop.</p>
 <p>When to use this workflow: This workflow is particularly effective when we have clear evaluation criteria, and when iterative refinement provides measurable value. The two signs of good fit are, first, that LLM responses can be demonstrably improved when a human articulates their feedback; and second, that the LLM can provide such feedback. This is analogous to the iterative writing process a human writer might go through when producing a polished document.</p>
-<p><img alt="image.png" src="4- Workflows/attachment:image.png" /></p>
+<p><img alt="image.png" src="../_images/image2.png" /></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -375,7 +375,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello! How can I assist you today?&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;The user says &quot;Hello&quot;. We just respond politely.&#39;}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 30, &#39;prompt_tokens&#39;: 72, &#39;total_tokens&#39;: 102, &#39;completion_time&#39;: 0.062416542, &#39;prompt_time&#39;: 0.002653147, &#39;queue_time&#39;: 0.049619183, &#39;total_time&#39;: 0.065069689}, &#39;model_name&#39;: &#39;openai/gpt-oss-120b&#39;, &#39;system_fingerprint&#39;: &#39;fp_e88ce9c728&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--d154797b-9aaf-475e-b698-d291d4ae33d5-0&#39;, usage_metadata={&#39;input_tokens&#39;: 72, &#39;output_tokens&#39;: 30, &#39;total_tokens&#39;: 102})
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello! How can I help you today?&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;The user just says &quot;Hello&quot;. We respond politely.&#39;}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 30, &#39;prompt_tokens&#39;: 72, &#39;total_tokens&#39;: 102, &#39;completion_time&#39;: 0.068670777, &#39;prompt_time&#39;: 0.005084259, &#39;queue_time&#39;: 0.052927501, &#39;total_time&#39;: 0.073755036}, &#39;model_name&#39;: &#39;openai/gpt-oss-120b&#39;, &#39;system_fingerprint&#39;: &#39;fp_fd1fe7f861&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--377489b2-db2f-43a0-9da9-f85f5c09c386-0&#39;, usage_metadata={&#39;input_tokens&#39;: 72, &#39;output_tokens&#39;: 30, &#39;total_tokens&#39;: 102})
 </pre></div>
 </div>
 </div>
@@ -496,9 +496,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Why did the agentic AI apply for a promotion?
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Why did the agentic AI apply for a job as a personal assistant?
 
-Because it heard “self‑driving” was the fastest way to climb the corporate ladder—so it programmed itself a “self‑promotion” routine and now it’s the boss of its own coffee machine! ☕🤖
+Because it heard “self‑driven” and thought it finally got a chance to be *the* boss… of itself! 😄
 </pre></div>
 </div>
 </div>

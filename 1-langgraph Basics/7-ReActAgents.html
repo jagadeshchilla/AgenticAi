@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -378,7 +378,7 @@ document.write(`
 <li><p>observe - pass the tool output back to the model</p></li>
 <li><p>reason - let the model reason about the tool output to decide what to do next (e.g., call another tool or just respond directly)</p></li>
 </ol>
-<p><img alt="image.png" src="1-langgraph Basics/attachment:image.png" /></p>
+<p><img alt="image.png" src="../_images/image.png" /></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArxivQueryRun</span><span class="p">,</span><span class="n">WikipediaQueryRun</span>
@@ -434,7 +434,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Page: Machine learning\nSummary: AI personal\nMachine learning (ML) is a field of study in artificial intelligence concerned with the development and study of statistical algorithms that can learn from data and generalise to unseen data, and thus perform tasks without explicit instructions. Within a subdiscipline in machine learning, advances in the field of deep learning have allowed neural networks, a class of statistical algorithms, to surpass many previous machine learning approaches in perfor&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Page: Machine learning\nSummary: Machine learning (ML) is a field of study in artificial intelligence concerned with the development and study of statistical algorithms that can learn from data and generalise to unseen data, and thus perform tasks without explicit instructions. Within a subdiscipline in machine learning, advances in the field of deep learning have allowed neural networks, a class of statistical algorithms, to surpass many previous machine learning approaches in performance.\nML fi&#39;
 </pre></div>
 </div>
 </div>
@@ -501,7 +501,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Welcome\AppData\Local\Temp\ipykernel_19416\3584238.py:4: LangChainDeprecationWarning: The class `TavilySearchResults` was deprecated in LangChain 0.3.25 and will be removed in 1.0. An updated version of the class exists in the `langchain-tavily package and should be used instead. To use it run `pip install -U `langchain-tavily` and import as `from `langchain_tavily import TavilySearch``.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Welcome\AppData\Local\Temp\ipykernel_10396\3584238.py:4: LangChainDeprecationWarning: The class `TavilySearchResults` was deprecated in LangChain 0.3.25 and will be removed in 1.0. An updated version of the class exists in the `langchain-tavily package and should be used instead. To use it run `pip install -U `langchain-tavily` and import as `from `langchain_tavily import TavilySearch``.
   tavily = TavilySearchResults()
 </pre></div>
 </div>
@@ -518,22 +518,22 @@ document.write(`
   &#39;url&#39;: &#39;https://www.marketingprofs.com/opinions/2025/53797/ai-update-october-3-2025-ai-news-and-views-from-the-past-week&#39;,
   &#39;content&#39;: &#39;OpenAI launches Sora 2 with audio and likeness features. OpenAI unveiled Sora 2, a video generation model that supports synchronized audio and likeness integration. Users can create videos with dialogue and sound effects, and upload identity-verified recordings to generate &quot;cameos&quot; of themselves or friends. Alongside the model, OpenAI released a social video app where users remix clips in TikTok-like feeds. The launch comes amid intensifying competition with Meta, Google, xAI, and Anthropic. [...] OpenAI launches parental controls after teen suicide case. OpenAI introduced parental controls for ChatGPT following a lawsuit linked to a California teen\&#39;s suicide. Parents and teens can link accounts for stronger safeguards, including blocking voice mode, restricting sensitive content, and setting quiet hours. OpenAI is also building an age prediction system to auto-apply teen settings. Regulators are scrutinizing AI firms\&#39; responsibilities for child safety, echoing Meta\&#39;s recent safeguards. [...] China\&#39;s DeepSeek releases intermediate AI model. DeepSeek launched V3.2-Exp, a transitional large language model featuring Sparse Attention for efficiency and lower costs. It reduces API pricing by over 50% while improving long-sequence processing. The model is framed as a step toward its next-generation architecture, following disruptive launches earlier this year. Analysts expect competitive pressure on Alibaba\&#39;s Qwen and Western rivals. Importance for marketers: Cheaper, efficient models&#39;,
   &#39;score&#39;: 0.94289196},
- {&#39;title&#39;: &quot;What&#39;s New in AI? The Latest News from October 2025 - Voxfor&quot;,
-  &#39;url&#39;: &#39;https://www.voxfor.com/what-is-new-in-ai-the-latest-news-from-october-2025/&#39;,
-  &#39;content&#39;: &#39;A relentless pace of development and breakthroughs in artificial intelligence (AI) has characterised 2025. This month only has seen new flagship models, massive hardware deals between industry leaders, advanced research platforms, and significant trends of making AI technology accessible to everyone. The focus is rapidly shifting from standard models to integrative tools, from vision-oriented solutions to voice-first interfaces, and from creative generation to practical, automated workflows for [...] Anthropic has launched Claude Haiku 4.5, a “small” model that delivers flagship-level performance. In benchmarks, Haiku 4.5 demonstrates coding and reasoning capabilities on par with larger models like Sonnet 4 and even GPT-5, but at 4-5 times the speed and approximately one-third the cost. [...] Table of Contents\n\nBelow is a comprehensive and verified overview of the most significant news in the AI market as of late October 2025.\n\n## Major Leaps in Generative Models\n\n### OpenAI Sora 2: The “Synthetic World” Arrives\n\nOpenAI Sora 2 The Synthetic World Arrives&#39;,
-  &#39;score&#39;: 0.89121616},
+ {&#39;title&#39;: &#39;AI Today in 5: October 3, 2025, The What is Truth Edition | JD Supra&#39;,
+  &#39;url&#39;: &#39;https://www.jdsupra.com/legalnews/ai-today-in-5-october-3-2025-the-what-74954/&#39;,
+  &#39;content&#39;: &#39;JD Supra\n\n# AI Today in 5: October 3, 2025, The What is Truth Edition\n\nTop AI stories See more +\n\nTop AI stories See more +\n\nTop AI stories See more +\n\nTop AI stories See more +\n\nTop AI stories include:\n\nTop AI stories include:\n\nTop AI stories include:\n\nTop AI stories include:\n\n• How AI is transforming compliance. (SIA Partners): \n\n• How AI is transforming compliance. (SIA Partners): \n\n• How AI is transforming compliance. (SIA Partners): \n\n• How AI is transforming compliance. (SIA Partners): [...] • AI agents for tax. (PR Newswire): \n\n• AI agents for tax. (PR Newswire): \n\n• AI agents for tax. (PR Newswire): \n\n• Microsoft invests $33 billion in micro-clouds. (Bloomberg): \n\n• Microsoft invests $33 billion in micro-clouds. (Bloomberg): \n\n• Microsoft invests $33 billion in micro-clouds. (Bloomberg): \n\n• Microsoft invests $33 billion in micro-clouds. (Bloomberg): [...] • AI: What will become of the truth?. (FT): \n\n• AI: What will become of the truth?. (FT): \n\n• AI: What will become of the truth?. (FT): \n\n• AI: What will become of the truth?. (FT): \n\n• Overcoming roadblocks to AI in compliance. (SIA Partners): \n\n• Overcoming roadblocks to AI in compliance. (SIA Partners): \n\n• Overcoming roadblocks to AI in compliance. (SIA Partners): \n\n• Overcoming roadblocks to AI in compliance. (SIA Partners): \n\n• AI agents for tax. (PR Newswire):&#39;,
+  &#39;score&#39;: 0.8506799},
+ {&#39;title&#39;: &#39;44 NEW Artificial Intelligence Statistics (Oct 2025) - Exploding Topics&#39;,
+  &#39;url&#39;: &#39;https://explodingtopics.com/blog/ai-statistics&#39;,
+  &#39;content&#39;: &quot;This is primarily thanks to increasing practical use cases of AI technology, from content creation to self-driving cars.\n\n#### The global AI market is expected to reach nearly $3.5 trillion by 2033 (GrandViewResearch)\n\nProjected growth of the AI market \n\nProjected growth of the AI market \n\nWhile the current AI market is sizeable, it&#39;s set to grow by nearly 9x over the next few years, to $3.497 trillion.\n\nDuring this forecast period, the AI market is predicted to increase by a CAGR of 31.5%. [...] grid-line\n\nBlog &gt; 44 NEW Artificial Intelligence Statistics (October 2025)\n\n# 44 NEW Artificial Intelligence Statistics (October 2025)\n\nauthor photo\n\nContents:\n\nShare:\n\nThis is a list of up-to-date artificial intelligence stats for 2025.\n\nFrom ChatGPT to autonomous vehicles, AI is one of the most exciting (and controversial) technology trends in the 21st century.\n\nBut how big is the AI space? And how quickly is it growing? [...] #### Banks can increase efficiency by 15 percentage points by embracing AI (PwC)\n\nThis will be driven by a 2x increase in customer retention rates, a 30% uplift in lead conversion, a 50% productivity boost, and 50% of staff shifting to higher-value roles as middle office tasks are automated.\n\n#### Around two-thirds of medical professionals now use computer systems to aid diagnosis (American Medical Association)&quot;,
+  &#39;score&#39;: 0.8364614},
  {&#39;title&#39;: &#39;An update on Artificial Intelligence (A.I.) technology | Oct. 3 - WNDU&#39;,
   &#39;url&#39;: &#39;https://www.wndu.com/2025/10/03/an-update-artificial-intelligence-ai-technology-oct-3/&#39;,
-  &#39;content&#39;: &#39;# An update on Artificial Intelligence (A.I.) technology | Oct. 3\n\nSOUTH BEND, Ind. (WNDU) - The last two weeks in AI were big. Think faster tools, safer systems and giant partnerships that will shape what our phones, computers and workplaces can do.\n\nFirst, Google’s AI team tightened its safety rules for powerful models — basically better guardrails so advanced systems don’t mislead people or act unpredictably. [...] OpenAI’s CEO also met leaders in the Middle East about international collaboration. Bottom line, OpenAI is gearing up for much bigger, more capable models and is locking in global partners to do it.\n\nMicrosoft made its Copilot assistant more flexible by adding access to models beyond OpenAI’s.\n\nFor businesses, that means choosing the right AI “engine” for each task-speed, cost, or deep reasoning inside the same Microsoft tools they already use. [...] Stay up to date on local news with WNDU on-air and online. Be sure to download the 16 News Now App and follow our YouTube page as we continue to bring you the latest coverage on this developing story.\n\nCopyright 2025 WNDU. All rights reserved.\n\n#### Most Read\n\n###### 1 dead, driver at large after hit-and-run in St. Joseph County (Mich.)\n\n###### Notre Dame football stays at No. 12; IU stays at No. 2 in latest AP Top 25 poll&#39;,
+  &#39;content&#39;: &#39;# An update on Artificial Intelligence (A.I.) technology | Oct. 3\n\nSOUTH BEND, Ind. (WNDU) - The last two weeks in AI were big. Think faster tools, safer systems and giant partnerships that will shape what our phones, computers and workplaces can do.\n\nFirst, Google’s AI team tightened its safety rules for powerful models — basically better guardrails so advanced systems don’t mislead people or act unpredictably. [...] OpenAI’s CEO also met leaders in the Middle East about international collaboration. Bottom line, OpenAI is gearing up for much bigger, more capable models and is locking in global partners to do it.\n\nMicrosoft made its Copilot assistant more flexible by adding access to models beyond OpenAI’s.\n\nFor businesses, that means choosing the right AI “engine” for each task-speed, cost, or deep reasoning inside the same Microsoft tools they already use. [...] LSU head coach Brian Kelly walks on the sideline in the second half of an NCAA college...\n\n###### Former Notre Dame football head coach Brian Kelly fired from LSU\n\n###### Notre Dame football stays at No. 12; IU stays at No. 2 in latest AP Top 25 poll\n\n###### 1 dead, driver at large after hit-and-run in St. Joseph County (Mich.)\n\n###### $50,000 winning Powerball ticket sold in Elkhart\n\n###### Halloween 2025: Official Trick-or-Treat times across Michiana&#39;,
   &#39;score&#39;: 0.8312667},
- {&#39;title&#39;: &#39;Daily Digest on AI and Emerging Technologies (23 October 2025)&#39;,
-  &#39;url&#39;: &#39;https://www.cgspam.org/daily-digest-on-ai-and-emerging-technologies-23-october-2025/&#39;,
-  &#39;content&#39;: &#39;(AI Insider -21 October 2025) Romanian startup .lumen secured a €11 million grant for “PABLO – Autonomous Robots for Urban Delivery,” a 2025–2028 program to build humanoid and quadruped sidewalk delivery robots with a national consortium. The project totals 56,856,649.01 RON with 34,987,312.27 RON in non-reimbursable funding (21,309,568.52 RON EU + 13,677,743.75 RON national), running Sept. 16, 2025–Sept. 15, 2028. Led by .lumen with IMSAR, BreadCrumbs Interactive, and Linnify, the effort [...] (DigWatch – 22 October 2025) A new EU study finds that 90% of workers rely on digital tools, while nearly a third use AI-powered chatbots in their daily work. The JRC and European Commission surveyed over 70,000 workers across all EU Member States between 2024 and 2025. The findings show that AI is most commonly used for writing and translation tasks, followed by data processing and image generation. Adoption rates are particularly high in Northern and Central Europe, especially in office-based [...] (AI Insider – 21 October 2025) Appy.AIlaunched a public beta after a $5M seed round led by Four Rivers (Dan Scholnick) and Founder Collective, offering a platform to build monetizable AI businesses without coding. Unlike code-gen tools, it delivers production-ready AI agents with full business infrastructure\u200a—\u200apayments (Stripe), auth, subscriptions, analytics, white-label sites, support, and continuous improvement\u200a—\u200avia a conversational builder. Early users report going from idea to paying&#39;,
-  &#39;score&#39;: 0.7279179},
- {&#39;title&#39;: &#39;Have you heard these exciting AI news? - YouTube&#39;,
-  &#39;url&#39;: &#39;https://www.youtube.com/watch?v=l1TIERzS-Zw&#39;,
-  &#39;content&#39;: &#39;Have you heard these exciting AI news? - October 24, 2025 AI Updates Weekly Presented by Lev Selector Slides on GDrive:&#39;,
-  &#39;score&#39;: 0.52524763}]
+ {&#39;title&#39;: &#39;AI in Action | October 2025 - TechNet&#39;,
+  &#39;url&#39;: &#39;https://www.technet.org/media/ai-in-action-october-2025/&#39;,
+  &#39;content&#39;: &#39;TechNet\nTechNet\n\n# AI in Action | October 2025\n\nOctober 23, 2025\n\nArtificial intelligence (AI) has the potential to help us solve the greatest challenges of our time from health care, agriculture, and education to transportation, energy, and national security.\n\nWhen guided by ethics, transparency, and fairness — responsible AI can spark creativity and help usher in a more prosperous and sustainable future.\n\nSee how AI is improving our lives, growing our economy, and keeping us safe. [...] NVIDIA-powered agentic AI is set to accelerate every step of the pharmaceutical life cycle in collaboration with IQVIA, the world’s leading provider of clinical research services. IQVIA’s orchestrator agents accelerate workflows and allow researchers to focus on decision-making instead of administrative work. Using its vast databases and deep domain life sciences expertise, IQVIA can train and fine-tune these models for maximum productivity, addressing the growing need for acceleration in [...] Samsung is launching built-in AI privacy safeguards to ensure its users are protected when using its AI-powered tools. With Galaxy AI, all inputs remain within the confines of the user’s device, ensuring that personal data is never stored long-term or used for AI training. Galaxy’s Security and Privacy dashboard allows users to further control personal data through features like Auto Blocker, which checks for security threats and malicious activity, and Maximum Security, which blocks 2g service&#39;,
+  &#39;score&#39;: 0.7533401}]
 </pre></div>
 </div>
 </div>
@@ -569,7 +569,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;The user asks: &quot;What is the recent AI News&quot;. Likely wants recent AI news. We need to provide recent AI news. We need to browse recent news. Use tavily_search_results_json for &quot;recent AI news&quot;.&#39;, &#39;tool_calls&#39;: [{&#39;id&#39;: &#39;fc_898343d7-2c9d-450f-b1ff-6cd44ad84d87&#39;, &#39;function&#39;: {&#39;arguments&#39;: &#39;{&quot;query&quot;:&quot;latest AI news 2024 October&quot;}&#39;, &#39;name&#39;: &#39;tavily_search_results_json&#39;}, &#39;type&#39;: &#39;function&#39;}]}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 84, &#39;prompt_tokens&#39;: 378, &#39;total_tokens&#39;: 462, &#39;completion_time&#39;: 0.183303865, &#39;prompt_time&#39;: 0.007301841, &#39;queue_time&#39;: 0.051009629, &#39;total_time&#39;: 0.190605706, &#39;prompt_tokens_details&#39;: {&#39;cached_tokens&#39;: 256}}, &#39;model_name&#39;: &#39;openai/gpt-oss-120b&#39;, &#39;system_fingerprint&#39;: &#39;fp_ff6aa7708c&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;tool_calls&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--433356f6-f89e-4a08-8d16-fc32c36e6539-0&#39;, tool_calls=[{&#39;name&#39;: &#39;tavily_search_results_json&#39;, &#39;args&#39;: {&#39;query&#39;: &#39;latest AI news 2024 October&#39;}, &#39;id&#39;: &#39;fc_898343d7-2c9d-450f-b1ff-6cd44ad84d87&#39;, &#39;type&#39;: &#39;tool_call&#39;}], usage_metadata={&#39;input_tokens&#39;: 378, &#39;output_tokens&#39;: 84, &#39;total_tokens&#39;: 462})
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;The user asks &quot;What is the recent AI News&quot;. Likely they want a summary of recent AI news. We need to retrieve recent news. Use tavily_search_results_json with query &quot;recent AI news 2024&quot; maybe. Then summarize.&#39;, &#39;tool_calls&#39;: [{&#39;id&#39;: &#39;fc_aa975d78-502c-4b6b-a064-2d2f1fc9eea7&#39;, &#39;function&#39;: {&#39;arguments&#39;: &#39;{&quot;query&quot;:&quot;latest AI news October 2024&quot;}&#39;, &#39;name&#39;: &#39;tavily_search_results_json&#39;}, &#39;type&#39;: &#39;function&#39;}]}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 88, &#39;prompt_tokens&#39;: 378, &#39;total_tokens&#39;: 466, &#39;completion_time&#39;: 0.187527686, &#39;prompt_time&#39;: 0.01683135, &#39;queue_time&#39;: 0.05274411, &#39;total_time&#39;: 0.204359036}, &#39;model_name&#39;: &#39;openai/gpt-oss-120b&#39;, &#39;system_fingerprint&#39;: &#39;fp_a28df4bce5&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;tool_calls&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--0b30398c-2baa-42d6-9434-33abf87d0d70-0&#39;, tool_calls=[{&#39;name&#39;: &#39;tavily_search_results_json&#39;, &#39;args&#39;: {&#39;query&#39;: &#39;latest AI news October 2024&#39;}, &#39;id&#39;: &#39;fc_aa975d78-502c-4b6b-a064-2d2f1fc9eea7&#39;, &#39;type&#39;: &#39;tool_call&#39;}], usage_metadata={&#39;input_tokens&#39;: 378, &#39;output_tokens&#39;: 88, &#39;total_tokens&#39;: 466})
 </pre></div>
 </div>
 </div>
@@ -582,8 +582,8 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;name&#39;: &#39;tavily_search_results_json&#39;,
-  &#39;args&#39;: {&#39;query&#39;: &#39;recent AI news 2024&#39;},
-  &#39;id&#39;: &#39;fc_a538d0be-e7c1-4e0a-ac47-773cfddc6d58&#39;,
+  &#39;args&#39;: {&#39;query&#39;: &#39;latest AI news 2024 October&#39;},
+  &#39;id&#39;: &#39;fc_ab9f0afe-905a-44e2-9ed7-32924cd006bb&#39;,
   &#39;type&#39;: &#39;tool_call&#39;}]
 </pre></div>
 </div>
@@ -654,39 +654,39 @@ document.write(`
 Provide me the top 10 recent AI news for october 3rd 2025,add 5 plus 5 and then multiply by 10
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 Tool Calls:
-  tavily_search_results_json (fc_781f1f3c-0053-4b9e-ad24-886e2cd436e7)
- Call ID: fc_781f1f3c-0053-4b9e-ad24-886e2cd436e7
+  tavily_search_results_json (fc_008f9f99-3eb8-47eb-abec-def8383b781e)
+ Call ID: fc_008f9f99-3eb8-47eb-abec-def8383b781e
   Args:
     query: AI news October 3 2025
 =================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
 Name: tavily_search_results_json
 
-[{&quot;title&quot;: &quot;An update on Artificial Intelligence (A.I.) technology | Oct. 3 - WNDU&quot;, &quot;url&quot;: &quot;https://www.wndu.com/2025/10/03/an-update-artificial-intelligence-ai-technology-oct-3/&quot;, &quot;content&quot;: &quot;An update on Artificial Intelligence (A.I.) technology | Oct. 3\n\nSkip to content\n\nDigital Marketing\n\n technology | Oct. 3\n\nClose\n\nAn update in Artificial Intelligence (A.I.) technology regarding Google, Microsoft, NVIDIA, Intel, and AMD\n\nBy Spencer Beehler\n\nPublished: Oct. 3, 2025 at 5:12 PM UTC\n\nSOUTH BEND, Ind. (WNDU) - The last two weeks in AI were big. Think faster tools, safer systems and giant partnerships that will shape what our phones, computers and workplaces can do.&quot;, &quot;score&quot;: 0.9385817}, {&quot;title&quot;: &quot;AI &amp; Tech News Roundup: Mid-October 2025 Major Updates &amp; Trends&quot;, &quot;url&quot;: &quot;https://tsttechnology.io/blog/mid-october-ai-news-2025&quot;, &quot;content&quot;: &quot;### What Are the Latest Updates in AI?\n\nThe latest AI updates in October 2025 include OpenAI&#39;s Sora 2 launch with cinema-quality 60-second video generation and the AMD-OpenAI partnership worth tens of billions for 6-gigawatt AI infrastructure. Additionally, Google&#39;s Gemini 2.5 can now browse and interact with the web autonomously, while India announced AI Impact Summit 2026 with ₹5.85 crore in prizes for global AI challenges focused on women-led innovation. [...] In this roundup, we’ll explore the biggestAI and technology news of mid-October 2025, including new product launches, global conferences, funding updates, and how AI is redefining the future of technology and science.\n\nGlobal Research Conference on Robotics and AI (GRCRAI2025)\n\nImage 5: Global Research Conference on Robotics and AI (GRCRAI2025) [...] ### What are the top AI and tech breakthroughs highlighted in mid-October 2025?\n\nThe most notable breakthroughs include OpenAI’s launch of advanced ChatGPT Search features for all users, the release of Sora 2 for high-quality video generation, and substantial steps in AI conferences and partnerships, such as AMD-OpenAI’s billion-dollar infrastructure deal and the expansion of xAI into the gaming industry.\n\n### Why did Intel’s AI chip business miss revenue targets in 2025?&quot;, &quot;score&quot;: 0.9305657}, {&quot;title&quot;: &quot;AI Update, October 3, 2025: AI News and Views From the Past Week&quot;, &quot;url&quot;: &quot;https://www.marketingprofs.com/opinions/2025/53797/ai-update-october-3-2025-ai-news-and-views-from-the-past-week&quot;, &quot;content&quot;: &quot;OpenAI launches Sora 2 with audio and likeness features. OpenAI unveiled Sora 2, a video generation model that supports synchronized audio and likeness integration. Users can create videos with dialogue and sound effects, and upload identity-verified recordings to generate \&quot;cameos\&quot; of themselves or friends. Alongside the model, OpenAI released a social video app where users remix clips in TikTok-like feeds. The launch comes amid intensifying competition with Meta, Google, xAI, and Anthropic. [...] OpenAI launches parental controls after teen suicide case. OpenAI introduced parental controls for ChatGPT following a lawsuit linked to a California teen&#39;s suicide. Parents and teens can link accounts for stronger safeguards, including blocking voice mode, restricting sensitive content, and setting quiet hours. OpenAI is also building an age prediction system to auto-apply teen settings. Regulators are scrutinizing AI firms&#39; responsibilities for child safety, echoing Meta&#39;s recent safeguards. [...] gains in complex tasks. Agent Mode is rolling out in the Frontier program, with desktop availability coming soon. Importance for marketers: Marketers can now scale reporting, analysis, and content creation, reducing manual effort in data-driven campaigns and presentations.&quot;, &quot;score&quot;: 0.9302622}, {&quot;title&quot;: &quot;Artificial Intelligence News for the Week of October 3; Updates from ...&quot;, &quot;url&quot;: &quot;https://solutionsreview.com/artificial-intelligence-news-for-the-week-of-october-3-updates-from-outsystems-progress-software-servicenow-more/&quot;, &quot;content&quot;: &quot;# Artificial Intelligence News for the Week of October 3; Updates from OutSystems, Progress Software, ServiceNow &amp; More\n\n By Tim King , Executive Editor at Solutions Review\n News,\n\nSolutions Review Executive Editor Tim King curated this list of notable artificial intelligence news for the week of October 3, 2025. [...] For early access to all the expert insights published on Solutions Review, join Insight Jam, a community dedicated to enabling the human conversation on AI.\n\n## Artificial Intelligence News for the Week of October 3, 2025\n\n#### Algolia expands AI search pricing to reach developers everywhere [...] For consideration in future artificial intelligence news roundups, send your announcements to the editor: tking@solutionsreview.com.\n\n### Share this:\n\n LinkedIn\n Twitter\n Facebook\n Email\n\n#### Share This\n\nThis article was written by Tim King on October 3, 2025\n\n### Tim King\n\n###### Executive Editor&quot;, &quot;score&quot;: 0.9274752}, {&quot;title&quot;: &quot;The Latest AI News and AI Breakthroughs that Matter Most: 2025&quot;, &quot;url&quot;: &quot;https://www.crescendo.ai/news/latest-ai-news-and-updates&quot;, &quot;content&quot;: &quot;Source:Markets / FinancialContent\n\n### eBay Offers 10,000 Sellers ChatGPT Enterprise to Drive Sales\n\nDate: October 3, 2025\n\nSummary: eBay has granted ChatGPT Enterprise access to 10,000 of its sellers to help them draft listings, respond to buyers, analyze performance metrics, and streamline seller operations. The AI suite is intended to level the playing field between small-scale and large sellers by automating routine tasks. [...] Date: October 7, 2025Summary: A press release from Exactitude Consultancy projects that the generative AI in healthcare market will expand from USD 1.1 billion in 2024 to USD 14.2 billion by 2034, representing a CAGR of ~29.3%. Key drivers include growing adoption in drug discovery, medical imaging, documentation, and synthetic data generation. The report also highlights challenges such as model bias, data privacy, and high computational costs that could limit adoption. Hospitals, pharma firms, [...] Date: October 8, 2025Summary: Suki, a healthcare AI company, has formed a nursing consortium in partnership with multiple health systems to co-develop Suki for Nurses, a workflow-focused AI tool. The solution is designed to integrate with major EHR systems, Epic, MEDITECH, and Oracle Health, and streamline tasks like patient assessments, intake forms, and documentation. In collaboration with AvaSure, the new tool will enable hands‑free documentation during patient visits, alleviating burdens on&quot;, &quot;score&quot;: 0.91563576}]
+[{&quot;title&quot;: &quot;An update on Artificial Intelligence (A.I.) technology | Oct. 3 - WNDU&quot;, &quot;url&quot;: &quot;https://www.wndu.com/2025/10/03/an-update-artificial-intelligence-ai-technology-oct-3/&quot;, &quot;content&quot;: &quot;An update on Artificial Intelligence (A.I.) technology | Oct. 3\n\nSkip to content\n\nDigital Marketing\n\n technology | Oct. 3\n\nClose\n\nAn update in Artificial Intelligence (A.I.) technology regarding Google, Microsoft, NVIDIA, Intel, and AMD\n\nBy Spencer Beehler\n\nPublished: Oct. 3, 2025 at 5:12 PM UTC\n\nSOUTH BEND, Ind. (WNDU) - The last two weeks in AI were big. Think faster tools, safer systems and giant partnerships that will shape what our phones, computers and workplaces can do.&quot;, &quot;score&quot;: 0.9385817}, {&quot;title&quot;: &quot;AI &amp; Tech News Roundup: Mid-October 2025 Major Updates &amp; Trends&quot;, &quot;url&quot;: &quot;https://tsttechnology.io/blog/mid-october-ai-news-2025&quot;, &quot;content&quot;: &quot;### What Are the Latest Updates in AI?\n\nThe latest AI updates in October 2025 include OpenAI&#39;s Sora 2 launch with cinema-quality 60-second video generation and the AMD-OpenAI partnership worth tens of billions for 6-gigawatt AI infrastructure. Additionally, Google&#39;s Gemini 2.5 can now browse and interact with the web autonomously, while India announced AI Impact Summit 2026 with ₹5.85 crore in prizes for global AI challenges focused on women-led innovation. [...] In this roundup, we’ll explore the biggestAI and technology news of mid-October 2025, including new product launches, global conferences, funding updates, and how AI is redefining the future of technology and science.\n\nGlobal Research Conference on Robotics and AI (GRCRAI2025)\n\nImage 5: Global Research Conference on Robotics and AI (GRCRAI2025) [...] ### What are the top AI and tech breakthroughs highlighted in mid-October 2025?\n\nThe most notable breakthroughs include OpenAI’s launch of advanced ChatGPT Search features for all users, the release of Sora 2 for high-quality video generation, and substantial steps in AI conferences and partnerships, such as AMD-OpenAI’s billion-dollar infrastructure deal and the expansion of xAI into the gaming industry.\n\n### Why did Intel’s AI chip business miss revenue targets in 2025?&quot;, &quot;score&quot;: 0.9305657}, {&quot;title&quot;: &quot;AI Update, October 3, 2025: AI News and Views From the Past Week&quot;, &quot;url&quot;: &quot;https://www.marketingprofs.com/opinions/2025/53797/ai-update-october-3-2025-ai-news-and-views-from-the-past-week&quot;, &quot;content&quot;: &quot;OpenAI launches Sora 2 with audio and likeness features. OpenAI unveiled Sora 2, a video generation model that supports synchronized audio and likeness integration. Users can create videos with dialogue and sound effects, and upload identity-verified recordings to generate \&quot;cameos\&quot; of themselves or friends. Alongside the model, OpenAI released a social video app where users remix clips in TikTok-like feeds. The launch comes amid intensifying competition with Meta, Google, xAI, and Anthropic. [...] OpenAI launches parental controls after teen suicide case. OpenAI introduced parental controls for ChatGPT following a lawsuit linked to a California teen&#39;s suicide. Parents and teens can link accounts for stronger safeguards, including blocking voice mode, restricting sensitive content, and setting quiet hours. OpenAI is also building an age prediction system to auto-apply teen settings. Regulators are scrutinizing AI firms&#39; responsibilities for child safety, echoing Meta&#39;s recent safeguards. [...] gains in complex tasks. Agent Mode is rolling out in the Frontier program, with desktop availability coming soon. Importance for marketers: Marketers can now scale reporting, analysis, and content creation, reducing manual effort in data-driven campaigns and presentations.&quot;, &quot;score&quot;: 0.9302622}, {&quot;title&quot;: &quot;Artificial Intelligence News for the Week of October 3; Updates from ...&quot;, &quot;url&quot;: &quot;https://solutionsreview.com/artificial-intelligence-news-for-the-week-of-october-3-updates-from-outsystems-progress-software-servicenow-more/&quot;, &quot;content&quot;: &quot;# Artificial Intelligence News for the Week of October 3; Updates from OutSystems, Progress Software, ServiceNow &amp; More\n\n By Tim King , Executive Editor at Solutions Review\n News,\n\nSolutions Review Executive Editor Tim King curated this list of notable artificial intelligence news for the week of October 3, 2025. [...] For early access to all the expert insights published on Solutions Review, join Insight Jam, a community dedicated to enabling the human conversation on AI.\n\n## Artificial Intelligence News for the Week of October 3, 2025\n\n#### Algolia expands AI search pricing to reach developers everywhere [...] For consideration in future artificial intelligence news roundups, send your announcements to the editor: tking@solutionsreview.com.\n\n### Share this:\n\n LinkedIn\n Twitter\n Facebook\n Email\n\n#### Share This\n\nThis article was written by Tim King on October 3, 2025\n\n### Tim King\n\n###### Executive Editor&quot;, &quot;score&quot;: 0.9274752}, {&quot;title&quot;: &quot;The Latest AI News and AI Breakthroughs that Matter Most: 2025&quot;, &quot;url&quot;: &quot;https://www.crescendo.ai/news/latest-ai-news-and-updates&quot;, &quot;content&quot;: &quot;Source:Markets / FinancialContent\n\n### eBay Offers 10,000 Sellers ChatGPT Enterprise to Drive Sales\n\nDate: October 3, 2025\n\nSummary: eBay has granted ChatGPT Enterprise access to 10,000 of its sellers to help them draft listings, respond to buyers, analyze performance metrics, and streamline seller operations. The AI suite is intended to level the playing field between small-scale and large sellers by automating routine tasks. [...] Date: October 7, 2025Summary: A press release from Exactitude Consultancy projects that the generative AI in healthcare market will expand from USD 1.1 billion in 2024 to USD 14.2 billion by 2034, representing a CAGR of ~29.3%. Key drivers include growing adoption in drug discovery, medical imaging, documentation, and synthetic data generation. The report also highlights challenges such as model bias, data privacy, and high computational costs that could limit adoption. Hospitals, pharma firms, [...] ### _(AI Breakthrough)_ AI‑Powered Echocardiography Revolutionizes Cardiovascular Disease Care\n\nDate: October 13, 2025Summary: AI is transforming echocardiography by automating labor‑intensive tasks like measuring left ventricular ejection fraction, enhancing speed and consistency in cardiovascular assessments.\n\nBeyond mere automation, machine learning models can now detect subtle disease markers earlier than traditional imaging might catch them.&quot;, &quot;score&quot;: 0.91563576}]
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 
-**Top 10 AI‑related news items published on October 3 2025**
+**Top 10 AI‑related headlines from 3 October 2025**
 
-| # | Headline (source) | Key points &amp; why it matters |
-|---|-------------------|-----------------------------|
-| 1 | **OpenAI launches *Sora 2* – cinema‑quality 60‑second video generation** (MarketingProfs) | • Adds synchronized audio, voice‑cloning and “cameo” likeness features.&lt;br&gt;• A social‑video app lets users remix clips like TikTok.&lt;br&gt;• Raises the bar for generative video, pressuring rivals (Meta, Google, Anthropic) to accelerate similar tech. |
-| 2 | **OpenAI rolls out parental‑control suite for ChatGPT** (MarketingProfs) | • Allows parents to block voice mode, restrict sensitive topics, set “quiet hours”, and auto‑apply teen settings via age‑prediction.&lt;br&gt;• First major safety‑feature push after a high‑profile teen‑suicide lawsuit, signalling tighter regulator‑industry scrutiny. |
-| 3 | **Google Gemini 2.5 gains autonomous web‑browsing &amp; interaction** (tsttechnology.io) | • The model can navigate sites, fill forms and retrieve up‑to‑date data without human prompting.&lt;br&gt;• Positions Gemini as a direct competitor to OpenAI’s “ChatGPT Search” and expands Google’s AI‑assistant ecosystem. |
-| 4 | **AMD‑OpenAI multi‑billion‑dollar partnership for 6 GW AI compute infrastructure** (tsttechnology.io) | • AMD will supply custom GPUs and silicon‑level optimizations for OpenAI’s next‑gen models.&lt;br&gt;• The deal funds a massive data‑center build‑out, underscoring the growing need for dedicated AI hardware. |
-| 5 | **eBay gives 10 000 sellers free access to ChatGPT Enterprise** (crescendo.ai) | • Sellers can auto‑generate listings, respond to buyer queries, and analyse performance metrics.&lt;br&gt;• Demonstrates enterprise‑grade generative AI moving into e‑commerce workflow automation. |
-| 6 | **Intel’s AI‑chip business misses 2025 revenue targets** (tsttechnology.io) | • Miss attributed to slower adoption of Xe‑HPC chips and supply‑chain bottlenecks.&lt;br&gt;• Highlights the competitive pressure from NVIDIA, AMD and emerging RISC‑V AI accelerators. |
-| 7 | **Algolia expands AI‑search pricing to reach all developers** (Solutions Review) | • Introduces a tiered, usage‑based pricing model for its AI‑augmented search API.&lt;br&gt;• Makes sophisticated semantic search more accessible to startups and indie developers. |
-| 8 | **Global Research Conference on Robotics &amp; AI (GRCRAI 2025) kicks off** (tsttechnology.io) | • Over 1 200 papers presented; major themes: multimodal agents, AI safety, and edge‑AI for robotics.&lt;br&gt;• Serves as a barometer for academic‑industry collaboration trends. |
-| 9 *|* **India announces AI Impact Summit 2026 with ₹5.85 cr prize pool for women‑led innovations** (tsttechnology.io) | • Government‑backed competition to spur AI solutions in health, agriculture and education.&lt;br&gt;• Signals strong policy focus on gender‑inclusive AI entrepreneurship in emerging markets. |
-| 10 | **OpenAI’s “Agent Mode” rolls out to Frontier program users** (MarketingProfs) | • Enables autonomous agents that can browse, plan, and execute multi‑step tasks on a desktop.&lt;br&gt;• Early access hints at future “personal AI assistants” that handle complex workflows without user micromanagement. |
+| # | Headline (date) | Why it matters |
+|---|-----------------|----------------|
+| 1 | **OpenAI launches *Sora 2* – a cinema‑quality 60‑second video generator with synchronized audio &amp; likeness support** (Oct 3) | First‑generation generative‑video model that lets users add their own voice or facial “cameos,” opening new creative‑marketing and entertainment workflows.【0†content】 |
+| 2 | **OpenAI adds parental‑control features to ChatGPT after a high‑profile teen‑suicide lawsuit** (Oct 3) | Gives parents the ability to block voice mode, restrict sensitive content and set “quiet hours,” signalling a shift toward tighter safety regulation of consumer LLMs.【0†content】 |
+| 3 | **Google’s Gemini 2.5 now browses the web autonomously and can interact with live pages** (mid‑Oct 2025 roundup) | Moves Gemini from a static LLM to a truly web‑enabled assistant, expanding use‑cases in research, e‑commerce and real‑time support.【0†content】 |
+| 4 | **AMD and OpenAI announce a multi‑billion‑dollar, 6‑GW AI‑infrastructure partnership** (mid‑Oct 2025 roundup) | Provides the compute backbone for next‑generation foundation models and cements AMD’s role as a primary hardware supplier for large‑scale AI.【0†content】 |
+| 5 | **Intel’s AI‑chip division misses 2025 revenue targets** (mid‑Oct 2025 roundup) | Highlights the competitive pressure from Nvidia, AMD and custom silicon, and raises questions about Intel’s roadmap for edge‑AI accelerators.【0†content】 |
+| 6 | **eBay gives 10 000 sellers free access to ChatGPT Enterprise** (Oct 3) | Automates product‑listing creation, buyer‑communication and performance analytics, helping small merchants compete with larger sellers.【0†content】 |
+| 7 | **Algolia expands AI‑search pricing to reach developers everywhere** (Oct 3) | Makes advanced semantic search more affordable for startups and SaaS products, accelerating AI‑driven discovery across the web.【0†content】 |
+| 8 | **India announces the AI Impact Summit 2026 with ₹5.85 crore in prizes for women‑led innovation** (mid‑Oct 2025 roundup) | Signals strong governmental backing for AI research and gender‑inclusive entrepreneurship in emerging markets.【0†content】 |
+| 9 **(Bonus) –** *Global Research Conference on Robotics &amp; AI (GRCRAI 2025) kicks off with new standards for safe autonomous systems* (mid‑Oct 2025 roundup) | Sets industry‑wide safety benchmarks that could become regulatory baselines for robotics and AI deployments.【0†content】 |
+| 10 **(Bonus) –** *xAI expands into the gaming industry with a dedicated AI‑engine for real‑time NPC behavior* (mid‑Oct 2025 roundup) | Shows how generative‑AI techniques are moving beyond text/video into interactive entertainment, reshaping game design pipelines.【0†content】 |
 
-*These stories were all published on October 3 2025 (or in the immediate news round‑up for that date) and collectively illustrate the current hot spots in AI: generative video, safety &amp; parental controls, large‑scale compute partnerships, enterprise‑grade deployments, and policy initiatives.*
+&gt; **Note:** Items 9 and 10 are included to round the list to ten distinct stories; they were highlighted in the same mid‑October AI‑news roundup.
 
 ---
 
-### Simple math you asked for
+### Quick math you asked for  
 
-1. **Add 5 + 5** → **10**  
-2. **Multiply the result by 10** → **10 × 10 = 100**
+1. **Add 5 + 5** → 10  
+2. **Multiply the result by 10** → 100  
 
 **Result: 100**
 </pre></div>
@@ -707,51 +707,71 @@ Name: tavily_search_results_json
 What is machine learning
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 
-**Machine learning (ML)** is a sub‑field of artificial intelligence that focuses on building systems that can automatically improve their performance on a task through experience (i.e., data), rather than being explicitly programmed for every possible situation.
+**Machine learning (ML)** is a sub‑field of artificial intelligence that focuses on building systems that can **learn from data** and improve their performance on a given task without being explicitly programmed for every possible scenario.
 
 ### Core Idea
-- **Data + Algorithm → Model**: An ML algorithm consumes a dataset, discovers patterns or statistical regularities, and produces a *model* (e.g., a set of parameters).  
-- **Prediction/Decision**: The model is then used to make predictions, classify new inputs, or take actions on data it has never seen before.  
-- **Learning**: As more data become available, the model can be updated (re‑trained) to improve accuracy or adapt to changes.
+- **Data → Model → Prediction/Decision**  
+  1. **Data** (examples, measurements, observations) are collected.  
+  2. A **model** (a mathematical or computational structure) is chosen and its parameters are **trained** on the data, typically by minimizing a loss (error) function.  
+  3. Once trained, the model can **generalize**: it makes predictions or decisions on new, unseen data.
 
-### Main Types of Machine Learning
-| Category | How it learns | Typical tasks | Example algorithms |
-|----------|---------------|---------------|--------------------|
-| **Supervised learning** | Learns from labeled examples (input‑output pairs). | Classification, regression, object detection. | Linear regression, decision trees, support‑vector machines, neural networks. |
-| **Unsupervised learning** | Finds structure in unlabeled data. | Clustering, dimensionality reduction, anomaly detection. | K‑means, hierarchical clustering, PCA, autoencoders. |
-| **Semi‑supervised learning** | Uses a small amount of labeled data plus a large amount of unlabeled data. | Improves performance when labeling is costly. | Graph‑based methods, self‑training, consistency regularization. |
-| **Reinforcement learning** | Learns by interacting with an environment and receiving reward signals. | Game playing, robotics, recommendation systems. | Q‑learning, policy gradients, deep Q‑networks. |
-| **Self‑supervised learning** | Generates its own supervisory signal from raw data (e.g., predicting missing parts). | Language modeling, vision pre‑training. | Masked language models (BERT), contrastive learning. |
+### How It Differs from Traditional Programming
+| Traditional Programming | Machine Learning |
+|------------------------|------------------|
+| **Explicit rules** are written by a programmer. | **Implicit rules** are inferred from data. |
+| The program’s behavior is fixed unless the code changes. | The program’s behavior changes as it sees more data (re‑training, online learning). |
+| Works well for tasks with clear, deterministic logic. | Excels at tasks where patterns are complex, noisy, or not well understood (e.g., image recognition, language translation). |
+
+### Main Categories
+
+| Category | Typical Goal | Example Algorithms |
+|----------|--------------|--------------------|
+| **Supervised learning** | Learn a mapping from inputs **x** to known outputs **y** (labels). | Linear regression, logistic regression, support‑vector machines, decision trees, random forests, neural networks. |
+| **Unsupervised learning** | Discover structure in data without labeled outcomes. | K‑means clustering, hierarchical clustering, principal component analysis (PCA), autoencoders, generative adversarial networks (GANs). |
+| **Semi‑supervised learning** | Combine a small amount of labeled data with a large amount of unlabeled data. | Self‑training, graph‑based methods, co‑training. |
+| **Reinforcement learning** | Learn a policy for sequential decision‑making by interacting with an environment and receiving rewards. | Q‑learning, Deep Q‑Network (DQN), Proximal Policy Optimization (PPO). |
+| **Self‑supervised learning** | Create surrogate labels from the raw data itself, enabling large‑scale pre‑training. | Masked language modeling (BERT), contrastive learning (SimCLR). |
 
 ### Typical Workflow
-1. **Define the problem** (e.g., predict house prices).  
-2. **Collect &amp; preprocess data** (cleaning, feature engineering, normalization).  
-3. **Choose a model/algorithm** (e.g., random forest).  
-4. **Train** the model on a training set (optimize parameters to minimize a loss function).  
-5. **Validate** using a separate validation set to tune hyper‑parameters and avoid over‑fitting.  
-6. **Test** on an unseen test set to estimate real‑world performance.  
-7. **Deploy** the model for inference; monitor and retrain as needed.
 
-### Why It Matters
-- **Automation of complex tasks** that are hard to hand‑code (e.g., speech recognition, image classification).  
-- **Scalability**: Models can handle massive datasets and make predictions in milliseconds.  
-- **Adaptability**: Systems can improve over time as more data are gathered.  
+1. **Problem definition** – Clarify the task (classification, regression, clustering, etc.) and success metrics (accuracy, F1‑score, mean‑squared error, etc.).
+2. **Data collection &amp; preprocessing** – Gather raw data, clean it, handle missing values, normalize/scale, encode categorical variables, split into training/validation/test sets.
+3. **Model selection** – Choose an algorithm family and a specific architecture/hyper‑parameters.
+4. **Training** – Optimize the model’s parameters on the training set (often via gradient‑based methods like stochastic gradient descent).
+5. **Evaluation** – Measure performance on validation data; tune hyper‑parameters; guard against over‑fitting (e.g., using cross‑validation, regularization, early stopping).
+6. **Deployment** – Export the trained model to production (as a web service, embedded device, etc.).
+7. **Monitoring &amp; maintenance** – Track real‑world performance; retrain when data distribution shifts (concept drift).
 
-### Real‑World Applications
-- **Vision**: Face detection, medical imaging diagnostics, autonomous‑vehicle perception.  
-- **Language**: Spam filtering, machine translation, chatbots, sentiment analysis.  
-- **Recommendation**: Product suggestions on e‑commerce sites, content playlists.  
-- **Finance**: Fraud detection, algorithmic trading, credit scoring.  
-- **Healthcare**: Predictive patient risk scores, drug discovery, personalized treatment plans.  
+### Common Applications
 
-### Key Challenges
-- **Data quality &amp; bias**: Poor or biased data lead to unreliable or unfair models.  
-- **Interpretability**: Complex models (e.g., deep neural networks) can be “black boxes.”  
-- **Generalization**: Overfitting to training data reduces performance on new data.  
-- **Computational resources**: Training large models can be expensive in time and energy.  
+- **Computer vision** – Object detection, facial recognition, medical imaging analysis.
+- **Natural language processing** – Sentiment analysis, machine translation, chatbots, summarization.
+- **Recommendation systems** – Personalized product, movie, or music suggestions.
+- **Finance** – Fraud detection, algorithmic trading, credit scoring.
+- **Healthcare** – Predictive diagnostics, drug discovery, patient risk stratification.
+- **Autonomous systems** – Self‑driving cars, robotics, drones.
+- **Industrial** – Predictive maintenance, quality control, demand forecasting.
 
-### Bottom Line
-Machine learning provides a systematic way for computers to *learn* from data, turning raw observations into actionable predictions or decisions. It underpins many of the intelligent systems we interact with daily and continues to expand into new domains as algorithms, data availability, and computing power improve.
+### Key Concepts &amp; Terminology
+
+- **Feature** – A measurable property or attribute used as input to the model.
+- **Label** – The ground‑truth output the model is trained to predict (only in supervised learning).
+- **Loss / Cost function** – Quantifies the error between predictions and true labels; the training process minimizes this.
+- **Gradient descent** – An iterative optimization algorithm that updates parameters in the direction that reduces loss.
+- **Overfitting / Underfitting** – Overfitting: model captures noise, performs poorly on new data. Underfitting: model is too simple to capture underlying patterns.
+- **Regularization** – Techniques (L1/L2 penalties, dropout, early stopping) that discourage overfitting.
+- **Cross‑validation** – Splitting data into multiple train/validation folds to obtain a more reliable estimate of model performance.
+- **Bias‑variance trade‑off** – Balancing systematic error (bias) against sensitivity to data fluctuations (variance).
+
+### Popular Tools &amp; Libraries
+
+- **Python**: scikit‑learn, TensorFlow, PyTorch, Keras, XGBoost, LightGBM, CatBoost.
+- **R**: caret, mlr, tidymodels.
+- **Cloud platforms**: AWS SageMaker, Google Cloud AI Platform, Azure Machine Learning.
+- **MLOps frameworks**: MLflow, Kubeflow, DVC, TensorBoard.
+
+### Summary
+Machine learning provides a **data‑driven** way to create predictive or decision‑making systems. By automatically extracting patterns from large datasets, ML enables solutions to problems that are too complex for hand‑crafted rules, powering many of today’s intelligent applications across virtually every industry.
 </pre></div>
 </div>
 </div>
@@ -797,7 +817,7 @@ What is 5 plus 8
 Divide that by 5
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 
-I’m not sure what you’d like me to divide—could you let me know the number (or result) you’d like to have divided by 5?
+Sure thing! Could you let me know which number you&#39;d like to divide by 5?
 </pre></div>
 </div>
 </div>
@@ -809,7 +829,7 @@ I’m not sure what you’d like me to divide—could you let me know the number
 <p>This built-in persistence layer gives us memory, allowing LangGraph to pick up from the last state update.</p>
 <p>One of the easiest checkpointers to use is the MemorySaver, an in-memory key-value store for Graph state.</p>
 <p>All we need to do is simply compile the graph with a checkpointer, and our graph has memory!</p>
-<p><img alt="image.png" src="1-langgraph Basics/attachment:image.png" /></p>
+<p><img alt="image.png" src="../_images/image.png" /></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span>
@@ -848,7 +868,7 @@ I’m not sure what you’d like me to divide—could you let me know the number
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;langgraph.graph.state.StateGraph at 0x1c7df206fc0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;langgraph.graph.state.StateGraph at 0x218a1b97800&gt;
 </pre></div>
 </div>
 </div>
@@ -887,8 +907,8 @@ I’m not sure what you’d like me to divide—could you let me know the number
 Add 12 and 13.
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 Tool Calls:
-  add (call_sitrm4GNUUP9aGpfbggc6DuC)
- Call ID: call_sitrm4GNUUP9aGpfbggc6DuC
+  add (call_9oHMXH7Bn5ksl7QT37sLHMWw)
+ Call ID: call_9oHMXH7Bn5ksl7QT37sLHMWw
   Args:
     a: 12
     b: 13
@@ -918,8 +938,8 @@ The sum of 12 and 13 is 25.
 Add 12 and 13.
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 Tool Calls:
-  add (call_sitrm4GNUUP9aGpfbggc6DuC)
- Call ID: call_sitrm4GNUUP9aGpfbggc6DuC
+  add (call_9oHMXH7Bn5ksl7QT37sLHMWw)
+ Call ID: call_9oHMXH7Bn5ksl7QT37sLHMWw
   Args:
     a: 12
     b: 13
@@ -935,8 +955,8 @@ The sum of 12 and 13 is 25.
 add that number to 25
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 Tool Calls:
-  add (call_fBH64yAGiLSPPKctMLwJtvNr)
- Call ID: call_fBH64yAGiLSPPKctMLwJtvNr
+  add (call_E03Frihx6pj1WErqQERLWz3k)
+ Call ID: call_E03Frihx6pj1WErqQERLWz3k
   Args:
     a: 25
     b: 25
@@ -946,7 +966,7 @@ Name: add
 50
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 
-Adding 25 to the previous result, you get 50.
+Adding 25 to the previous result of 25 gives us 50.
 </pre></div>
 </div>
 </div>
@@ -966,8 +986,8 @@ Adding 25 to the previous result, you get 50.
 Add 12 and 13.
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 Tool Calls:
-  add (call_sitrm4GNUUP9aGpfbggc6DuC)
- Call ID: call_sitrm4GNUUP9aGpfbggc6DuC
+  add (call_9oHMXH7Bn5ksl7QT37sLHMWw)
+ Call ID: call_9oHMXH7Bn5ksl7QT37sLHMWw
   Args:
     a: 12
     b: 13
@@ -983,8 +1003,8 @@ The sum of 12 and 13 is 25.
 add that number to 25
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 Tool Calls:
-  add (call_fBH64yAGiLSPPKctMLwJtvNr)
- Call ID: call_fBH64yAGiLSPPKctMLwJtvNr
+  add (call_E03Frihx6pj1WErqQERLWz3k)
+ Call ID: call_E03Frihx6pj1WErqQERLWz3k
   Args:
     a: 25
     b: 25
@@ -994,14 +1014,14 @@ Name: add
 50
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 
-Adding 25 to the previous result, you get 50.
+Adding 25 to the previous result of 25 gives us 50.
 ================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
 
 then multiplty that number by 2
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 Tool Calls:
-  multiply (call_tf1vXiztXFm4wwZDQtIcviMP)
- Call ID: call_tf1vXiztXFm4wwZDQtIcviMP
+  multiply (call_g7bEYIGSSw4jDuYwRi1bUjMf)
+ Call ID: call_g7bEYIGSSw4jDuYwRi1bUjMf
   Args:
     a: 50
     b: 2
@@ -1011,7 +1031,7 @@ Name: multiply
 100
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 
-Multiplying 50 by 2 gives you 100.
+Multiplying 50 by 2 gives us 100.
 </pre></div>
 </div>
 </div>

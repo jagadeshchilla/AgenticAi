@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -371,7 +371,7 @@ document.write(`
 <li><p>Merging their outputs into a downstream node if needed.</p></li>
 </ul>
 <p>LangGraph handles this implicitly when nodes are independent and can leverage multi-threading or asynchronous execution under the hood, depending on the runtime environment (e.g., Python’s asyncio or a multi-threaded executor).</p>
-<p><img alt="image.png" src="4- Workflows/attachment:image.png" /></p>
+<p><img alt="image.png" src="../_images/image2.png" /></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -393,7 +393,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello! How can I assist you today?&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;The user says &quot;Hello&quot;. We need to respond politely. No special instructions. Just greet.&#39;}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 38, &#39;prompt_tokens&#39;: 72, &#39;total_tokens&#39;: 110, &#39;completion_time&#39;: 0.079271607, &#39;prompt_time&#39;: 0.002877033, &#39;queue_time&#39;: 0.047250076, &#39;total_time&#39;: 0.08214864}, &#39;model_name&#39;: &#39;openai/gpt-oss-120b&#39;, &#39;system_fingerprint&#39;: &#39;fp_e88ce9c728&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--2fb612d6-6fb7-4f76-b949-8bf1c6070906-0&#39;, usage_metadata={&#39;input_tokens&#39;: 72, &#39;output_tokens&#39;: 38, &#39;total_tokens&#39;: 110})
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello! How can I assist you today?&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;The user just says &quot;Hello&quot;. Need to respond politely. No special instructions. Use friendly greeting.&#39;}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 39, &#39;prompt_tokens&#39;: 72, &#39;total_tokens&#39;: 111, &#39;completion_time&#39;: 0.08111131, &#39;prompt_time&#39;: 0.002651904, &#39;queue_time&#39;: 0.052154206, &#39;total_time&#39;: 0.083763214}, &#39;model_name&#39;: &#39;openai/gpt-oss-120b&#39;, &#39;system_fingerprint&#39;: &#39;fp_fd1fe7f861&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--4658116a-5dd3-4910-9a27-0d1ab40841e1-0&#39;, usage_metadata={&#39;input_tokens&#39;: 72, &#39;output_tokens&#39;: 39, &#39;total_tokens&#39;: 111})
 </pre></div>
 </div>
 </div>
@@ -458,7 +458,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;langgraph.graph.state.StateGraph at 0x14165767dd0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;langgraph.graph.state.StateGraph at 0x1d718310950&gt;
 </pre></div>
 </div>
 </div>
@@ -494,29 +494,51 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The tide was a black mirror, swallowing the neon‑smeared skyline and the soot‑capped smokestacks of a city that had never learned which century it belonged to. On the ragged edge of that impossible horizon the Chrono‑Harbor clung to existence like a rusted hinge on a door that opened onto every age at once.  
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>**The Clockwork Lighthouse sang its lonely hymn, and the harbor held its breath.**  
 
-Liora Vance stood on the weather‑worn planks, the silver pocket watch at her throat ticking backward in perfect, maddening rhythm. Each click was a reminder that the equations she’d whispered into the night—half‑finished, half‑sung—were not just theoretical curiosities but keys to a door that could unmake the world she’d sworn to protect. She traced the watch’s cold case with a fingertip, feeling the faint vibration of the Chrono‑Gate’s rim pulse in sync with her own heart.  
+Dr. Liora “Lia” Voss stood on the weather‑worn pier of the Chrono‑Harbor, the thin mist curling around her boots like a ghost that refused to leave. The perpetual twilight above smeared the sea in bruised indigo, the amber ribbons of a sun that never rose flickering on the water’s surface. In one hand she cradled the Chrono‑Key—a matte‑black slab of alloy etched with a lattice of quantum filaments that pulsed faintly, as if breathing. In the other, she twisted the worn pocket watch that never ticked, its still hands a stubborn reminder that some things refused to move forward.
 
-Beside her, Kade Ramos flipped open his battered leather journal, the pages a chaotic cartography of eras he’d already survived. “Do not touch the 2124‑03‑17 node,” he muttered, his sarcasm a thin veneer over a deeper, protective instinct. He had learned, the hard way, that a misplaced footstep in the past could turn a bustling market square into a ghost town, or a whispered promise into a war‑cry. His eyes, narrowed against the amber glow of a plasma lantern that shifted to a cautious cyan at his presence, flicked to the swirling vortex of the Chrono‑Gate.  
+She had built the Key to open brief windows—seconds, maybe minutes—into other eras, a device that could glimpse the past without stepping into it. The theory was elegant, the math flawless, but the reality was a trembling wire stretched across a canyon of unknown consequences. And now, with the Temporal Engine humming behind her, the wire was humming back.
 
-The Gate itself was a circle of impossible gold, emerald and violet, each hue spiraling slower than a heartbeat yet faster than a thought. Etched glyphs glowed faintly, a language that never existed in any single timeline but felt eerily familiar to every traveler who had ever stood before it. In the corner of the Rift Garden, bioluminescent vines crept up rusted railings, their light pulsing in time with the gate, as if the garden itself were breathing.
+The lighthouse’s brass gears turned both forward and backward in a maddening rhythm, each click a metronome for the tide of time itself. Its lantern glowed with liquid crystal, shifting through every hue of sunrise in a heartbeat, casting a kaleidoscope of light onto the cracked cobblestones. Vines that blossomed and wilted in sync with the gears slipped through the cracks of the warehouses, their petals whispering fragments of conversations from centuries ago—horse‑drawn carriage clatter, the distant roar of jet engines, a lover’s promise in a language no longer spoken.
 
-Liora had come here to test the Chrono‑Loop theory—a hypothesis she’d been forced to abandon after a catastrophic mis‑calculation erased a semester’s worth of graduate students from the university’s records and left her reputation in tatters. The theory claimed that somewhere within the fabric of time lay a pocket of reality that repeated itself like a perfect loop, a safe haven where causality could be rewritten without tearing the surrounding timeline. It was a rumor whispered among the Keepers, dismissed as myth until Liora’s own instruments began to pick up a faint, periodic echo—an anomaly that sang in the same backward tick as her watch.
+A figure slipped out of the shadows of the largest warehouse, his silhouette framed by the phosphorescent river that fed the Temporal Engine. Kade “Kade” Marlowe grinned, the crooked smile of someone who had learned to read the world by its stories rather than its statutes.
 
-“Got it,” she said, voice barely more than a breath, as the gate’s low thrum resonated through the dock’s steel and polymer walkways. “It’s not a gate at all. It’s a pocket. A loop. And it’s… collapsing.”
+“Looks like the lighthouse finally decided to give us a proper welcome,” he called, his voice carrying the easy cadence of a street‑corner storyteller. He lifted his hand, revealing a small wooden amulet, its surface carved with a pattern that seemed to shift when you weren’t looking. “Grandma always said an anchor keeps you from drifting when the tide turns. Guess she was onto something.”
 
-Kade slammed his journal shut, the leather thudding against his palm. “Ancient paradox, you mean? The one that devours everything that tries to change it?”
+Lia offered a thin smile, the kind she reserved for colleagues who asked about her childhood. “If we’re drifting, I’d rather we don’t lose the dock entirely.” She pressed the Chrono‑Key into the console of the Temporal Engine. The mercury vortex at its core swirled, reflecting not just the present but flickers of every possible past—a child’s laughter in a sun‑lit garden, a laboratory explosion, a silent hallway where a name was whispered and then forgotten.
 
-She nodded, eyes narrowing on the vortex. The Chrono‑Gate was not merely a portal; it was a hinge on which the entire chronology of the harbor turned. If the loop she’d found were to unwind, the whole river of time would surge forward in a single, uncontrolled torrent—obliterating the present, the past, the future. The paradox that guarded the pocket was older than any human record, a self‑correcting algorithm woven into the universe’s own code. To break it, she would have to insert a new variable—her own hand, her own choice—into a sequence that had never allowed deviation.
+The Engine thrummed, and the air grew thick with the metallic taste of iron and the distant hum of machinery that seemed to come from nowhere and everywhere at once. A low, resonant tone rose from the lighthouse’s gears, vibrating through the dock, through the water, through the very marrow of Lia’s bones. She felt the familiar pull of the Chrono‑Key’s field, a tug at the edges of her consciousness, as if the past were reaching out with a trembling hand.
 
-The air grew colder, the metallic mist settling like conductive droplets on her skin. A distant clank of a steam engine’s pistons merged with the high‑pitched chime of a hovering drone, creating a discordant symphony that seemed to count down to an inevitable climax. The lanterns above flickered from amber curiosity to a sharp crimson warning as the gate’s colors intensified, the vortex tightening like a knot about to snap.
+She closed her eyes and slipped the pocket watch into the pocket of her lab coat, feeling its cold, unmoving weight against her skin. The watch never ticked, but it anchored her thoughts, a point of stillness when the world threatened to unmoor her sense of self.
 
-“Ready?” Kade asked, his sarcasm gone, replaced by a rare, earnest steadiness. He slipped the journal into his coat, the “Do Not Touch” warnings now a promise to protect whatever fragile timeline they might still salvage.
+“Ready to see the Golden Age?” Kade asked, his eyes alight with the thrill of the unknown. “Or are you more interested in watching the past catch up to you?”
 
-Liora lifted her hand, the silver watch catching the crimson light, its hands moving ever backward. “If we don’t rewrite this loop, the whole Chrono‑Harbor… the entire river of time will drown in oblivion.” She stepped onto the rim of the gate, feeling the warm metal pulse in time with her own heartbeat. The paradox waited, ancient and patient, for a single misstep to seal its victory.
+Lia opened her eyes to the flickering light of the lighthouse, to the swirling mercury that showed a flash of a moment she had tried desperately to forget: a laboratory fire, a scream, a hallway lined with fire‑scented ash, and a small, empty cradle that had once held the sibling she lost to a lab accident she’d blamed on a miscalculated field. The memory was a wound that never healed, a wound she had tried to stitch with equations and sleepless nights.
 
-The vortex surged, swallowing the dock’s discordant sounds, the rusted girders, the bioluminescent vines, and the two figures standing at its edge. As the world folded into a kaleidoscope of past, present, and possible futures, Liora felt the weight of every moment she had ever lived—every equation, every regret—press against the back of her mind. The race had begun, and the only thing standing between the collapse of the timeline and a chance to rewrite history was a pocket of looping time, a paradox older than the stars, and the stubborn, puzzle‑loving heart of a physicist who still believed that even a single equation could change everything.
+“Two minutes,” she said, voice steadier than she felt. “That’s all we have before the window collapses. I need to send a message—”
+
+Kade’s grin faded into a look of concern. “A message back? You know what that does, right? You could… rewrite everything.”
+
+She nodded, the weight of the Chrono‑Key suddenly feeling like a stone in her palm. “If I can warn my younger self about the reactor overload—about the moment that took everything—I might save her. But the risk… the risk is that the whole timeline could fracture. The Chrono‑Key was never meant to be a scalpel; it’s a mirror. We could shatter it.”
+
+The lighthouse’s beacon swept across the horizon, its light cutting through the mist like a blade through fabric. For a heartbeat, the harbor seemed to hold its breath, the whispers of centuries converging into a single, expectant silence.
+
+Kade stepped closer, his amulet catching the shifting colors of the lantern. “Stories survive because they’re told, not because they’re perfect,” he murmured, the old proverb slipping from his tongue. “Maybe yours is a story that needs a different ending.”
+
+Lia placed her hand on the Chrono‑Key, feeling the faint vibration of the temporal field. The pocket watch in her pocket steadied her thoughts, its stillness a reminder that even when time moves forward, some things can remain fixed. She inhaled the salty, ozone‑laden air, let the low hum of the gears fill her ears, and whispered into the void:
+
+*“Listen. Don’t trust the reactor. Trust the watch. Trust the amulet.”*
+
+A pulse of blue‑white light erupted from the Core, the mercury vortex widening, the temporal window yawning open. In the split second before the collapse, Lia saw herself—Lia, twenty‑seven, hair in a messy bun, eyes wide with the same fierce curiosity that now drove her—standing in a lab, a coffee cup in hand, oblivious to the danger that would soon erupt.
+
+The moment stretched, then snapped. The Chrono‑Key’s surface flared, then dimmed. The harbor’s lantern steadied, its heartbeat returning to its endless rhythm. The mist swirled once more, carrying the faint echo of a voice from a future that might never be.
+
+Kade stared at the empty dock, his amulet humming softly against his chest. “Well,” he said, half‑joking, half‑grave, “if the past decides to rewrite itself, I hope it remembers to bring us a decent story.”
+
+Lia lowered the Chrono‑Key, the pocket watch still silent in her pocket. The decision had been made, but the consequences—like the tide that lapped forever against the Chrono‑Harbor—were still unknown. The lighthouse’s beacon swept across the waters, a lighthouse keeper guiding ships of years, while two strangers stood at the edge of every possible moment, ready to watch the world they knew either hold together or unravel. 
+
+The harbor waited, as it always had, for the next tide of time to arrive.
 </pre></div>
 </div>
 </div>
