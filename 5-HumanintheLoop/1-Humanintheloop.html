@@ -61,6 +61,8 @@
     <link rel="canonical" href="/5-HumanintheLoop/1-Humanintheloop.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Agentic RAG" href="../6-RAGS/1-AgenticRAG.html" />
+    <link rel="prev" title="Evaluator-optimizer" href="../4-%20Workflows/5-Evaluator-optimizer.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -123,8 +125,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -166,7 +166,7 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
@@ -195,6 +195,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/4-orchestrator-worker.html">Orchestrator-Worker</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Human In the Loop</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/1-AgenticRAG.html">Agentic RAG</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/1-agenticrag.html">Agentic RAG</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/2-ReAct.html">🤖 Implement ReAct with LangGraph-What is ReAct?</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
 
 
@@ -394,7 +404,7 @@ Now, let’s talk about the motivations for human-in-the-loop:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello. How can I assist you today?&#39;, additional_kwargs={}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 10, &#39;prompt_tokens&#39;: 36, &#39;total_tokens&#39;: 46, &#39;completion_time&#39;: 0.011542258, &#39;prompt_time&#39;: 0.00156344, &#39;queue_time&#39;: 0.04905918, &#39;total_time&#39;: 0.013105698}, &#39;model_name&#39;: &#39;llama-3.1-8b-instant&#39;, &#39;system_fingerprint&#39;: &#39;fp_7b3cfae3af&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--f711e6e2-9bac-4978-acba-8e769ad73a76-0&#39;, usage_metadata={&#39;input_tokens&#39;: 36, &#39;output_tokens&#39;: 10, &#39;total_tokens&#39;: 46})
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;How can I assist you today?&#39;, additional_kwargs={}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 8, &#39;prompt_tokens&#39;: 36, &#39;total_tokens&#39;: 44, &#39;completion_time&#39;: 0.010496111, &#39;prompt_time&#39;: 0.001869537, &#39;queue_time&#39;: 0.055077693, &#39;total_time&#39;: 0.012365648}, &#39;model_name&#39;: &#39;llama-3.1-8b-instant&#39;, &#39;system_fingerprint&#39;: &#39;fp_7b3cfae3af&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--1702f402-6a40-4a75-a270-274f46422ec5-0&#39;, usage_metadata={&#39;input_tokens&#39;: 36, &#39;output_tokens&#39;: 8, &#39;total_tokens&#39;: 44})
 </pre></div>
 </div>
 </div>
@@ -451,7 +461,7 @@ Now, let’s talk about the motivations for human-in-the-loop:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RunnableBinding(bound=ChatGroq(client=&lt;groq.resources.chat.completions.Completions object at 0x000001630F5AD880&gt;, async_client=&lt;groq.resources.chat.completions.AsyncCompletions object at 0x000001630F6E9760&gt;, model_name=&#39;llama-3.1-8b-instant&#39;, model_kwargs={}, groq_api_key=SecretStr(&#39;**********&#39;)), kwargs={&#39;tools&#39;: [{&#39;type&#39;: &#39;function&#39;, &#39;function&#39;: {&#39;name&#39;: &#39;add&#39;, &#39;description&#39;: &#39;Adds a and b.&#39;, &#39;parameters&#39;: {&#39;properties&#39;: {&#39;a&#39;: {&#39;description&#39;: &#39;first int&#39;, &#39;type&#39;: &#39;integer&#39;}, &#39;b&#39;: {&#39;description&#39;: &#39;second int&#39;, &#39;type&#39;: &#39;integer&#39;}}, &#39;required&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;type&#39;: &#39;object&#39;}}}, {&#39;type&#39;: &#39;function&#39;, &#39;function&#39;: {&#39;name&#39;: &#39;multiply&#39;, &#39;description&#39;: &#39;Multiply a and b.&#39;, &#39;parameters&#39;: {&#39;properties&#39;: {&#39;a&#39;: {&#39;description&#39;: &#39;first int&#39;, &#39;type&#39;: &#39;integer&#39;}, &#39;b&#39;: {&#39;description&#39;: &#39;second int&#39;, &#39;type&#39;: &#39;integer&#39;}}, &#39;required&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;type&#39;: &#39;object&#39;}}}, {&#39;type&#39;: &#39;function&#39;, &#39;function&#39;: {&#39;name&#39;: &#39;divide&#39;, &#39;description&#39;: &#39;Divide a by b.&#39;, &#39;parameters&#39;: {&#39;properties&#39;: {&#39;a&#39;: {&#39;description&#39;: &#39;first int&#39;, &#39;type&#39;: &#39;integer&#39;}, &#39;b&#39;: {&#39;description&#39;: &#39;second int&#39;, &#39;type&#39;: &#39;integer&#39;}}, &#39;required&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;type&#39;: &#39;object&#39;}}}]}, config={}, config_factories=[])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RunnableBinding(bound=ChatGroq(client=&lt;groq.resources.chat.completions.Completions object at 0x000001884C45D7F0&gt;, async_client=&lt;groq.resources.chat.completions.AsyncCompletions object at 0x000001884C5A9550&gt;, model_name=&#39;llama-3.1-8b-instant&#39;, model_kwargs={}, groq_api_key=SecretStr(&#39;**********&#39;)), kwargs={&#39;tools&#39;: [{&#39;type&#39;: &#39;function&#39;, &#39;function&#39;: {&#39;name&#39;: &#39;add&#39;, &#39;description&#39;: &#39;Adds a and b.&#39;, &#39;parameters&#39;: {&#39;properties&#39;: {&#39;a&#39;: {&#39;description&#39;: &#39;first int&#39;, &#39;type&#39;: &#39;integer&#39;}, &#39;b&#39;: {&#39;description&#39;: &#39;second int&#39;, &#39;type&#39;: &#39;integer&#39;}}, &#39;required&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;type&#39;: &#39;object&#39;}}}, {&#39;type&#39;: &#39;function&#39;, &#39;function&#39;: {&#39;name&#39;: &#39;multiply&#39;, &#39;description&#39;: &#39;Multiply a and b.&#39;, &#39;parameters&#39;: {&#39;properties&#39;: {&#39;a&#39;: {&#39;description&#39;: &#39;first int&#39;, &#39;type&#39;: &#39;integer&#39;}, &#39;b&#39;: {&#39;description&#39;: &#39;second int&#39;, &#39;type&#39;: &#39;integer&#39;}}, &#39;required&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;type&#39;: &#39;object&#39;}}}, {&#39;type&#39;: &#39;function&#39;, &#39;function&#39;: {&#39;name&#39;: &#39;divide&#39;, &#39;description&#39;: &#39;Divide a by b.&#39;, &#39;parameters&#39;: {&#39;properties&#39;: {&#39;a&#39;: {&#39;description&#39;: &#39;first int&#39;, &#39;type&#39;: &#39;integer&#39;}, &#39;b&#39;: {&#39;description&#39;: &#39;second int&#39;, &#39;type&#39;: &#39;integer&#39;}}, &#39;required&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;type&#39;: &#39;object&#39;}}}]}, config={}, config_factories=[])
 </pre></div>
 </div>
 </div>
@@ -550,7 +560,7 @@ Multiply 2 and 3
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object Pregel.get_state_history at 0x000001631087D220&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object Pregel.get_state_history at 0x000001884D72D220&gt;
 </pre></div>
 </div>
 </div>
@@ -562,7 +572,7 @@ Multiply 2 and 3
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>StateSnapshot(values={&#39;messages&#39;: [HumanMessage(content=&#39;Multiply 2 and 3&#39;, additional_kwargs={}, response_metadata={}, id=&#39;c4adff57-c193-4b3a-8820-c97e893eae13&#39;)]}, next=(&#39;assistant&#39;,), config={&#39;configurable&#39;: {&#39;thread_id&#39;: &#39;123&#39;, &#39;checkpoint_ns&#39;: &#39;&#39;, &#39;checkpoint_id&#39;: &#39;1f0b3c12-87b6-6607-8000-0e313f96ba71&#39;}}, metadata={&#39;source&#39;: &#39;loop&#39;, &#39;step&#39;: 0, &#39;parents&#39;: {}}, created_at=&#39;2025-10-28T05:44:23.772109+00:00&#39;, parent_config={&#39;configurable&#39;: {&#39;thread_id&#39;: &#39;123&#39;, &#39;checkpoint_ns&#39;: &#39;&#39;, &#39;checkpoint_id&#39;: &#39;1f0b3c12-87ad-6392-bfff-fc05f5e35aa4&#39;}}, tasks=(PregelTask(id=&#39;4ffac9db-5f5f-9447-bd53-fe0d0ddd3ce9&#39;, name=&#39;assistant&#39;, path=(&#39;__pregel_pull&#39;, &#39;assistant&#39;), error=None, interrupts=(), state=None, result=None),), interrupts=())
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>StateSnapshot(values={&#39;messages&#39;: [HumanMessage(content=&#39;Multiply 2 and 3&#39;, additional_kwargs={}, response_metadata={}, id=&#39;be4bb5bc-e10f-4ac9-a079-d95da7e62554&#39;)]}, next=(&#39;assistant&#39;,), config={&#39;configurable&#39;: {&#39;thread_id&#39;: &#39;123&#39;, &#39;checkpoint_ns&#39;: &#39;&#39;, &#39;checkpoint_id&#39;: &#39;1f0b3c25-ec6e-6f4b-8000-3b49f9e40164&#39;}}, metadata={&#39;source&#39;: &#39;loop&#39;, &#39;step&#39;: 0, &#39;parents&#39;: {}}, created_at=&#39;2025-10-28T05:53:04.360839+00:00&#39;, parent_config={&#39;configurable&#39;: {&#39;thread_id&#39;: &#39;123&#39;, &#39;checkpoint_ns&#39;: &#39;&#39;, &#39;checkpoint_id&#39;: &#39;1f0b3c25-ec5b-6e00-bfff-da33a29f4cc5&#39;}}, tasks=(PregelTask(id=&#39;c9b5a27e-ad01-1d77-c762-b0d94c06ff9e&#39;, name=&#39;assistant&#39;, path=(&#39;__pregel_pull&#39;, &#39;assistant&#39;), error=None, interrupts=(), state=None, result=None),), interrupts=())
 </pre></div>
 </div>
 </div>
@@ -584,8 +594,8 @@ Multiply 2 and 3
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 Tool Calls:
-  multiply (qnbg52xa7)
- Call ID: qnbg52xa7
+  multiply (hcjbhwd8t)
+ Call ID: hcjbhwd8t
   Args:
     a: 2
     b: 3
@@ -626,16 +636,8 @@ Name: multiply
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
-Tool Calls:
-  add (06jzxve2f)
- Call ID: 06jzxve2f
-  Args:
-    a: 2
-    b: 3
-=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
-Name: add
 
-5
+Note: The result of the function call is displayed in the output of the code, which in this case is 6.
 </pre></div>
 </div>
 </div>
@@ -683,7 +685,7 @@ Multiply 2 and 3
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;configurable&#39;: {&#39;thread_id&#39;: &#39;1&#39;,
   &#39;checkpoint_ns&#39;: &#39;&#39;,
-  &#39;checkpoint_id&#39;: &#39;1f0b3c12-8c93-63cb-8001-de3023a5dc81&#39;}}
+  &#39;checkpoint_id&#39;: &#39;1f0b3c25-f165-66ed-8001-4941e1252b67&#39;}}
 </pre></div>
 </div>
 </div>
@@ -900,6 +902,24 @@ The result of multiplying 2 and 3 is 6.
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="../4-%20Workflows/5-Evaluator-optimizer.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Evaluator-optimizer</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../6-RAGS/1-AgenticRAG.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Agentic RAG</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
