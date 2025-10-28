@@ -2,7 +2,7 @@ format: jb-book
 root: introduction
 
 parts:
-  - caption: LangGraph Basics
+  - caption: 1-langgraph Basics
     chapters:
       - file: 1-langgraph Basics/1-simplegraph
         title: Simple Graph
@@ -19,12 +19,12 @@ parts:
       - file: 1-langgraph Basics/7-ReActAgents
         title: ReAct Agents
 
-  - caption: Advanced LangGraph
+  - caption: 2-langgraph advance
     chapters:
       - file: 2-langgraph advance/1-streaming
         title: Streaming
 
-  - caption: Workflows
+  - caption: 4- Workflows
     chapters:
       - file: 4- Workflows/1-prompting_chaining
         title: Prompting and Chaining
@@ -37,24 +37,24 @@ parts:
       - file: 4- Workflows/5-Evaluator-optimizer
         title: Evaluator-Optimizer Pattern
 
-  - caption: Human in the Loop
+  - caption: 5-HumanintheLoop
     chapters:
       - file: 5-HumanintheLoop/1-Humanintheloop
         title: Human in the Loop
 
-  - caption: RAGS
+  - caption: 6-RAGS
     chapters:
       - file: 6-RAGS/1-AgenticRAG
         title: Agentic RAG
 
-  - caption: Agentic RAG
+  - caption: 7-AgenticRag
     chapters:
       - file: 7-AgenticRag/1-agenticrag
         title: Agentic RAG
       - file: 7-AgenticRag/2-ReAct
         title: ReAct Agent
 
-  - caption: Pydantic
+  - caption: pydantic
     chapters:
       - file: pydantic/intro
         title: Pydantic Introduction
