@@ -6,10 +6,13 @@ copyright: "© 2024"
 html:
   home_page_in_navbar: true
   baseurl: /
-  
+
 # Jupyter Book settings
 sphinx:
   config:
     html_theme_options:
       use_repository_button: false
       use_edit_page_button: false
+    mystnb:
+      extract_attachments: True
+      extract_outputs: True
