@@ -46,6 +46,12 @@ parts:
     chapters:
       - file: 6-RAGS/1-AgenticRAG
         title: Agentic RAG
+      - file: 6-RAGS/2-CorrectiveRAG
+        title: Corrective RAG
+      - file: 6-RAGS/3-COTRag
+        title: Chain of Thought RAG
+      - file: 6-RAGS/4-AdaptiveRAG
+        title: Adaptive RAG
 
   - caption: 7-AgenticRag
     chapters:
@@ -65,6 +71,10 @@ parts:
         title: Answer Synthesis
       - file: 7-AgenticRag/8-multiagent
         title: Multi-Agent RAG
+      - file: 7-AgenticRag/cache_augment_generation
+        title: Cache-Augmented Generation
+      - file: 7-AgenticRag/ragmemory
+        title: RAG Memory
 
   - caption: pydantic
     chapters:

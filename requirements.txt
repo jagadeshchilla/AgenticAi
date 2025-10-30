@@ -9,3 +9,6 @@ arxiv
 wikipedia
 langgraph-cli[inmem]
 faiss-cpu
+langchain-experimental
+langchain-huggingface
+jupyter-book
