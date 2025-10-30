@@ -53,6 +53,18 @@ parts:
         title: Agentic RAG
       - file: 7-AgenticRag/2-ReAct
         title: ReAct Agent
+      - file: 7-AgenticRag/3-COTRag
+        title: Chain of Thought RAG
+      - file: 7-AgenticRag/4-Selfreflection
+        title: Self Reflection
+      - file: 7-AgenticRag/5-QueryPlanningdecomposition
+        title: Query Planning & Decomposition
+      - file: 7-AgenticRag/6-Iterativeretrieval
+        title: Iterative Retrieval
+      - file: 7-AgenticRag/7-answersynthesis
+        title: Answer Synthesis
+      - file: 7-AgenticRag/8-multiagent
+        title: Multi-Agent RAG
 
   - caption: pydantic
     chapters:
