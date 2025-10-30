@@ -1,0 +1,1477 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>🤖 What are Multi-Agent RAG Systems? &#8212; Agentic AI Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '7-AgenticRag/8-multiagent';</script>
+    <link rel="canonical" href="/7-AgenticRag/8-multiagent.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Pydantic Basics: Creating and Using Models" href="../pydantic/intro.html" />
+    <link rel="prev" title="🧠 Answer Synthesis from Multiple Sources" href="7-answersynthesis.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Agentic AI Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">1-langgraph Basics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/3-DataclassStateSchema.html">State Schema With DataClasses</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/4-pydantic.html">Pydantic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/5-ChainsLangGraph.html">Chain Using LangGraph</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/7-ReActAgents.html">ReAct Agent Architecture</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2-langgraph advance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">4- Workflows</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/1-prompting_chaining.html">Prompt Chaining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/2-parallelization.html">What is Parallelization in LangGraph?</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/3-Routing.html">What is Routing in LangGraph?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/4-orchestrator-worker.html">Orchestrator-Worker</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">5-HumanintheLoop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../5-HumanintheLoop/1-Humanintheloop.html">Human In the Loop</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">6-RAGS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/1-AgenticRAG.html">Agentic RAG</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">7-AgenticRag</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1-agenticrag.html">Agentic RAG</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="2-ReAct.html">🤖 Implement ReAct with LangGraph-What is ReAct?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="3-COTRag.html">CoT RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4-Selfreflection.html">Self Reflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5-QueryPlanningdecomposition.html">Query Planning &amp; Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6-Iterativeretrieval.html">Iterative Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7-answersynthesis.html">Answer Synthesis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🤖 What are Multi-Agent RAG Systems?</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">pydantic</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/7-AgenticRag/8-multiagent.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>🤖 What are Multi-Agent RAG Systems?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🤖 What are Multi-Agent RAG Systems?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-agent-network-rag-system-with-langgraph">1. 📋 Multi-Agent Network RAG System with LangGraph</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-agent-suprvisor-with-rag">Multi Agent Suprvisor With RAG</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hierarchical-agent-teams-with-rag">Hierarchical Agent Teams With RAG</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="what-are-multi-agent-rag-systems">
+<h1>🤖 What are Multi-Agent RAG Systems?<a class="headerlink" href="#what-are-multi-agent-rag-systems" title="Link to this heading">#</a></h1>
+<p>A Multi-Agent RAG System splits the RAG pipeline into multiple specialized agents — each responsible for a specific role — and enables them to collaborate on a single query or task.</p>
+<section id="multi-agent-network-rag-system-with-langgraph">
+<h2>1. 📋 Multi-Agent Network RAG System with LangGraph<a class="headerlink" href="#multi-agent-network-rag-system-with-langgraph" title="Link to this heading">#</a></h2>
+<p>Project Overview</p>
+<p>A beginner-friendly Retrieval-Augmented Generation (RAG) system that uses a multi-agent architecture to intelligently answer questions from your documents. Built with LangGraph v0.3 for workflow orchestration and OpenAI for language understanding.</p>
+<p>What It Does</p>
+<p>Transforms your documents (PDFs, text files) into a searchable knowledge base that can answer questions intelligently using AI. Simply upload documents and ask questions in natural language - the system finds relevant information and generates comprehensive answers.
+Key Features</p>
+<ul class="simple">
+<li><p>📚 Multi-Format Support: Handles PDF and text documents</p></li>
+<li><p>🤖 3-Agent Architecture: Specialized agents for document processing, retrieval, and answer generation</p></li>
+<li><p>🔍 Smart Search: Vector-based semantic search finds relevant information</p></li>
+<li><p>💬 Natural Language Q&amp;A: Ask questions in plain English</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="n">load_dotenv</span><span class="p">()</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.chat_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">init_chat_model</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TAVILY_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TAVILY_API_KEY&quot;</span><span class="p">)</span> 
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">llm</span><span class="o">=</span><span class="n">init_chat_model</span><span class="p">(</span><span class="s2">&quot;openai:gpt-4o-mini&quot;</span><span class="p">)</span>
+<span class="n">llm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ChatOpenAI(client=&lt;openai.resources.chat.completions.completions.Completions object at 0x000001E31BCF01A0&gt;, async_client=&lt;openai.resources.chat.completions.completions.AsyncCompletions object at 0x000001E31C264470&gt;, root_client=&lt;openai.OpenAI object at 0x000001E31AA2E120&gt;, root_async_client=&lt;openai.AsyncOpenAI object at 0x000001E31BCF00E0&gt;, model_name=&#39;gpt-4o-mini&#39;, model_kwargs={}, openai_api_key=SecretStr(&#39;**********&#39;), stream_usage=True)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.tools.tavily_search</span><span class="w"> </span><span class="kn">import</span> <span class="n">TavilySearchResults</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">tool</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">WikipediaQueryRun</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">WikipediaAPIWrapper</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.vectorstores</span><span class="w"> </span><span class="kn">import</span> <span class="n">FAISS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tavily_tool</span> <span class="o">=</span> <span class="n">TavilySearchResults</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Welcome\AppData\Local\Temp\ipykernel_15332\1522336365.py:1: LangChainDeprecationWarning: The class `TavilySearchResults` was deprecated in LangChain 0.3.25 and will be removed in 1.0. An updated version of the class exists in the `langchain-tavily package and should be used instead. To use it run `pip install -U `langchain-tavily` and import as `from `langchain_tavily import TavilySearch``.
+  tavily_tool = TavilySearchResults(k=5)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### generic function to create a retrieval tool</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_retriever_tool_from_text</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">desc</span><span class="p">):</span>
+    <span class="n">docs</span><span class="o">=</span><span class="n">TextLoader</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+    <span class="n">chunks</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">split_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+    <span class="n">vs</span> <span class="o">=</span> <span class="n">FAISS</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="n">OpenAIEmbeddings</span><span class="p">())</span>
+    <span class="n">retriever</span> <span class="o">=</span> <span class="n">vs</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">tool_func</span><span class="p">(</span><span class="n">query</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">str</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;📚 Using tool: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">retriever</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">results</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">Tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span><span class="n">description</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span><span class="n">func</span><span class="o">=</span><span class="n">tool_func</span><span class="p">)</span>
+
+
+<span class="n">internal_tool_1</span><span class="o">=</span><span class="n">make_retriever_tool_from_text</span><span class="p">(</span><span class="s2">&quot;sample_docs.txt&quot;</span><span class="p">,</span>
+                                              <span class="s2">&quot;InternalResearchNotes&quot;</span><span class="p">,</span>
+                                              <span class="s2">&quot;Search internal research notes for experimental results&quot;</span><span class="p">)</span>
+
+<span class="n">internal_tool_1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tool(name=&#39;InternalResearchNotes&#39;, description=&#39;Search internal research notes for experimental results&#39;, func=&lt;function make_retriever_tool_from_text.&lt;locals&gt;.tool_func at 0x000001E31A914CC0&gt;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseMessage</span><span class="p">,</span> <span class="n">HumanMessage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.prebuilt</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_react_agent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">MessagesState</span><span class="p">,</span> <span class="n">END</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Command</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_next_node</span><span class="p">(</span><span class="n">last_message</span><span class="p">:</span> <span class="n">BaseMessage</span><span class="p">,</span> <span class="n">goto</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">&quot;FINAL ANSWER&quot;</span> <span class="ow">in</span> <span class="n">last_message</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
+        <span class="c1"># Any agent decided the work is done</span>
+        <span class="k">return</span> <span class="n">END</span>
+    <span class="k">return</span> <span class="n">goto</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_system_prompt</span><span class="p">(</span><span class="n">suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="s2">&quot;You are a helpful AI assistant, collaborating with other assistants.&quot;</span>
+        <span class="s2">&quot; Use the provided tools to progress towards answering the question.&quot;</span>
+        <span class="s2">&quot; If you are unable to fully answer, that&#39;s OK, another assistant with different tools &quot;</span>
+        <span class="s2">&quot; will help where you left off. Execute what you can to make progress.&quot;</span>
+        <span class="s2">&quot; If you or any of the other assistants have the final answer or deliverable,&quot;</span>
+        <span class="s2">&quot; prefix your response with FINAL ANSWER so the team knows to stop.&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Reaearch agent and node</span>
+
+<span class="n">research_agent</span><span class="o">=</span><span class="n">create_react_agent</span><span class="p">(</span>
+    <span class="n">llm</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">internal_tool_1</span><span class="p">,</span><span class="n">tavily_tool</span><span class="p">],</span>
+    <span class="n">prompt</span><span class="o">=</span><span class="n">make_system_prompt</span><span class="p">(</span><span class="s2">&quot;You can only do research. Use the tool that you are binded with, you can use both of them&quot;</span> \
+    <span class="s2">&quot; You are working with a content writer colleague.&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">research_agent</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Welcome\AppData\Local\Temp\ipykernel_15332\3442552836.py:3: LangGraphDeprecatedSinceV10: create_react_agent has been moved to `langchain.agents`. Please update your import to `from langchain.agents import create_agent`. Deprecated in LangGraph V1.0 to be removed in V2.0.
+  research_agent=create_react_agent(
+</pre></div>
+</div>
+<img alt="../_images/a8554f61b7750bb90880fdc321819bb2ef7a42269c8d4e386ef72ce22a3cd9e3.png" src="../_images/a8554f61b7750bb90880fdc321819bb2ef7a42269c8d4e386ef72ce22a3cd9e3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Reaearch node</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">research_node</span><span class="p">(</span><span class="n">state</span><span class="p">:</span><span class="n">MessagesState</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">Command</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;blog_generator&quot;</span><span class="p">,</span><span class="n">END</span><span class="p">]]:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">research_agent</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="n">goto</span> <span class="o">=</span> <span class="n">get_next_node</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;blog_generator&quot;</span><span class="p">)</span>
+
+    <span class="c1"># wrap in a human message, as not all providers allow</span>
+    <span class="c1"># AI message at the last position of the input messages list</span>
+    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">HumanMessage</span><span class="p">(</span>
+        <span class="n">content</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;researcher&quot;</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">Command</span><span class="p">(</span>
+        <span class="n">update</span><span class="o">=</span><span class="p">{</span>
+            <span class="c1"># share internal message history of research agent with other agents</span>
+            <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">goto</span><span class="o">=</span><span class="n">goto</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Blog write agent</span>
+<span class="n">blog_agent</span><span class="o">=</span><span class="n">create_react_agent</span><span class="p">(</span>
+    <span class="n">llm</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">prompt</span><span class="o">=</span><span class="n">make_system_prompt</span><span class="p">(</span>
+        <span class="s2">&quot;You can only write a detailed blog. You are working with a researcher colleague.&quot;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">blog_node</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">MessagesState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Command</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;researcher&quot;</span><span class="p">,</span> <span class="n">END</span><span class="p">]]:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">blog_agent</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="n">goto</span> <span class="o">=</span> <span class="n">get_next_node</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;researcher&quot;</span><span class="p">)</span>
+    <span class="c1"># wrap in a human message, as not all providers allow</span>
+    <span class="c1"># AI message at the last position of the input messages list</span>
+    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">HumanMessage</span><span class="p">(</span>
+        <span class="n">content</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;blog_generator&quot;</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">Command</span><span class="p">(</span>
+        <span class="n">update</span><span class="o">=</span><span class="p">{</span>
+            <span class="c1"># share internal message history of chart agent with other agents</span>
+            <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">goto</span><span class="o">=</span><span class="n">goto</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Welcome\AppData\Local\Temp\ipykernel_15332\931853117.py:2: LangGraphDeprecatedSinceV10: create_react_agent has been moved to `langchain.agents`. Please update your import to `from langchain.agents import create_agent`. Deprecated in LangGraph V1.0 to be removed in V2.0.
+  blog_agent=create_react_agent(
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">START</span>
+
+<span class="n">workflow</span> <span class="o">=</span> <span class="n">StateGraph</span><span class="p">(</span><span class="n">MessagesState</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;researcher&quot;</span><span class="p">,</span> <span class="n">research_node</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;blog_generator&quot;</span><span class="p">,</span> <span class="n">blog_node</span><span class="p">)</span>
+
+<span class="n">workflow</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">START</span><span class="p">,</span> <span class="s2">&quot;researcher&quot;</span><span class="p">)</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">workflow</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+<span class="n">graph</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/306715e3e3b5b143f826d5ee513235793d1d9d2867dd95c3f41e3637368bc47c.png" src="../_images/306715e3e3b5b143f826d5ee513235793d1d9d2867dd95c3f41e3637368bc47c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span><span class="o">=</span><span class="n">graph</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="s2">&quot;Write a detailed blog on transformer variants in production deployments&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>📚 Using tool: InternalResearchNotes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;FINAL ANSWER\n\n### Transformer Variants in Production Deployments\n\nThe rapid evolution of transformer architectures has led to widespread adoption across various domains, particularly in natural language processing (NLP). However, transitioning from research to production involves navigating several challenges and adapting these models to real-world needs. This blog delves into notable transformer variants and best practices for their deployment in production environments.\n\n#### Understanding Transformer Variants\n\nTransformers, introduced in the seminal paper &quot;Attention is All You Need,&quot; are now central to many AI applications. Here are some key variants:\n\n1. **BERT (Bidirectional Encoder Representations from Transformers)**:\n   - **Architecture**: BERT utilizes bidirectional self-attention, which allows it to consider the context from both left and right for each word.\n   - **Use Cases**: It\&#39;s widely used for tasks requiring understanding of context, such as sentiment analysis and question answering.\n\n2. **GPT (Generative Pre-trained Transformer)**:\n   - **Architecture**: GPT employs a left-to-right architecture, processing information based solely on preceding tokens. \n   - **Use Cases**: It\&#39;s particularly adept at text generation, making it popular for chatbots and automated content creation.\n\n3. **DistilBERT**:\n   - **Architecture**: A smaller, faster, and lighter version of BERT that retains much of its language understanding capabilities.\n   - **Use Cases**: Ideal for environments with limited computational resources, without significantly sacrificing performance.\n\n4. **T5 (Text-to-Text Transfer Transformer)**:\n   - **Architecture**: Treats every NLP problem as a text-to-text task, allowing for greater versatility.\n   - **Use Cases**: Excellent for multi-tasking in language applications.\n\n5. **Vision Transformers (ViT)**:\n   - **Architecture**: Adapts transformer models for image processing by treating image patches as sequences.\n   - **Use Cases**: They have shown competitive results against CNNs in image classification tasks.\n\nEach of these variations addresses different challenges and requirements, leading to a more tailored approach to deploying transformers in production.\n\n#### Key Considerations for Production Deployment\n\nDeploying transformer models in production is not just about exporting a trained model. Numerous considerations need to be addressed:\n\n1. **Model Exporting**:\n   Exporting models in a production-ready format is crucial. ONNX (Open Neural Network Exchange) enables conversion of models from various frameworks, optimizing them for deployment.\n\n2. **Infrastructure Choices**:\n   - **Compute Power**: Adequate hardware resources (e.g., GPU, TPU) are necessary for handling model inference.\n   - **Containerization**: Tools like Docker facilitate consistent deployment environments, simplifying dependencies and configuration.\n\n3. **Latency and Throughput**:\n   - Aim to minimize latency while maximizing throughput. Techniques such as model distillation and quantization can significantly enhance performance.\n   - Implement **caching strategies** for serving predictions, reducing the computational load on every request.\n\n4. **Cost Optimization**:\n   - Monitor resource usage and optimize model serving to balance accuracy and cost. Avoid over-provisioning resources and consider alternatives like serverless architectures when possible.\n\n5. **Scaling Inference**:\n   - Models need to scale effectively under varying loads. Utilize orchestration tools like Kubernetes to manage scaling and ensure smooth operations.\n\n6. **Continuous Integration/Continuous Deployment (CI/CD)**:\n   - Establish CI/CD pipelines to automate testing and deployment. This ensures that updated models are validated and can be deployed reliably.\n\n7. **Monitoring and Feedback**:\n   - Implement monitoring systems to track model performance in real-time. Tools such as Prometheus and Grafana can be helpful in visualizing metrics and logs.\n   - Set up feedback loops to capture predictions versus actual outcomes, facilitating ongoing model refinement.\n\n#### Best Practices for Deployment\n\nTo ensure efficient and robust transformer deployment:\n\n- **Preprocess Data Effectively**: Tailor data preprocessing specific to the model\&#39;s needs and the targeted tasks.\n- **Testing and Validation**: Rigorous testing procedures should be in place, where datasets are split for training, validation, and testing.\n- **Documentation**: Maintain clear documentation for model configurations and deployment processes to help streamline team efforts.\n- **Rolling Updates**: Use rolling updates to minimize downtime during deployment; this allows for smooth transitions between different model versions.\n\n#### Conclusion\n\nThe deployment of transformer variants in production environments presents unique challenges but also incredible opportunities. By implementing best practices and appropriately leveraging these powerful models, organizations can harness the capabilities of transformers to drive innovation and improve outcomes across a variety of applications. Whether it\&#39;s optimizing for performance with distillation techniques or ensuring minimal latency through containerization and orchestration, a thoughtful approach to deployment will yield successful results in the dynamic landscape of AI. \n\nAs the landscape of machine learning continues to evolve, staying adaptable and informed about advancements will be key to making the most of transformer models in production.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="multi-agent-suprvisor-with-rag">
+<h1>Multi Agent Suprvisor With RAG<a class="headerlink" href="#multi-agent-suprvisor-with-rag" title="Link to this heading">#</a></h1>
+<p>Supervisor is a multi-agent architecture where specialized agents are coordinated by a central supervisor agent. The supervisor agent controls all communication flow and task delegation, making decisions about which agent to invoke based on the current context and task requirements.</p>
+<p>In this tutorial, you will build a supervisor system with two agents — a research and a math expert. By the end of the tutorial you will:</p>
+<ol class="arabic simple">
+<li><p>Build specialized research and math agents</p></li>
+<li><p>Build a supervisor for orchestrating them with the prebuilt langgraph-supervisor</p></li>
+<li><p>Build a supervisor</p></li>
+<li><p>Implement advanced task delegation</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">internal_tool_1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tool(name=&#39;InternalResearchNotes&#39;, description=&#39;Search internal research notes for experimental results&#39;, func=&lt;function make_retriever_tool_from_text.&lt;locals&gt;.tool_func at 0x000001E31A914CC0&gt;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.tools.tavily_search</span><span class="w"> </span><span class="kn">import</span> <span class="n">TavilySearchResults</span>
+
+
+<span class="n">web_search</span> <span class="o">=</span> <span class="n">TavilySearchResults</span><span class="p">(</span><span class="n">max_results</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">web_search</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TavilySearchResults(max_results=3, api_wrapper=TavilySearchAPIWrapper(tavily_api_key=SecretStr(&#39;**********&#39;)))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.prebuilt</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_react_agent</span>
+
+<span class="n">research_agent</span><span class="o">=</span><span class="n">create_react_agent</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">llm</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">web_search</span><span class="p">,</span><span class="n">internal_tool_1</span><span class="p">],</span>
+    <span class="n">prompt</span><span class="o">=</span><span class="p">(</span>
+        <span class="s2">&quot;You are a research agent.</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;INSTRUCTIONS:</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;- Assist ONLY with research-related tasks, DO NOT do any math</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;- After you&#39;re done with your tasks, respond to the supervisor directly</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;- Respond ONLY with the results of your work, do NOT include ANY other text.&quot;</span>
+    <span class="p">),</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;research_agent&quot;</span>
+<span class="p">)</span>
+<span class="n">research_agent</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Welcome\AppData\Local\Temp\ipykernel_15332\1701589918.py:3: LangGraphDeprecatedSinceV10: create_react_agent has been moved to `langchain.agents`. Please update your import to `from langchain.agents import create_agent`. Deprecated in LangGraph V1.0 to be removed in V2.0.
+  research_agent=create_react_agent(
+</pre></div>
+</div>
+<img alt="../_images/a8554f61b7750bb90880fdc321819bb2ef7a42269c8d4e386ef72ce22a3cd9e3.png" src="../_images/a8554f61b7750bb90880fdc321819bb2ef7a42269c8d4e386ef72ce22a3cd9e3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add two numbers.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">multiply</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Multiply two numbers.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">divide</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Divide two numbers.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span>
+
+
+<span class="n">math_agent</span><span class="o">=</span><span class="n">create_react_agent</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">llm</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">add</span><span class="p">,</span><span class="n">multiply</span><span class="p">,</span><span class="n">divide</span><span class="p">],</span>
+    <span class="n">prompt</span><span class="o">=</span><span class="p">(</span>
+        <span class="s2">&quot;You are a math agent.</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;INSTRUCTIONS:</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;- Assist ONLY with math-related tasks</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;- After you&#39;re done with your tasks, respond to the supervisor directly</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;- Respond ONLY with the results of your work, do NOT include ANY other text.&quot;</span>
+    <span class="p">),</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;math_agent&quot;</span>
+
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Welcome\AppData\Local\Temp\ipykernel_15332\3915409306.py:16: LangGraphDeprecatedSinceV10: create_react_agent has been moved to `langchain.agents`. Please update your import to `from langchain.agents import create_agent`. Deprecated in LangGraph V1.0 to be removed in V2.0.
+  math_agent=create_react_agent(
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### create supervisor agent</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph_supervisor</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_supervisor</span>
+<span class="n">supervisor</span><span class="o">=</span><span class="n">create_supervisor</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">llm</span><span class="p">,</span>
+    <span class="n">agents</span><span class="o">=</span><span class="p">[</span><span class="n">research_agent</span><span class="p">,</span><span class="n">math_agent</span><span class="p">],</span>
+    <span class="n">prompt</span><span class="o">=</span><span class="p">(</span>
+         <span class="s2">&quot;You are a supervisor managing two agents:</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;- a research agent. Assign research-related tasks to this agent</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;- a math agent. Assign math-related tasks to this agent</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Assign work to one agent at a time, do not call agents in parallel.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Do not do any work yourself.&quot;</span>
+
+    <span class="p">),</span>
+    <span class="n">add_handoff_back_messages</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;full_history&quot;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+
+<span class="n">supervisor</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b3a0c23fb1e1a065e759bfa20a0be7f16d6de4dce9c5c44e0e47aa3705ad0dcd.png" src="../_images/b3a0c23fb1e1a065e759bfa20a0be7f16d6de4dce9c5c44e0e47aa3705ad0dcd.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span><span class="o">=</span><span class="n">supervisor</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="s2">&quot; list all the transformer variants in production deployments from the retriever and then tell me what is 5 plus 10&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>📚 Using tool: InternalResearchNotes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;messages&#39;: [HumanMessage(content=&#39; list all the transformer variants in production deployments from the retriever and then tell me what is 5 plus 10&#39;, additional_kwargs={}, response_metadata={}, id=&#39;b570b97c-fca7-47a8-9a9a-bc3260aa314f&#39;),
+  AIMessage(content=&#39;&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 13, &#39;prompt_tokens&#39;: 142, &#39;total_tokens&#39;: 155, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_provider&#39;: &#39;openai&#39;, &#39;model_name&#39;: &#39;gpt-4o-mini-2024-07-18&#39;, &#39;system_fingerprint&#39;: &#39;fp_560af6e559&#39;, &#39;id&#39;: &#39;chatcmpl-CWEy9kIg7eOxRGtMCXCai6PxYprPe&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;tool_calls&#39;, &#39;logprobs&#39;: None}, name=&#39;supervisor&#39;, id=&#39;lc_run--72952cc3-b901-4d58-b445-c233b880af9a-0&#39;, tool_calls=[{&#39;name&#39;: &#39;transfer_to_research_agent&#39;, &#39;args&#39;: {}, &#39;id&#39;: &#39;call_o9cQ6MGGRiJ65GsOa35SxvYX&#39;, &#39;type&#39;: &#39;tool_call&#39;}], usage_metadata={&#39;input_tokens&#39;: 142, &#39;output_tokens&#39;: 13, &#39;total_tokens&#39;: 155, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}}),
+  ToolMessage(content=&#39;Successfully transferred to research_agent&#39;, name=&#39;transfer_to_research_agent&#39;, id=&#39;51604f52-8c0a-452c-a737-5ccb8f90520c&#39;, tool_call_id=&#39;call_o9cQ6MGGRiJ65GsOa35SxvYX&#39;),
+  AIMessage(content=&#39;&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 22, &#39;prompt_tokens&#39;: 218, &#39;total_tokens&#39;: 240, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_provider&#39;: &#39;openai&#39;, &#39;model_name&#39;: &#39;gpt-4o-mini-2024-07-18&#39;, &#39;system_fingerprint&#39;: &#39;fp_560af6e559&#39;, &#39;id&#39;: &#39;chatcmpl-CWEyBK5OW5MwPGXuong1MkhXOu9cD&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;tool_calls&#39;, &#39;logprobs&#39;: None}, name=&#39;research_agent&#39;, id=&#39;lc_run--cb063081-b86c-4770-b6d4-fdb62dafa8b4-0&#39;, tool_calls=[{&#39;name&#39;: &#39;InternalResearchNotes&#39;, &#39;args&#39;: {&#39;__arg1&#39;: &#39;transformer variants in production deployments&#39;}, &#39;id&#39;: &#39;call_vhD0dV9rYmft5RZ63POv6RmN&#39;, &#39;type&#39;: &#39;tool_call&#39;}], usage_metadata={&#39;input_tokens&#39;: 218, &#39;output_tokens&#39;: 22, &#39;total_tokens&#39;: 240, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}}),
+  ToolMessage(content=&#39;An agent loop is the cycle of thinking, acting, and observing. It allows an AI agent to continuously refine its actions based on results.\nThis feedback loop is crucial in autonomous systems to adapt in real-time.\nAgent-based architectures benefit from memory, planning, and interaction with tools.&#39;, name=&#39;InternalResearchNotes&#39;, id=&#39;8a5bdd03-73ce-450d-8000-e8d13f884d4b&#39;, tool_call_id=&#39;call_vhD0dV9rYmft5RZ63POv6RmN&#39;),
+  AIMessage(content=&#39;No specific transformer variants in production deployments were found in the internal research notes.&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 16, &#39;prompt_tokens&#39;: 308, &#39;total_tokens&#39;: 324, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_provider&#39;: &#39;openai&#39;, &#39;model_name&#39;: &#39;gpt-4o-mini-2024-07-18&#39;, &#39;system_fingerprint&#39;: &#39;fp_560af6e559&#39;, &#39;id&#39;: &#39;chatcmpl-CWEyDHA9HS8WDmLctTvrYHtYYe6BV&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, name=&#39;research_agent&#39;, id=&#39;lc_run--45fbd26f-2ae3-4988-9bb5-5471e7ccfa66-0&#39;, usage_metadata={&#39;input_tokens&#39;: 308, &#39;output_tokens&#39;: 16, &#39;total_tokens&#39;: 324, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}}),
+  AIMessage(content=&#39;Transferring back to supervisor&#39;, additional_kwargs={}, response_metadata={&#39;__is_handoff_back&#39;: True}, name=&#39;research_agent&#39;, id=&#39;ac926a75-dbf5-4a7a-ac70-53ae4cca2137&#39;, tool_calls=[{&#39;name&#39;: &#39;transfer_back_to_supervisor&#39;, &#39;args&#39;: {}, &#39;id&#39;: &#39;c5580b8e-1691-4bc4-bcc5-06ce0f3826e1&#39;, &#39;type&#39;: &#39;tool_call&#39;}]),
+  ToolMessage(content=&#39;Successfully transferred back to supervisor&#39;, name=&#39;transfer_back_to_supervisor&#39;, id=&#39;2b49781f-461d-4b1b-8da2-7a462612ed77&#39;, tool_call_id=&#39;c5580b8e-1691-4bc4-bcc5-06ce0f3826e1&#39;),
+  AIMessage(content=&#39;&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 12, &#39;prompt_tokens&#39;: 331, &#39;total_tokens&#39;: 343, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_provider&#39;: &#39;openai&#39;, &#39;model_name&#39;: &#39;gpt-4o-mini-2024-07-18&#39;, &#39;system_fingerprint&#39;: &#39;fp_560af6e559&#39;, &#39;id&#39;: &#39;chatcmpl-CWEyFhCx4GOUD2nErm7fTPHjR5K84&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;tool_calls&#39;, &#39;logprobs&#39;: None}, name=&#39;supervisor&#39;, id=&#39;lc_run--7d45df3d-0ffe-4122-8794-82ae8166ff26-0&#39;, tool_calls=[{&#39;name&#39;: &#39;transfer_to_math_agent&#39;, &#39;args&#39;: {}, &#39;id&#39;: &#39;call_1jWbWp62t1cQzfOlEob1pUuc&#39;, &#39;type&#39;: &#39;tool_call&#39;}], usage_metadata={&#39;input_tokens&#39;: 331, &#39;output_tokens&#39;: 12, &#39;total_tokens&#39;: 343, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}}),
+  ToolMessage(content=&#39;Successfully transferred to math_agent&#39;, name=&#39;transfer_to_math_agent&#39;, id=&#39;593f8332-8a30-4420-a410-9c4ef8a6a3c7&#39;, tool_call_id=&#39;call_1jWbWp62t1cQzfOlEob1pUuc&#39;),
+  AIMessage(content=&#39;&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 17, &#39;prompt_tokens&#39;: 376, &#39;total_tokens&#39;: 393, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_provider&#39;: &#39;openai&#39;, &#39;model_name&#39;: &#39;gpt-4o-mini-2024-07-18&#39;, &#39;system_fingerprint&#39;: &#39;fp_560af6e559&#39;, &#39;id&#39;: &#39;chatcmpl-CWEyGoVlqZPYHehjVf6HTTZjFff3s&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;tool_calls&#39;, &#39;logprobs&#39;: None}, name=&#39;math_agent&#39;, id=&#39;lc_run--cf9f8f9d-0666-450f-a778-4661ba4a69ad-0&#39;, tool_calls=[{&#39;name&#39;: &#39;add&#39;, &#39;args&#39;: {&#39;a&#39;: 5, &#39;b&#39;: 10}, &#39;id&#39;: &#39;call_NGlVZyl0yCThz1bK2jVos7MY&#39;, &#39;type&#39;: &#39;tool_call&#39;}], usage_metadata={&#39;input_tokens&#39;: 376, &#39;output_tokens&#39;: 17, &#39;total_tokens&#39;: 393, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}}),
+  ToolMessage(content=&#39;15.0&#39;, name=&#39;add&#39;, id=&#39;9550f33b-e9ae-432e-a4f2-6ce6344da5ef&#39;, tool_call_id=&#39;call_NGlVZyl0yCThz1bK2jVos7MY&#39;),
+  AIMessage(content=&#39;15&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 2, &#39;prompt_tokens&#39;: 406, &#39;total_tokens&#39;: 408, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_provider&#39;: &#39;openai&#39;, &#39;model_name&#39;: &#39;gpt-4o-mini-2024-07-18&#39;, &#39;system_fingerprint&#39;: &#39;fp_560af6e559&#39;, &#39;id&#39;: &#39;chatcmpl-CWEyIhsKEABRTl8sTx0xyYIacTc4K&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, name=&#39;math_agent&#39;, id=&#39;lc_run--be538383-fdee-4f82-84ba-0710daf88a3d-0&#39;, usage_metadata={&#39;input_tokens&#39;: 406, &#39;output_tokens&#39;: 2, &#39;total_tokens&#39;: 408, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}}),
+  AIMessage(content=&#39;Transferring back to supervisor&#39;, additional_kwargs={}, response_metadata={&#39;__is_handoff_back&#39;: True}, name=&#39;math_agent&#39;, id=&#39;e19f5f15-6bce-4033-9152-22d9c0933206&#39;, tool_calls=[{&#39;name&#39;: &#39;transfer_back_to_supervisor&#39;, &#39;args&#39;: {}, &#39;id&#39;: &#39;dd6b8e56-0573-4f2e-905c-76ab461fe0f9&#39;, &#39;type&#39;: &#39;tool_call&#39;}]),
+  ToolMessage(content=&#39;Successfully transferred back to supervisor&#39;, name=&#39;transfer_back_to_supervisor&#39;, id=&#39;69d94abe-2195-47dd-8fcf-54c220775f95&#39;, tool_call_id=&#39;dd6b8e56-0573-4f2e-905c-76ab461fe0f9&#39;),
+  AIMessage(content=&#39;The research agent did not find specific transformer variants in production deployments. However, the math agent calculated that 5 plus 10 equals 15.&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 30, &#39;prompt_tokens&#39;: 444, &#39;total_tokens&#39;: 474, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_provider&#39;: &#39;openai&#39;, &#39;model_name&#39;: &#39;gpt-4o-mini-2024-07-18&#39;, &#39;system_fingerprint&#39;: &#39;fp_560af6e559&#39;, &#39;id&#39;: &#39;chatcmpl-CWEyIrUtoEuNoO6S4YVwYzvCyQl4H&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, name=&#39;supervisor&#39;, id=&#39;lc_run--b56c6763-082a-48be-baa5-e2e7123e24fc-0&#39;, usage_metadata={&#39;input_tokens&#39;: 444, &#39;output_tokens&#39;: 30, &#39;total_tokens&#39;: 474, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}})]}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;The research agent did not find specific transformer variants in production deployments. However, the math agent calculated that 5 plus 10 equals 15.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="hierarchical-agent-teams-with-rag">
+<h1>Hierarchical Agent Teams With RAG<a class="headerlink" href="#hierarchical-agent-teams-with-rag" title="Link to this heading">#</a></h1>
+<p>In our previous example (Agent Supervisor), we introduced the concept of a single supervisor node to route work between different worker nodes.</p>
+<p>But what if the job for a single worker becomes too complex? What if the number of workers becomes too large?</p>
+<p>For some applications, the system may be more effective if work is distributed hierarchically.</p>
+<p>You can do this by composing different subgraphs and creating a top-level supervisor, along with mid-level supervisors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebBaseLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.tools.tavily_search</span><span class="w"> </span><span class="kn">import</span> <span class="n">TavilySearchResults</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">tool</span>
+
+<span class="n">tavily_tool</span> <span class="o">=</span> <span class="n">TavilySearchResults</span><span class="p">(</span><span class="n">max_results</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>USER_AGENT environment variable not set, consider setting it to identify your requests.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">scrape_webpages</span><span class="p">(</span><span class="n">urls</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span><span class="o">-&gt;</span><span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use requests and bs4 to scrape the provided web pages for detailed information.&quot;&quot;&quot;</span>
+    <span class="n">loader</span> <span class="o">=</span> <span class="n">WebBaseLoader</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span>
+    <span class="n">docs</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="sa">f</span><span class="s1">&#39;&lt;Document name=&quot;</span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&quot;&gt;</span><span class="se">\n</span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="si">}</span><span class="se">\n</span><span class="s1">&lt;/Document&gt;&#39;</span>
+            <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tempfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">TemporaryDirectory</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_experimental.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">PythonREPL</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
+
+<span class="n">_TEMP_DIRECTORY</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">()</span>
+<span class="n">WORKING_DIRECTORY</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">_TEMP_DIRECTORY</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+<span class="nd">@tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_outline</span><span class="p">(</span>
+    <span class="n">points</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="s2">&quot;List of main points or sections.&quot;</span><span class="p">],</span>
+    <span class="n">file_name</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;File path to save the outline.&quot;</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Path of the saved outline file.&quot;</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create and save an outline.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="p">(</span><span class="n">WORKING_DIRECTORY</span> <span class="o">/</span> <span class="n">file_name</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">point</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">point</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Outline saved to </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nd">@tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">write_document</span><span class="p">(</span>
+    <span class="n">content</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Text content to be written into the document.&quot;</span><span class="p">],</span>
+    <span class="n">file_name</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;File path to save the document.&quot;</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Path of the saved document file.&quot;</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create and save a text document.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="p">(</span><span class="n">WORKING_DIRECTORY</span> <span class="o">/</span> <span class="n">file_name</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Document saved to </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nd">@tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">edit_document</span><span class="p">(</span>
+    <span class="n">file_name</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Path of the document to be edited.&quot;</span><span class="p">],</span>
+    <span class="n">inserts</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+        <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+        <span class="s2">&quot;Dictionary where key is the line number (1-indexed) and value is the text to be inserted at that line.&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Path of the edited document file.&quot;</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Edit a document by inserting text at specific line numbers.&quot;&quot;&quot;</span>
+
+    <span class="k">with</span> <span class="p">(</span><span class="n">WORKING_DIRECTORY</span> <span class="o">/</span> <span class="n">file_name</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+    <span class="n">sorted_inserts</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">inserts</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+
+    <span class="k">for</span> <span class="n">line_number</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">sorted_inserts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">line_number</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">line_number</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">text</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error: Line number </span><span class="si">{</span><span class="n">line_number</span><span class="si">}</span><span class="s2"> is out of range.&quot;</span>
+
+    <span class="k">with</span> <span class="p">(</span><span class="n">WORKING_DIRECTORY</span> <span class="o">/</span> <span class="n">file_name</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Document edited and saved to </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">WORKING_DIRECTORY</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WindowsPath(&#39;C:/Users/Welcome/AppData/Local/Temp/tmp821ztg6d&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Warning: This executes code locally, which can be unsafe when not sandboxed</span>
+
+<span class="n">repl</span> <span class="o">=</span> <span class="n">PythonREPL</span><span class="p">()</span>
+
+
+<span class="nd">@tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">python_repl_tool</span><span class="p">(</span>
+    <span class="n">code</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;The python code to execute to generate your chart.&quot;</span><span class="p">],</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use this to execute python code. If you want to see the output of a value,</span>
+<span class="sd">    you should print it out with `print(...)`. This is visible to the user.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">repl</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Failed to execute. Error: </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Successfully executed:</span><span class="se">\n</span><span class="s2">```python</span><span class="se">\n</span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="se">\n</span><span class="s2">```</span><span class="se">\n</span><span class="s2">Stdout: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.language_models.chat_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseChatModel</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">MessagesState</span><span class="p">,</span> <span class="n">START</span><span class="p">,</span> <span class="n">END</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Command</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">HumanMessage</span><span class="p">,</span> <span class="n">trim_messages</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">MessagesState</span><span class="p">):</span>
+    <span class="nb">next</span><span class="p">:</span> <span class="nb">str</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_supervisor_node</span><span class="p">(</span><span class="n">llm</span><span class="p">:</span> <span class="n">BaseChatModel</span><span class="p">,</span> <span class="n">members</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;FINISH&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">members</span>
+    <span class="n">system_prompt</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;You are a supervisor tasked with managing a conversation between the&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot; following workers: </span><span class="si">{</span><span class="n">members</span><span class="si">}</span><span class="s2">. Given the following user request,&quot;</span>
+        <span class="s2">&quot; respond with the worker to act next. Each worker will perform a&quot;</span>
+        <span class="s2">&quot; task and respond with their results and status. When finished,&quot;</span>
+        <span class="s2">&quot; respond with FINISH.&quot;</span>
+    <span class="p">)</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Router</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Worker to route to next. If no workers needed, route to FINISH.&quot;&quot;&quot;</span>
+
+        <span class="nb">next</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="o">*</span><span class="n">options</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">supervisor_node</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Command</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="o">*</span><span class="n">members</span><span class="p">,</span> <span class="s2">&quot;__end__&quot;</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;An LLM-based router.&quot;&quot;&quot;</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system_prompt</span><span class="p">},</span>
+        <span class="p">]</span> <span class="o">+</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">]</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">with_structured_output</span><span class="p">(</span><span class="n">Router</span><span class="p">)</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
+        <span class="n">goto</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;next&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">goto</span> <span class="o">==</span> <span class="s2">&quot;FINISH&quot;</span><span class="p">:</span>
+            <span class="n">goto</span> <span class="o">=</span> <span class="n">END</span>
+
+        <span class="k">return</span> <span class="n">Command</span><span class="p">(</span><span class="n">goto</span><span class="o">=</span><span class="n">goto</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;next&quot;</span><span class="p">:</span> <span class="n">goto</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">supervisor_node</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">internal_tool_1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tool(name=&#39;InternalResearchNotes&#39;, description=&#39;Search internal research notes for experimental results&#39;, func=&lt;function make_retriever_tool_from_text.&lt;locals&gt;.tool_func at 0x000001E31A914CC0&gt;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">HumanMessage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.prebuilt</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_react_agent</span>
+
+
+
+<span class="n">search_agent</span> <span class="o">=</span> <span class="n">create_react_agent</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">tavily_tool</span><span class="p">,</span><span class="n">internal_tool_1</span><span class="p">])</span>
+<span class="n">search_agent</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">search_node</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Command</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;supervisor&quot;</span><span class="p">]]:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">search_agent</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Command</span><span class="p">(</span>
+        <span class="n">update</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;search&quot;</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="c1"># We want our workers to ALWAYS &quot;report back&quot; to the supervisor when done</span>
+        <span class="n">goto</span><span class="o">=</span><span class="s2">&quot;supervisor&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="c1">### sub agent</span>
+<span class="n">web_scraper_agent</span> <span class="o">=</span> <span class="n">create_react_agent</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">scrape_webpages</span><span class="p">])</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">web_scraper_node</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Command</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;supervisor&quot;</span><span class="p">]]:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">web_scraper_agent</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Command</span><span class="p">(</span>
+        <span class="n">update</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;web_scraper&quot;</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="c1"># We want our workers to ALWAYS &quot;report back&quot; to the supervisor when done</span>
+        <span class="n">goto</span><span class="o">=</span><span class="s2">&quot;supervisor&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Welcome\AppData\Local\Temp\ipykernel_15332\2815477865.py:7: LangGraphDeprecatedSinceV10: create_react_agent has been moved to `langchain.agents`. Please update your import to `from langchain.agents import create_agent`. Deprecated in LangGraph V1.0 to be removed in V2.0.
+  search_agent = create_react_agent(llm, tools=[tavily_tool,internal_tool_1])
+C:\Users\Welcome\AppData\Local\Temp\ipykernel_15332\2815477865.py:23: LangGraphDeprecatedSinceV10: create_react_agent has been moved to `langchain.agents`. Please update your import to `from langchain.agents import create_agent`. Deprecated in LangGraph V1.0 to be removed in V2.0.
+  web_scraper_agent = create_react_agent(llm, tools=[scrape_webpages])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">research_supervisor_node</span> <span class="o">=</span> <span class="n">make_supervisor_node</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;search&quot;</span><span class="p">,</span> <span class="s2">&quot;web_scraper&quot;</span><span class="p">])</span>
+<span class="n">research_supervisor_node</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.make_supervisor_node.&lt;locals&gt;.supervisor_node(state: __main__.State) -&gt; langgraph.types.Command[typing.Literal[&#39;search&#39;, &#39;web_scraper&#39;, &#39;__end__&#39;]]&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">research_builder</span> <span class="o">=</span> <span class="n">StateGraph</span><span class="p">(</span><span class="n">State</span><span class="p">)</span>
+<span class="n">research_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;supervisor&quot;</span><span class="p">,</span> <span class="n">research_supervisor_node</span><span class="p">)</span>
+<span class="n">research_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;search&quot;</span><span class="p">,</span> <span class="n">search_node</span><span class="p">)</span>
+<span class="n">research_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;web_scraper&quot;</span><span class="p">,</span> <span class="n">web_scraper_node</span><span class="p">)</span>
+
+<span class="n">research_builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">START</span><span class="p">,</span> <span class="s2">&quot;supervisor&quot;</span><span class="p">)</span>
+<span class="n">research_graph</span> <span class="o">=</span> <span class="n">research_builder</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+<span class="n">research_graph</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/3701aa1036c62151b73c49c46f1ddb556ffb25c95bd7c1595f95715df81a0662.png" src="../_images/3701aa1036c62151b73c49c46f1ddb556ffb25c95bd7c1595f95715df81a0662.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_document</span><span class="p">(</span>
+    <span class="n">file_name</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;File path to read the document from.&quot;</span><span class="p">],</span>
+    <span class="n">start</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="s2">&quot;The start line. Default is 0&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">end</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="s2">&quot;The end line. Default is None&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the specified document.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="p">(</span><span class="n">WORKING_DIRECTORY</span> <span class="o">/</span> <span class="n">file_name</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc_writer_agent</span> <span class="o">=</span> <span class="n">create_react_agent</span><span class="p">(</span>
+    <span class="n">llm</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">write_document</span><span class="p">,</span> <span class="n">edit_document</span><span class="p">,</span> <span class="n">read_document</span><span class="p">],</span>
+    <span class="n">prompt</span><span class="o">=</span><span class="p">(</span>
+        <span class="s2">&quot;You can read, write and edit documents based on note-taker&#39;s outlines. &quot;</span>
+        <span class="s2">&quot;Don&#39;t ask follow-up questions.&quot;</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">doc_writing_node</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Command</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;supervisor&quot;</span><span class="p">]]:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">doc_writer_agent</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Command</span><span class="p">(</span>
+        <span class="n">update</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;doc_writer&quot;</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="c1"># We want our workers to ALWAYS &quot;report back&quot; to the supervisor when done</span>
+        <span class="n">goto</span><span class="o">=</span><span class="s2">&quot;supervisor&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">note_taking_agent</span> <span class="o">=</span> <span class="n">create_react_agent</span><span class="p">(</span>
+    <span class="n">llm</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">create_outline</span><span class="p">,</span> <span class="n">read_document</span><span class="p">],</span>
+    <span class="n">prompt</span><span class="o">=</span><span class="p">(</span>
+        <span class="s2">&quot;You can read documents and create outlines for the document writer. &quot;</span>
+        <span class="s2">&quot;Don&#39;t ask follow-up questions.&quot;</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">note_taking_node</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Command</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;supervisor&quot;</span><span class="p">]]:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">note_taking_agent</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Command</span><span class="p">(</span>
+        <span class="n">update</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;note_taker&quot;</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="c1"># We want our workers to ALWAYS &quot;report back&quot; to the supervisor when done</span>
+        <span class="n">goto</span><span class="o">=</span><span class="s2">&quot;supervisor&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="n">chart_generating_agent</span> <span class="o">=</span> <span class="n">create_react_agent</span><span class="p">(</span>
+    <span class="n">llm</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">read_document</span><span class="p">,</span> <span class="n">python_repl_tool</span><span class="p">]</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">chart_generating_node</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Command</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;supervisor&quot;</span><span class="p">]]:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">chart_generating_agent</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Command</span><span class="p">(</span>
+        <span class="n">update</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">HumanMessage</span><span class="p">(</span>
+                    <span class="n">content</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;chart_generator&quot;</span>
+                <span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="c1"># We want our workers to ALWAYS &quot;report back&quot; to the supervisor when done</span>
+        <span class="n">goto</span><span class="o">=</span><span class="s2">&quot;supervisor&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">doc_writing_supervisor_node</span> <span class="o">=</span> <span class="n">make_supervisor_node</span><span class="p">(</span>
+    <span class="n">llm</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;doc_writer&quot;</span><span class="p">,</span> <span class="s2">&quot;note_taker&quot;</span><span class="p">,</span> <span class="s2">&quot;chart_generator&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Welcome\AppData\Local\Temp\ipykernel_15332\1850447762.py:1: LangGraphDeprecatedSinceV10: create_react_agent has been moved to `langchain.agents`. Please update your import to `from langchain.agents import create_agent`. Deprecated in LangGraph V1.0 to be removed in V2.0.
+  doc_writer_agent = create_react_agent(
+C:\Users\Welcome\AppData\Local\Temp\ipykernel_15332\1850447762.py:23: LangGraphDeprecatedSinceV10: create_react_agent has been moved to `langchain.agents`. Please update your import to `from langchain.agents import create_agent`. Deprecated in LangGraph V1.0 to be removed in V2.0.
+  note_taking_agent = create_react_agent(
+C:\Users\Welcome\AppData\Local\Temp\ipykernel_15332\1850447762.py:46: LangGraphDeprecatedSinceV10: create_react_agent has been moved to `langchain.agents`. Please update your import to `from langchain.agents import create_agent`. Deprecated in LangGraph V1.0 to be removed in V2.0.
+  chart_generating_agent = create_react_agent(
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the graph here</span>
+<span class="n">paper_writing_builder</span> <span class="o">=</span> <span class="n">StateGraph</span><span class="p">(</span><span class="n">State</span><span class="p">)</span>
+<span class="n">paper_writing_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;supervisor&quot;</span><span class="p">,</span> <span class="n">doc_writing_supervisor_node</span><span class="p">)</span>
+<span class="n">paper_writing_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;doc_writer&quot;</span><span class="p">,</span> <span class="n">doc_writing_node</span><span class="p">)</span>
+<span class="n">paper_writing_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;note_taker&quot;</span><span class="p">,</span> <span class="n">note_taking_node</span><span class="p">)</span>
+<span class="n">paper_writing_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;chart_generator&quot;</span><span class="p">,</span> <span class="n">chart_generating_node</span><span class="p">)</span>
+
+<span class="n">paper_writing_builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">START</span><span class="p">,</span> <span class="s2">&quot;supervisor&quot;</span><span class="p">)</span>
+<span class="n">paper_writing_graph</span> <span class="o">=</span> <span class="n">paper_writing_builder</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+<span class="n">paper_writing_graph</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/24f06f2bcd8d1f1a32a4019091de31cb71addfe732d0f021164449397317f178.png" src="../_images/24f06f2bcd8d1f1a32a4019091de31cb71addfe732d0f021164449397317f178.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseMessage</span>
+<span class="n">teams_supervisor_node</span> <span class="o">=</span> <span class="n">make_supervisor_node</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;research_team&quot;</span><span class="p">,</span> <span class="s2">&quot;writing_team&quot;</span><span class="p">])</span>
+<span class="n">teams_supervisor_node</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.make_supervisor_node.&lt;locals&gt;.supervisor_node(state: __main__.State) -&gt; langgraph.types.Command[typing.Literal[&#39;research_team&#39;, &#39;writing_team&#39;, &#39;__end__&#39;]]&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">call_research_team</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Command</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;supervisor&quot;</span><span class="p">]]:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">research_graph</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]})</span>
+    <span class="k">return</span> <span class="n">Command</span><span class="p">(</span>
+        <span class="n">update</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">HumanMessage</span><span class="p">(</span>
+                    <span class="n">content</span><span class="o">=</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;research_team&quot;</span>
+                <span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="n">goto</span><span class="o">=</span><span class="s2">&quot;supervisor&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">call_paper_writing_team</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Command</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;supervisor&quot;</span><span class="p">]]:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">paper_writing_graph</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]})</span>
+    <span class="k">return</span> <span class="n">Command</span><span class="p">(</span>
+        <span class="n">update</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">HumanMessage</span><span class="p">(</span>
+                    <span class="n">content</span><span class="o">=</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;writing_team&quot;</span>
+                <span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="n">goto</span><span class="o">=</span><span class="s2">&quot;supervisor&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># Define the graph.</span>
+<span class="n">super_builder</span> <span class="o">=</span> <span class="n">StateGraph</span><span class="p">(</span><span class="n">State</span><span class="p">)</span>
+<span class="n">super_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;supervisor&quot;</span><span class="p">,</span> <span class="n">teams_supervisor_node</span><span class="p">)</span>
+<span class="n">super_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;research_team&quot;</span><span class="p">,</span> <span class="n">call_research_team</span><span class="p">)</span>
+<span class="n">super_builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;writing_team&quot;</span><span class="p">,</span> <span class="n">call_paper_writing_team</span><span class="p">)</span>
+
+<span class="n">super_builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">START</span><span class="p">,</span> <span class="s2">&quot;supervisor&quot;</span><span class="p">)</span>
+<span class="n">super_graph</span> <span class="o">=</span> <span class="n">super_builder</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+<span class="n">super_graph</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d790ac9f34ac19b285242bf76693735450cd1fbfa85f4afad798d941dc9237c3.png" src="../_images/d790ac9f34ac19b285242bf76693735450cd1fbfa85f4afad798d941dc9237c3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span><span class="o">=</span><span class="n">super_graph</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;Write about transformer variants in production deployments.&quot;</span><span class="p">)</span>
+        <span class="p">],</span>
+    <span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;messages&#39;: [HumanMessage(content=&#39;Write about transformer variants in production deployments.&#39;, additional_kwargs={}, response_metadata={}, id=&#39;3d925058-cd7d-45ef-92d1-ec70e9c2bef1&#39;),
+  HumanMessage(content=&#39;Transformer models have led to significant advancements in natural language processing (NLP) and related fields. In production deployments, various transformer variants are tailored to meet specific application needs and operational constraints. Below are some commonly used transformer variants:\n\n### 1. **BERT (Bidirectional Encoder Representations from Transformers)**\n   - **Architecture**: Multi-layer bidirectional transformer encoder that enhances understanding of context.\n   - **Use Cases**: Often used for question answering, sentiment analysis, and named entity recognition.\n   - **Production**: Extensively implemented in search engines and virtual assistants to improve query comprehension.\n\n### 2. **GPT (Generative Pre-trained Transformer)**\n   - **Architecture**: Composed of a unidirectional transformer decoder, making it ideal for generating text.\n   - **Use Cases**: Suitable for applications like dialogue systems, content creation, and summarization.\n   - **Production**: Deployments include virtual assistants, chatbots, and automated content generation tools.\n\n### 3. **RoBERTa (Robustly Optimized BERT Approach)**\n   - **Architecture**: An enhanced version of BERT that removes certain training objectives for better performance.\n   - **Use Cases**: Similar to BERT but typically achieves superior results on benchmark tasks.\n   - **Production**: Frequently utilized in applications requiring precision in language understanding.\n\n### 4. **ALBERT (A Lite BERT)**\n   - **Architecture**: Focuses on reducing the model size through parameter sharing while retaining performance.\n   - **Use Cases**: Primarily for tasks like text classification and sentiment analysis.\n   - **Production**: Ideal for environments with resource constraints, aiming for efficiency.\n\n### 5. **DistilBERT**\n   - **Architecture**: A smaller, faster variant of BERT that retains much of its capability but is more efficient.\n   - **Use Cases**: Suited for applications demanding quick responses and low latency.\n   - **Production**: Commonly adopted in mobile applications and real-time systems.\n\n### 6. **XLNet**\n   - **Architecture**: A generalized autoregressive model that captures bidirectional context using a permutation-based approach.\n   - **Use Cases**: Effective for complex language tasks where contextual relationships matter.\n   - **Production**: Employed in advanced applications requiring deep contextual understanding.\n\n### 7. **T5 (Text-to-Text Transfer Transformer)**\n   - **Architecture**: Converts all NLP tasks into a text-to-text format, allowing flexibility in input and output.\n   - **Use Cases**: Applicable in diverse NLP tasks like translation, summarization, and question answering.\n   - **Production**: Used in systems that require a versatile handling of various language-related challenges.\n\n### 8. **MobileBERT and TinyBERT**\n   - **Architecture**: Developed specifically for edge devices, these models are streamlined to operate within tight memory and processing constraints.\n   - **Use Cases**: Ideal for mobile and IoT applications where resources are limited.\n   - **Production**: Efficiently deployed in edge environments, often achieving significant speed and memory efficiency while maintaining performance.\n\n### 9. **FlashAttention and LongNet**\n   - **Purpose**: New attention mechanisms designed to optimize memory usage and computational efficiency, particularly for longer sequences.\n   - **Production**: Address challenges that arise from the scaling of standard transformers in extensive datasets and operational contexts.\n\n### Deployment Strategies\nWhen adopting transformer models for production, particularly on edge devices, organizations often utilize techniques such as model compression (distillation, quantization), automated deployment pipelines, and active monitoring of performance metrics (latency, resource usage) to ensure reliability and effectiveness in real-world applications.\n\n### Summary\nThe choice of transformer variant depends on the specific requirements of the application, including context understanding, resource availability, and speed requirements. As the field continues to evolve, so do the deployment strategies and efficiency approaches for these powerful models. The integration of these transformer variants into various applications demonstrates their versatility and transformative impact across industries.&#39;, additional_kwargs={}, response_metadata={}, name=&#39;research_team&#39;, id=&#39;61caab62-cc6e-4a84-82ac-3837e32ea74c&#39;),
+  HumanMessage(content=&#39;The document and outline for the transformer models in natural language processing have been successfully created and saved. If you need any further assistance or additional information regarding these transformer models, feel free to ask!&#39;, additional_kwargs={}, response_metadata={}, name=&#39;writing_team&#39;, id=&#39;c2b8ec18-2993-4477-add6-70a6fa3cfb5d&#39;)],
+ &#39;next&#39;: &#39;__end__&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;The document and outline for the transformer models in natural language processing have been successfully created and saved. If you need any further assistance or additional information regarding these transformer models, feel free to ask!&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./7-AgenticRag"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="7-answersynthesis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🧠 Answer Synthesis from Multiple Sources</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../pydantic/intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Pydantic Basics: Creating and Using Models</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🤖 What are Multi-Agent RAG Systems?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-agent-network-rag-system-with-langgraph">1. 📋 Multi-Agent Network RAG System with LangGraph</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-agent-suprvisor-with-rag">Multi Agent Suprvisor With RAG</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hierarchical-agent-teams-with-rag">Hierarchical Agent Teams With RAG</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Your Name
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

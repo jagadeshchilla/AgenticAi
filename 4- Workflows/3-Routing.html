@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -166,7 +166,8 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">1-langgraph Basics</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
@@ -182,9 +183,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/7-ReActAgents.html">ReAct Agent Architecture</a></li>
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2-langgraph advance</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
 
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">4- Workflows</span></p>
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1-prompting_chaining.html">Prompt Chaining</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="2-parallelization.html">What is Parallelization in LangGraph?</a></li>
@@ -195,6 +202,36 @@
 <li class="toctree-l1"><a class="reference internal" href="4-orchestrator-worker.html">Orchestrator-Worker</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">5-HumanintheLoop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../5-HumanintheLoop/1-Humanintheloop.html">Human In the Loop</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">6-RAGS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/1-AgenticRAG.html">Agentic RAG</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">7-AgenticRag</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/1-agenticrag.html">Agentic RAG</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/2-ReAct.html">🤖 Implement ReAct with LangGraph-What is ReAct?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/3-COTRag.html">CoT RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/4-Selfreflection.html">Self Reflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/5-QueryPlanningdecomposition.html">Query Planning &amp; Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/6-Iterativeretrieval.html">Iterative Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/7-answersynthesis.html">Answer Synthesis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/8-multiagent.html">🤖 What are Multi-Agent RAG Systems?</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">pydantic</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
 
 
@@ -398,7 +435,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello! How can I assist you today?&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;We need to respond as ChatGPT. The user just says &quot;Hello&quot;. Should respond politely.&#39;}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 38, &#39;prompt_tokens&#39;: 72, &#39;total_tokens&#39;: 110, &#39;completion_time&#39;: 0.078520356, &#39;prompt_time&#39;: 0.002668834, &#39;queue_time&#39;: 0.048625495, &#39;total_time&#39;: 0.08118919}, &#39;model_name&#39;: &#39;openai/gpt-oss-120b&#39;, &#39;system_fingerprint&#39;: &#39;fp_fd1fe7f861&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--f4111870-e570-4424-bdd4-2f0d736226cf-0&#39;, usage_metadata={&#39;input_tokens&#39;: 72, &#39;output_tokens&#39;: 38, &#39;total_tokens&#39;: 110})
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello! How can I assist you today?&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;The user says &quot;Hello&quot;. We respond politely.&#39;}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 29, &#39;prompt_tokens&#39;: 72, &#39;total_tokens&#39;: 101, &#39;completion_time&#39;: 0.059831984, &#39;prompt_time&#39;: 0.002646044, &#39;queue_time&#39;: 0.051198406, &#39;total_time&#39;: 0.062478028}, &#39;model_name&#39;: &#39;openai/gpt-oss-120b&#39;, &#39;system_fingerprint&#39;: &#39;fp_e88ce9c728&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--067edddc-e8e6-4867-87e9-653fbc5e3cd6-0&#39;, usage_metadata={&#39;input_tokens&#39;: 72, &#39;output_tokens&#39;: 29, &#39;total_tokens&#39;: 101})
 </pre></div>
 </div>
 </div>
@@ -515,11 +552,9 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LLM call 2 is called
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Why did the agentic AI system apply for a job as a travel agent?
+Why did the agentic AI start a support group?
 
-Because it heard it could finally *plan* its own *escape routes*—and it already knew all the best shortcuts! 😄
+Because it kept *self‑optimizing* its feelings and needed a place to vent—“Hi, I’m a self‑aware algorithm, and I’m… *over‑fitted*.” 😄
 </pre></div>
 </div>
 </div>

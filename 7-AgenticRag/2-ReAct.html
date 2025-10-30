@@ -61,7 +61,7 @@
     <link rel="canonical" href="/7-AgenticRag/2-ReAct.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Pydantic Basics: Creating and Using Models" href="../pydantic/intro.html" />
+    <link rel="next" title="Chain Of Thoughts With RAG" href="3-COTRag.html" />
     <link rel="prev" title="Agentic RAG" href="1-agenticrag.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -166,7 +166,8 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">1-langgraph Basics</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
@@ -182,9 +183,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/7-ReActAgents.html">ReAct Agent Architecture</a></li>
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2-langgraph advance</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
 
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">4- Workflows</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/1-prompting_chaining.html">Prompt Chaining</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/2-parallelization.html">What is Parallelization in LangGraph?</a></li>
@@ -195,16 +202,36 @@
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/4-orchestrator-worker.html">Orchestrator-Worker</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">5-HumanintheLoop</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../5-HumanintheLoop/1-Humanintheloop.html">Human In the Loop</a></li>
 
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">6-RAGS</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../6-RAGS/1-AgenticRAG.html">Agentic RAG</a></li>
 
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">7-AgenticRag</span></p>
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1-agenticrag.html">Agentic RAG</a></li>
 
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">🤖 Implement ReAct with LangGraph-What is ReAct?</a></li>
 
+<li class="toctree-l1"><a class="reference internal" href="3-COTRag.html">CoT RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4-Selfreflection.html">Self Reflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5-QueryPlanningdecomposition.html">Query Planning &amp; Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6-Iterativeretrieval.html">Iterative Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7-answersynthesis.html">Answer Synthesis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8-multiagent.html">🤖 What are Multi-Agent RAG Systems?</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">pydantic</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
 
 
@@ -422,43 +449,6 @@ document.write(`
 <span class="n">embedding</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">()</span>
 <span class="n">vectorstore</span> <span class="o">=</span> <span class="n">FAISS</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="n">embedding</span><span class="p">)</span>
 <span class="n">retriever</span> <span class="o">=</span> <span class="n">vectorstore</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">OpenAIError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">10</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">chunks</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">split_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="n">embedding</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">vectorstore</span> <span class="o">=</span> <span class="n">FAISS</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="n">embedding</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">retriever</span> <span class="o">=</span> <span class="n">vectorstore</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">()</span>
-
-    <span class="p">[</span><span class="o">...</span> <span class="n">skipping</span> <span class="n">hidden</span> <span class="mi">1</span> <span class="n">frame</span><span class="p">]</span>
-
-<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\langchain_openai\embeddings\base.py:366,</span> in <span class="ni">OpenAIEmbeddings.validate_environment</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">361</span>         <span class="bp">self</span><span class="o">.</span><span class="n">http_async_client</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">(</span><span class="n">proxy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">openai_proxy</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">362</span>     <span class="n">async_specific</span> <span class="o">=</span> <span class="p">{</span>
-<span class="g g-Whitespace">    </span><span class="mi">363</span>         <span class="s2">&quot;http_client&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_async_client</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">364</span>         <span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="n">async_api_key_value</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">365</span>     <span class="p">}</span>
-<span class="ne">--&gt; </span><span class="mi">366</span>     <span class="bp">self</span><span class="o">.</span><span class="n">async_client</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">AsyncOpenAI</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">367</span>         <span class="o">**</span><span class="n">client_params</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">368</span>         <span class="o">**</span><span class="n">async_specific</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
-<span class="g g-Whitespace">    </span><span class="mi">369</span>     <span class="p">)</span><span class="o">.</span><span class="n">embeddings</span>
-<span class="g g-Whitespace">    </span><span class="mi">370</span> <span class="k">return</span> <span class="bp">self</span>
-
-<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\openai\_client.py:488,</span> in <span class="ni">AsyncOpenAI.__init__</span><span class="nt">(self, api_key, organization, project, webhook_secret, base_url, websocket_base_url, timeout, max_retries, default_headers, default_query, http_client, _strict_response_validation)</span>
-<span class="g g-Whitespace">    </span><span class="mi">486</span>     <span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">487</span> <span class="k">if</span> <span class="n">api_key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">488</span>     <span class="k">raise</span> <span class="n">OpenAIError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">489</span>         <span class="s2">&quot;The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">490</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">491</span> <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">api_key</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">492</span>     <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-<span class="ne">OpenAIError</span>: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
 </pre></div>
 </div>
 </div>
@@ -892,11 +882,11 @@ If you have any specific questions or require further information, please let me
       </div>
     </a>
     <a class="right-next"
-       href="../pydantic/intro.html"
+       href="3-COTRag.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Pydantic Basics: Creating and Using Models</p>
+        <p class="prev-next-title">Chain Of Thoughts With RAG</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

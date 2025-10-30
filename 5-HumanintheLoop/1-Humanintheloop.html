@@ -166,7 +166,8 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">1-langgraph Basics</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
@@ -182,9 +183,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/7-ReActAgents.html">ReAct Agent Architecture</a></li>
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2-langgraph advance</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
 
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">4- Workflows</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/1-prompting_chaining.html">Prompt Chaining</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/2-parallelization.html">What is Parallelization in LangGraph?</a></li>
@@ -195,16 +202,36 @@
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/4-orchestrator-worker.html">Orchestrator-Worker</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">5-HumanintheLoop</span></p>
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Human In the Loop</a></li>
 
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">6-RAGS</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../6-RAGS/1-AgenticRAG.html">Agentic RAG</a></li>
 
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">7-AgenticRag</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/1-agenticrag.html">Agentic RAG</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/2-ReAct.html">🤖 Implement ReAct with LangGraph-What is ReAct?</a></li>
 
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/3-COTRag.html">CoT RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/4-Selfreflection.html">Self Reflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/5-QueryPlanningdecomposition.html">Query Planning &amp; Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/6-Iterativeretrieval.html">Iterative Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/7-answersynthesis.html">Answer Synthesis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/8-multiagent.html">🤖 What are Multi-Agent RAG Systems?</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">pydantic</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
 
 
@@ -404,7 +431,7 @@ Now, let’s talk about the motivations for human-in-the-loop:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;How can I assist you today?&#39;, additional_kwargs={}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 8, &#39;prompt_tokens&#39;: 36, &#39;total_tokens&#39;: 44, &#39;completion_time&#39;: 0.010496111, &#39;prompt_time&#39;: 0.001869537, &#39;queue_time&#39;: 0.055077693, &#39;total_time&#39;: 0.012365648}, &#39;model_name&#39;: &#39;llama-3.1-8b-instant&#39;, &#39;system_fingerprint&#39;: &#39;fp_7b3cfae3af&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--1702f402-6a40-4a75-a270-274f46422ec5-0&#39;, usage_metadata={&#39;input_tokens&#39;: 36, &#39;output_tokens&#39;: 8, &#39;total_tokens&#39;: 44})
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello, how are you today? Is there something I can help you with, or would you like to chat?&#39;, additional_kwargs={}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 24, &#39;prompt_tokens&#39;: 36, &#39;total_tokens&#39;: 60, &#39;completion_time&#39;: 0.027713281, &#39;prompt_time&#39;: 0.001575629, &#39;queue_time&#39;: 0.052581651, &#39;total_time&#39;: 0.02928891}, &#39;model_name&#39;: &#39;llama-3.1-8b-instant&#39;, &#39;system_fingerprint&#39;: &#39;fp_7b3cfae3af&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--b83172db-bd32-4875-8a4f-8dcb9f27f389-0&#39;, usage_metadata={&#39;input_tokens&#39;: 36, &#39;output_tokens&#39;: 24, &#39;total_tokens&#39;: 60})
 </pre></div>
 </div>
 </div>
@@ -461,7 +488,7 @@ Now, let’s talk about the motivations for human-in-the-loop:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RunnableBinding(bound=ChatGroq(client=&lt;groq.resources.chat.completions.Completions object at 0x000001884C45D7F0&gt;, async_client=&lt;groq.resources.chat.completions.AsyncCompletions object at 0x000001884C5A9550&gt;, model_name=&#39;llama-3.1-8b-instant&#39;, model_kwargs={}, groq_api_key=SecretStr(&#39;**********&#39;)), kwargs={&#39;tools&#39;: [{&#39;type&#39;: &#39;function&#39;, &#39;function&#39;: {&#39;name&#39;: &#39;add&#39;, &#39;description&#39;: &#39;Adds a and b.&#39;, &#39;parameters&#39;: {&#39;properties&#39;: {&#39;a&#39;: {&#39;description&#39;: &#39;first int&#39;, &#39;type&#39;: &#39;integer&#39;}, &#39;b&#39;: {&#39;description&#39;: &#39;second int&#39;, &#39;type&#39;: &#39;integer&#39;}}, &#39;required&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;type&#39;: &#39;object&#39;}}}, {&#39;type&#39;: &#39;function&#39;, &#39;function&#39;: {&#39;name&#39;: &#39;multiply&#39;, &#39;description&#39;: &#39;Multiply a and b.&#39;, &#39;parameters&#39;: {&#39;properties&#39;: {&#39;a&#39;: {&#39;description&#39;: &#39;first int&#39;, &#39;type&#39;: &#39;integer&#39;}, &#39;b&#39;: {&#39;description&#39;: &#39;second int&#39;, &#39;type&#39;: &#39;integer&#39;}}, &#39;required&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;type&#39;: &#39;object&#39;}}}, {&#39;type&#39;: &#39;function&#39;, &#39;function&#39;: {&#39;name&#39;: &#39;divide&#39;, &#39;description&#39;: &#39;Divide a by b.&#39;, &#39;parameters&#39;: {&#39;properties&#39;: {&#39;a&#39;: {&#39;description&#39;: &#39;first int&#39;, &#39;type&#39;: &#39;integer&#39;}, &#39;b&#39;: {&#39;description&#39;: &#39;second int&#39;, &#39;type&#39;: &#39;integer&#39;}}, &#39;required&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;type&#39;: &#39;object&#39;}}}]}, config={}, config_factories=[])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RunnableBinding(bound=ChatGroq(client=&lt;groq.resources.chat.completions.Completions object at 0x000001FFED6B43B0&gt;, async_client=&lt;groq.resources.chat.completions.AsyncCompletions object at 0x000001FFED7F8200&gt;, model_name=&#39;llama-3.1-8b-instant&#39;, model_kwargs={}, groq_api_key=SecretStr(&#39;**********&#39;)), kwargs={&#39;tools&#39;: [{&#39;type&#39;: &#39;function&#39;, &#39;function&#39;: {&#39;name&#39;: &#39;add&#39;, &#39;description&#39;: &#39;Adds a and b.&#39;, &#39;parameters&#39;: {&#39;properties&#39;: {&#39;a&#39;: {&#39;description&#39;: &#39;first int&#39;, &#39;type&#39;: &#39;integer&#39;}, &#39;b&#39;: {&#39;description&#39;: &#39;second int&#39;, &#39;type&#39;: &#39;integer&#39;}}, &#39;required&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;type&#39;: &#39;object&#39;}}}, {&#39;type&#39;: &#39;function&#39;, &#39;function&#39;: {&#39;name&#39;: &#39;multiply&#39;, &#39;description&#39;: &#39;Multiply a and b.&#39;, &#39;parameters&#39;: {&#39;properties&#39;: {&#39;a&#39;: {&#39;description&#39;: &#39;first int&#39;, &#39;type&#39;: &#39;integer&#39;}, &#39;b&#39;: {&#39;description&#39;: &#39;second int&#39;, &#39;type&#39;: &#39;integer&#39;}}, &#39;required&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;type&#39;: &#39;object&#39;}}}, {&#39;type&#39;: &#39;function&#39;, &#39;function&#39;: {&#39;name&#39;: &#39;divide&#39;, &#39;description&#39;: &#39;Divide a by b.&#39;, &#39;parameters&#39;: {&#39;properties&#39;: {&#39;a&#39;: {&#39;description&#39;: &#39;first int&#39;, &#39;type&#39;: &#39;integer&#39;}, &#39;b&#39;: {&#39;description&#39;: &#39;second int&#39;, &#39;type&#39;: &#39;integer&#39;}}, &#39;required&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;type&#39;: &#39;object&#39;}}}]}, config={}, config_factories=[])
 </pre></div>
 </div>
 </div>
@@ -560,7 +587,7 @@ Multiply 2 and 3
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object Pregel.get_state_history at 0x000001884D72D220&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object Pregel.get_state_history at 0x000001FFEE8FE6C0&gt;
 </pre></div>
 </div>
 </div>
@@ -572,7 +599,7 @@ Multiply 2 and 3
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>StateSnapshot(values={&#39;messages&#39;: [HumanMessage(content=&#39;Multiply 2 and 3&#39;, additional_kwargs={}, response_metadata={}, id=&#39;be4bb5bc-e10f-4ac9-a079-d95da7e62554&#39;)]}, next=(&#39;assistant&#39;,), config={&#39;configurable&#39;: {&#39;thread_id&#39;: &#39;123&#39;, &#39;checkpoint_ns&#39;: &#39;&#39;, &#39;checkpoint_id&#39;: &#39;1f0b3c25-ec6e-6f4b-8000-3b49f9e40164&#39;}}, metadata={&#39;source&#39;: &#39;loop&#39;, &#39;step&#39;: 0, &#39;parents&#39;: {}}, created_at=&#39;2025-10-28T05:53:04.360839+00:00&#39;, parent_config={&#39;configurable&#39;: {&#39;thread_id&#39;: &#39;123&#39;, &#39;checkpoint_ns&#39;: &#39;&#39;, &#39;checkpoint_id&#39;: &#39;1f0b3c25-ec5b-6e00-bfff-da33a29f4cc5&#39;}}, tasks=(PregelTask(id=&#39;c9b5a27e-ad01-1d77-c762-b0d94c06ff9e&#39;, name=&#39;assistant&#39;, path=(&#39;__pregel_pull&#39;, &#39;assistant&#39;), error=None, interrupts=(), state=None, result=None),), interrupts=())
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>StateSnapshot(values={&#39;messages&#39;: [HumanMessage(content=&#39;Multiply 2 and 3&#39;, additional_kwargs={}, response_metadata={}, id=&#39;d56a1db7-cdff-45f3-9f56-db682e70fdf5&#39;)]}, next=(&#39;assistant&#39;,), config={&#39;configurable&#39;: {&#39;thread_id&#39;: &#39;123&#39;, &#39;checkpoint_ns&#39;: &#39;&#39;, &#39;checkpoint_id&#39;: &#39;1f0b3a77-59df-6923-8000-d690eae7ea3d&#39;}}, metadata={&#39;source&#39;: &#39;loop&#39;, &#39;step&#39;: 0, &#39;parents&#39;: {}}, created_at=&#39;2025-10-28T02:40:26.268291+00:00&#39;, parent_config={&#39;configurable&#39;: {&#39;thread_id&#39;: &#39;123&#39;, &#39;checkpoint_ns&#39;: &#39;&#39;, &#39;checkpoint_id&#39;: &#39;1f0b3a77-59dd-6206-bfff-8c99fe6e0634&#39;}}, tasks=(PregelTask(id=&#39;9bc1e03b-a881-5633-2287-83ceeafcd0ef&#39;, name=&#39;assistant&#39;, path=(&#39;__pregel_pull&#39;, &#39;assistant&#39;), error=None, interrupts=(), state=None, result=None),), interrupts=())
 </pre></div>
 </div>
 </div>
@@ -590,12 +617,10 @@ Multiply 2 and 3
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
 
 Multiply 2 and 3
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 Tool Calls:
-  multiply (hcjbhwd8t)
- Call ID: hcjbhwd8t
+  multiply (hd1h8kyqc)
+ Call ID: hd1h8kyqc
   Args:
     a: 2
     b: 3
@@ -633,11 +658,17 @@ Name: multiply
 Name: multiply
 
 6
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  add (1kypw3hgb)
+ Call ID: 1kypw3hgb
+  Args:
+    a: 6
+    b: 5
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: add
 
-Note: The result of the function call is displayed in the output of the code, which in this case is 6.
+11
 </pre></div>
 </div>
 </div>
@@ -685,7 +716,7 @@ Multiply 2 and 3
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;configurable&#39;: {&#39;thread_id&#39;: &#39;1&#39;,
   &#39;checkpoint_ns&#39;: &#39;&#39;,
-  &#39;checkpoint_id&#39;: &#39;1f0b3c25-f165-66ed-8001-4941e1252b67&#39;}}
+  &#39;checkpoint_id&#39;: &#39;1f0b3a77-5e4f-6a0f-8001-d05354c7e71b&#39;}}
 </pre></div>
 </div>
 </div>
@@ -721,11 +752,17 @@ No,please multiply 15 and 6
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
 
 No,please multiply 15 and 6
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  multiply (r354q3dbh)
+ Call ID: r354q3dbh
+  Args:
+    a: 15
+    b: 6
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: multiply
 
-&lt;multiply&gt;{&quot;a&quot;: 15, &quot;b&quot;: 6}&lt;/multiply&gt;
+90
 </pre></div>
 </div>
 </div>
@@ -738,9 +775,15 @@ No,please multiply 15 and 6
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: multiply
 
-&lt;multiply&gt;{&quot;a&quot;: 15, &quot;b&quot;: 6}&lt;/multiply&gt;
+90
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+
+You want me to display the result. Here&#39;s the result of the function call.
+
+90
 </pre></div>
 </div>
 </div>
@@ -823,29 +866,20 @@ No,please multiply 15 and 6
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
 
 Multiply 2 and 3
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">StdinNotImplementedError</span><span class="g g-Whitespace">                  </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">13</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">event</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="c1">## get user input</span>
-<span class="ne">---&gt; </span><span class="mi">13</span> <span class="n">user_input</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Tell me how you want to update the state:&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">graph</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">thread</span><span class="p">,{</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="n">user_input</span><span class="p">},</span><span class="n">as_node</span><span class="o">=</span><span class="s2">&quot;human_feedback&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="c1"># Continue the graph execution</span>
+================================<span class=" -Color -Color-Bold"> Human Message </span>=================================
 
-<span class="nn">File ~\OneDrive\Documents\AI\AgenticAi\venv\Lib\site-packages\ipykernel\kernelbase.py:1472,</span> in <span class="ni">Kernel.raw_input</span><span class="nt">(self, prompt)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1470</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allow_stdin</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1471</span>     <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;raw_input was called, but this frontend does not support input requests.&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1472</span>     <span class="k">raise</span> <span class="n">StdinNotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1473</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_request</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1474</span>     <span class="nb">str</span><span class="p">(</span><span class="n">prompt</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1475</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_shell_parent_ident</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1476</span>     <span class="bp">self</span><span class="o">.</span><span class="n">get_parent</span><span class="p">(</span><span class="s2">&quot;shell&quot;</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1477</span>     <span class="n">password</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1478</span> <span class="p">)</span>
+yes
+==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
+Tool Calls:
+  multiply (kpk5ks1gp)
+ Call ID: kpk5ks1gp
+  Args:
+    a: 2
+    b: 3
+=================================<span class=" -Color -Color-Bold"> Tool Message </span>=================================
+Name: multiply
 
-<span class="ne">StdinNotImplementedError</span>: raw_input was called, but this frontend does not support input requests.
+6
 </pre></div>
 </div>
 </div>

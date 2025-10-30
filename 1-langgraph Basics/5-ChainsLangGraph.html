@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -166,7 +166,8 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">1-langgraph Basics</span></p>
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
@@ -182,9 +183,15 @@
 <li class="toctree-l1"><a class="reference internal" href="6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="7-ReActAgents.html">ReAct Agent Architecture</a></li>
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2-langgraph advance</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
 
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">4- Workflows</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/1-prompting_chaining.html">Prompt Chaining</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/2-parallelization.html">What is Parallelization in LangGraph?</a></li>
@@ -195,6 +202,36 @@
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/4-orchestrator-worker.html">Orchestrator-Worker</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">5-HumanintheLoop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../5-HumanintheLoop/1-Humanintheloop.html">Human In the Loop</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">6-RAGS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/1-AgenticRAG.html">Agentic RAG</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">7-AgenticRag</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/1-agenticrag.html">Agentic RAG</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/2-ReAct.html">🤖 Implement ReAct with LangGraph-What is ReAct?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/3-COTRag.html">CoT RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/4-Selfreflection.html">Self Reflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/5-QueryPlanningdecomposition.html">Query Planning &amp; Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/6-Iterativeretrieval.html">Iterative Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/7-answersynthesis.html">Answer Synthesis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/8-multiagent.html">🤖 What are Multi-Agent RAG Systems?</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">pydantic</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
 
 
@@ -465,13 +502,13 @@ I want to learn python programming language
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 1698,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 1722,
   &#39;prompt_tokens&#39;: 54,
-  &#39;total_tokens&#39;: 1752,
-  &#39;completion_time&#39;: 3.902922492,
-  &#39;prompt_time&#39;: 0.001973048,
-  &#39;queue_time&#39;: 0.048847412,
-  &#39;total_time&#39;: 3.90489554},
+  &#39;total_tokens&#39;: 1776,
+  &#39;completion_time&#39;: 8.179680712,
+  &#39;prompt_time&#39;: 0.002577889,
+  &#39;queue_time&#39;: 0.055635121,
+  &#39;total_time&#39;: 8.182258601},
  &#39;model_name&#39;: &#39;qwen/qwen3-32b&#39;,
  &#39;system_fingerprint&#39;: &#39;fp_5cf921caa2&#39;,
  &#39;service_tier&#39;: &#39;on_demand&#39;,
@@ -511,7 +548,7 @@ natural language input and this will return an output that matches the tool’s 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ChatGroq(client=&lt;groq.resources.chat.completions.Completions object at 0x00000206133615B0&gt;, async_client=&lt;groq.resources.chat.completions.AsyncCompletions object at 0x000002061340EAB0&gt;, model_name=&#39;qwen/qwen3-32b&#39;, model_kwargs={}, groq_api_key=SecretStr(&#39;**********&#39;))
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ChatGroq(client=&lt;groq.resources.chat.completions.Completions object at 0x000001D460F54140&gt;, async_client=&lt;groq.resources.chat.completions.AsyncCompletions object at 0x000001D4612A3440&gt;, model_name=&#39;qwen/qwen3-32b&#39;, model_kwargs={}, groq_api_key=SecretStr(&#39;**********&#39;))
 </pre></div>
 </div>
 </div>
@@ -536,7 +573,7 @@ natural language input and this will return an output that matches the tool’s 
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;name&#39;: &#39;add&#39;,
   &#39;args&#39;: {&#39;a&#39;: 2, &#39;b&#39;: 2},
-  &#39;id&#39;: &#39;9jb6vj4bk&#39;,
+  &#39;id&#39;: &#39;3cyg49r9g&#39;,
   &#39;type&#39;: &#39;tool_call&#39;}]
 </pre></div>
 </div>
@@ -618,9 +655,9 @@ natural language input and this will return an output that matches the tool’s 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[AIMessage(content=&#39;Please tell me how can I help&#39;, additional_kwargs={}, response_metadata={}, name=&#39;LLMModel&#39;, id=&#39;91d71d0d-3e1a-4a0c-86d7-8ddc9d9b037b&#39;),
- HumanMessage(content=&#39;I want to learn coding&#39;, additional_kwargs={}, response_metadata={}, name=&#39;jagadesh&#39;, id=&#39;fc081514-c1d1-4010-8ae1-98e5cdc9fbe7&#39;),
- AIMessage(content=&#39;Which programming language you want to learn&#39;, additional_kwargs={}, response_metadata={}, name=&#39;LLMModel&#39;, id=&#39;0f675482-0a06-4810-9057-a1d45622605e&#39;)]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[AIMessage(content=&#39;Please tell me how can I help&#39;, additional_kwargs={}, response_metadata={}, name=&#39;LLMModel&#39;, id=&#39;d0effc3f-45fd-4c5f-9518-20b5a12d9cbf&#39;),
+ HumanMessage(content=&#39;I want to learn coding&#39;, additional_kwargs={}, response_metadata={}, name=&#39;jagadesh&#39;, id=&#39;e35626fc-d125-4958-8b48-cfa656c60be4&#39;),
+ AIMessage(content=&#39;Which programming language you want to learn&#39;, additional_kwargs={}, response_metadata={}, name=&#39;LLMModel&#39;, id=&#39;91789fe8-8a2b-4316-95a3-dbb9ef43050f&#39;)]
 </pre></div>
 </div>
 </div>
@@ -672,8 +709,8 @@ natural language input and this will return an output that matches the tool’s 
 What is 2 plus 2
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 Tool Calls:
-  add (19g9e9zzp)
- Call ID: 19g9e9zzp
+  add (bwfnfmawp)
+ Call ID: bwfnfmawp
   Args:
     a: 2
     b: 2
@@ -744,8 +781,8 @@ Tool Calls:
 What is 2 plus 2
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 Tool Calls:
-  add (s121g0cp9)
- Call ID: s121g0cp9
+  add (prmtmf9h9)
+ Call ID: prmtmf9h9
   Args:
     a: 2
     b: 2
@@ -772,14 +809,14 @@ Name: add
 What Machine Learning
 ==================================<span class=" -Color -Color-Bold"> Ai Message </span>==================================
 
-The available functions do not include any that can provide information or explanations about machine learning concepts. However, I can explain it directly.
+Machine learning is a subset of artificial intelligence (AI) that focuses on developing algorithms and statistical models that enable computers to learn patterns and make decisions from data without being explicitly programmed. Instead of following strict instructions, machine learning systems improve their performance over time by analyzing examples and adjusting their parameters accordingly.
 
-**Machine learning** is a subset of artificial intelligence (AI) that enables computer systems to automatically improve their performance on tasks through experience (data) without being explicitly programmed. It involves developing algorithms that analyze data, identify patterns, and make decisions or predictions with minimal human intervention. Key types include:
-- **Supervised learning** (labeled data, e.g., classification, regression)
-- **Unsupervised learning** (unlabeled data, e.g., clustering)
-- **Reinforcement learning** (learning through trial-and-error with rewards/penalties)
+Key concepts include:
+- **Supervised Learning**: Algorithms learn from labeled data (e.g., predicting house prices based on features like size and location).
+- **Unsupervised Learning**: Algorithms find hidden patterns in unlabeled data (e.g., clustering customers by purchasing behavior).
+- **Reinforcement Learning**: Systems learn by interacting with an environment to maximize rewards (e.g., training a robot to walk).
 
-Let me know if you&#39;d like further clarification!
+Common applications include image recognition, natural language processing, recommendation systems, and more. If you&#39;d like to dive deeper into specific topics, let me know!
 </pre></div>
 </div>
 </div>

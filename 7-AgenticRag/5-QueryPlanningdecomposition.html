@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>🧠 What is Query Planning and Decomposition? &#8212; Agentic AI Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '7-AgenticRag/5-QueryPlanningdecomposition';</script>
+    <link rel="canonical" href="/7-AgenticRag/5-QueryPlanningdecomposition.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="🔁 What is Iterative Retrieval in Agentic RAG?" href="6-Iterativeretrieval.html" />
+    <link rel="prev" title="🧠 What is Self-Reflection in RAG?" href="4-Selfreflection.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Agentic AI Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">1-langgraph Basics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/3-DataclassStateSchema.html">State Schema With DataClasses</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/4-pydantic.html">Pydantic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/5-ChainsLangGraph.html">Chain Using LangGraph</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/7-ReActAgents.html">ReAct Agent Architecture</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2-langgraph advance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">4- Workflows</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/1-prompting_chaining.html">Prompt Chaining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/2-parallelization.html">What is Parallelization in LangGraph?</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/3-Routing.html">What is Routing in LangGraph?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/4-orchestrator-worker.html">Orchestrator-Worker</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">5-HumanintheLoop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../5-HumanintheLoop/1-Humanintheloop.html">Human In the Loop</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">6-RAGS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/1-AgenticRAG.html">Agentic RAG</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">7-AgenticRag</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1-agenticrag.html">Agentic RAG</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="2-ReAct.html">🤖 Implement ReAct with LangGraph-What is ReAct?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="3-COTRag.html">CoT RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4-Selfreflection.html">Self Reflection</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Query Planning &amp; Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6-Iterativeretrieval.html">Iterative Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7-answersynthesis.html">Answer Synthesis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8-multiagent.html">🤖 What are Multi-Agent RAG Systems?</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">pydantic</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/7-AgenticRag/5-QueryPlanningdecomposition.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>🧠 What is Query Planning and Decomposition?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="what-is-query-planning-and-decomposition">
+<h1>🧠 What is Query Planning and Decomposition?<a class="headerlink" href="#what-is-query-planning-and-decomposition" title="Link to this heading">#</a></h1>
+<p>Query Planning and Decomposition is a technique where a complex user query is broken down into simpler sub-questions or tasks, allowing a system (like a RAG agent) to:</p>
+<ul class="simple">
+<li><p>Understand the question more deeply</p></li>
+<li><p>Retrieve more precise and complete information</p></li>
+<li><p>Execute step-by-step reasoning</p></li>
+</ul>
+<p>It’s like reverse-engineering a question into manageable steps before answering.</p>
+<p>🧠 What’s New in This Version?</p>
+<ul class="simple">
+<li><p>✅ Add a Query Planner Node</p></li>
+<li><p>✅ Break complex user queries into sub-questions</p></li>
+<li><p>✅ Retrieve docs per sub-question</p></li>
+<li><p>✅ Combine all retrieved contexts</p></li>
+<li><p>✅ Generate a final consolidated answer</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.vectorstores.faiss</span><span class="w"> </span><span class="kn">import</span> <span class="n">FAISS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextLoader</span><span class="p">,</span><span class="n">WebBaseLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">END</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>USER_AGENT environment variable not set, consider setting it to identify your requests.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="n">load_dotenv</span><span class="p">()</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ----------------------------</span>
+<span class="c1"># 1. Load and Embed Documents</span>
+<span class="c1"># ----------------------------</span>
+<span class="n">urls</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;https://lilianweng.github.io/posts/2023-06-23-agent/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;https://lilianweng.github.io/posts/2024-04-12-diffusion-video/&quot;</span>
+<span class="p">]</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+    <span class="n">docs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">WebBaseLoader</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">())</span>
+
+<span class="n">splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">chunks</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">split_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+
+<span class="n">embedding</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">()</span>
+<span class="n">vectorstore</span> <span class="o">=</span> <span class="n">FAISS</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="n">embedding</span><span class="p">)</span>
+<span class="n">retriever</span> <span class="o">=</span> <span class="n">vectorstore</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ----------------------------</span>
+<span class="c1"># 2. State Schema</span>
+<span class="c1"># ----------------------------</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RAGState</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">question</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sub_questions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">retrieved_docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">answer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ----------------------------</span>
+<span class="c1"># 3. Nodes</span>
+<span class="c1"># ----------------------------</span>
+
+<span class="c1">## a. Query Planner: splits input question</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plan_query</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RAGState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RAGState</span><span class="p">:</span>
+   
+    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Break the following complex question into 2-3 sub-questions:</span>
+
+<span class="s2">Question: </span><span class="si">{</span><span class="n">state</span><span class="o">.</span><span class="n">question</span><span class="si">}</span>
+
+<span class="s2">Sub-questions:</span>
+<span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+    <span class="n">sub_questions</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;- &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+    <span class="k">return</span> <span class="n">RAGState</span><span class="p">(</span><span class="n">question</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">question</span><span class="p">,</span> <span class="n">sub_questions</span><span class="o">=</span><span class="n">sub_questions</span><span class="p">)</span>
+
+<span class="c1">## b. Retrieve documents for each sub-question</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">retrieve_for_each</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RAGState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RAGState</span><span class="p">:</span>
+    <span class="n">all_docs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">sub_questions</span><span class="p">:</span>
+        <span class="n">docs</span> <span class="o">=</span> <span class="n">retriever</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+        <span class="n">all_docs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">RAGState</span><span class="p">(</span><span class="n">question</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">question</span><span class="p">,</span> <span class="n">sub_questions</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">sub_questions</span><span class="p">,</span> <span class="n">retrieved_docs</span><span class="o">=</span><span class="n">all_docs</span><span class="p">)</span>
+
+<span class="c1">## c. Generate final answer</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_final_answer</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RAGState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RAGState</span><span class="p">:</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">retrieved_docs</span><span class="p">])</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Use the context below to answer the question.</span>
+
+<span class="s2">Context:</span>
+<span class="si">{</span><span class="n">context</span><span class="si">}</span>
+
+<span class="s2">Question: </span><span class="si">{</span><span class="n">state</span><span class="o">.</span><span class="n">question</span><span class="si">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+    
+    <span class="n">answer</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+    <span class="k">return</span> <span class="n">RAGState</span><span class="p">(</span><span class="n">question</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">question</span><span class="p">,</span> <span class="n">sub_questions</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">sub_questions</span><span class="p">,</span> <span class="n">retrieved_docs</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">retrieved_docs</span><span class="p">,</span> <span class="n">answer</span><span class="o">=</span><span class="n">answer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ----------------------------</span>
+<span class="c1"># 4. Build LangGraph</span>
+<span class="c1"># ----------------------------</span>
+<span class="n">builder</span> <span class="o">=</span> <span class="n">StateGraph</span><span class="p">(</span><span class="n">RAGState</span><span class="p">)</span>
+
+<span class="n">builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;planner&quot;</span><span class="p">,</span> <span class="n">plan_query</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;retriever&quot;</span><span class="p">,</span> <span class="n">retrieve_for_each</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;responder&quot;</span><span class="p">,</span> <span class="n">generate_final_answer</span><span class="p">)</span>
+
+<span class="n">builder</span><span class="o">.</span><span class="n">set_entry_point</span><span class="p">(</span><span class="s2">&quot;planner&quot;</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;planner&quot;</span><span class="p">,</span> <span class="s2">&quot;retriever&quot;</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;retriever&quot;</span><span class="p">,</span> <span class="s2">&quot;responder&quot;</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;responder&quot;</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+<span class="n">graph</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/3484745782d20c95973d0fc262c278854c985b538f9833ad137bc3f2f6964bb9.png" src="../_images/3484745782d20c95973d0fc262c278854c985b538f9833ad137bc3f2f6964bb9.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/3484745782d20c95973d0fc262c278854c985b538f9833ad137bc3f2f6964bb9.png" src="../_images/3484745782d20c95973d0fc262c278854c985b538f9833ad137bc3f2f6964bb9.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ----------------------------</span>
+<span class="c1"># 5. Run the pipeline</span>
+<span class="c1"># ----------------------------</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">user_query</span> <span class="o">=</span> <span class="s2">&quot;Explain how agent loops work and what are the challenges in diffusion video generation?&quot;</span>
+    <span class="n">initial_state</span> <span class="o">=</span> <span class="n">RAGState</span><span class="p">(</span><span class="n">question</span><span class="o">=</span><span class="n">user_query</span><span class="p">)</span>
+    <span class="n">final_state</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">initial_state</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">final_state</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">🔍 Sub-questions:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">final_state</span><span class="p">[</span><span class="s1">&#39;sub_questions&#39;</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Final Answer:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">final_state</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;question&#39;: &#39;Explain how agent loops work and what are the challenges in diffusion video generation?&#39;, &#39;sub_questions&#39;: [&#39;1. What are agent loops, and how do they function within a broader system?&#39;, &#39;2. What are the typical challenges encountered in the process of diffusion video generation?&#39;, &#39;3. How do agent loops specifically impact or interact with the challenges faced in diffusion video generation?&#39;], &#39;retrieved_docs&#39;: [Document(id=&#39;ce937509-2fd1-4543-923c-a3b26e5dc053&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2023-06-23-agent/&#39;, &#39;title&#39;: &quot;LLM Powered Autonomous Agents | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\n\nTool use\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\n\n\n\n\t\n\tOverview of a LLM-powered autonomous agent system.\n\nComponent One: Planning\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;Component One: Planning#\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.\nTask Decomposition#&#39;), Document(id=&#39;0dac6f35-ef55-4126-a273-6f1615dad4d0&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2023-06-23-agent/&#39;, &#39;title&#39;: &quot;LLM Powered Autonomous Agents | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\n\nTool use\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\n\n\n\n\t\n\tOverview of a LLM-powered autonomous agent system.\n\nComponent One: Planning\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;The design of generative agents combines LLM with memory, planning and reflection mechanisms to enable agents to behave conditioned on past experience, as well as to interact with other agents.&#39;), Document(id=&#39;c4100f74-4c86-4630-acbe-dc2670d2d921&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2023-06-23-agent/&#39;, &#39;title&#39;: &quot;LLM Powered Autonomous Agents | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\n\nTool use\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\n\n\n\n\t\n\tOverview of a LLM-powered autonomous agent system.\n\nComponent One: Planning\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview#\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:&#39;), Document(id=&#39;a5749e57-67b9-4ec5-b1c8-2490bd1ce817&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2023-06-23-agent/&#39;, &#39;title&#39;: &quot;LLM Powered Autonomous Agents | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\n\nTool use\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\n\n\n\n\t\n\tOverview of a LLM-powered autonomous agent system.\n\nComponent One: Planning\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;Boiko et al. (2023) also looked into LLM-empowered agents for scientific discovery, to handle autonomous design, planning, and performance of complex scientific experiments. This agent can use tools to browse the Internet, read documentation, execute code, call robotics experimentation APIs and leverage other LLMs.\nFor example, when requested to &quot;develop a novel anticancer drug&quot;, the model came up with the following reasoning steps:&#39;), Document(id=&#39;1240a736-b436-419a-a638-9c2f3267e8c6&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2024-04-12-diffusion-video/&#39;, &#39;title&#39;: &quot;Diffusion Models for Video Generation | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Diffusion models have demonstrated strong results on image synthesis in past years. Now the research community has started working on a harder task—using it for video generation. The task itself is a superset of the image case, since an image is a video of 1 frame, and it is much more challenging because:\n\nIt has extra requirements on temporal consistency across frames in time, which naturally demands more world knowledge to be encoded into the model.\nIn comparison to text or images, it is more difficult to collect large amounts of high-quality, high-dimensional video data, let along text-video pairs.\n\n\n\n🥑 Required Pre-read: Please make sure you have read the previous blog on “What are Diffusion Models?” for image generation before continue here.\n&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;Adapting Image Models to Generate Videos\n\nFine-tuning on Video Data\n\nTraining-Free Adaptation\n\n\nCitation\n\nReferences\n\n\n\n\n\nDiffusion models have demonstrated strong results on image synthesis in past years. Now the research community has started working on a harder task—using it for video generation. The task itself is a superset of the image case, since an image is a video of 1 frame, and it is much more challenging because:&#39;), Document(id=&#39;037c7f37-27fc-41ac-8008-d59e342f076b&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2024-04-12-diffusion-video/&#39;, &#39;title&#39;: &quot;Diffusion Models for Video Generation | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Diffusion models have demonstrated strong results on image synthesis in past years. Now the research community has started working on a harder task—using it for video generation. The task itself is a superset of the image case, since an image is a video of 1 frame, and it is much more challenging because:\n\nIt has extra requirements on temporal consistency across frames in time, which naturally demands more world knowledge to be encoded into the model.\nIn comparison to text or images, it is more difficult to collect large amounts of high-quality, high-dimensional video data, let along text-video pairs.\n\n\n\n🥑 Required Pre-read: Please make sure you have read the previous blog on “What are Diffusion Models?” for image generation before continue here.\n&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;In the case of video generation, we need the diffusion model to run multiple steps of upsampling for extending video length or increasing the frame rate. This requires the capability of sampling a second video $\\mathbf{x}^b$ conditioned on the first $\\mathbf{x}^a$, $\\mathbf{x}^b \\sim p_\\theta(\\mathbf{x}^b \\vert \\mathbf{x}^a)$, where $\\mathbf{x}^b$ might be an autoregressive extension of $\\mathbf{x}^a$ or be the missing frames in-between for a video $\\mathbf{x}^a$ at a low frame rate.&#39;), Document(id=&#39;92ee3846-8988-47dc-9251-f0d8304308fa&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2024-04-12-diffusion-video/&#39;, &#39;title&#39;: &quot;Diffusion Models for Video Generation | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Diffusion models have demonstrated strong results on image synthesis in past years. Now the research community has started working on a harder task—using it for video generation. The task itself is a superset of the image case, since an image is a video of 1 frame, and it is much more challenging because:\n\nIt has extra requirements on temporal consistency across frames in time, which naturally demands more world knowledge to be encoded into the model.\nIn comparison to text or images, it is more difficult to collect large amounts of high-quality, high-dimensional video data, let along text-video pairs.\n\n\n\n🥑 Required Pre-read: Please make sure you have read the previous blog on “What are Diffusion Models?” for image generation before continue here.\n&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;[12] Esser et al. 2023 “Structure and Content-Guided Video Synthesis with Diffusion Models.”\n[13] Bar-Tal et al. 2024 “Lumiere: A Space-Time Diffusion Model for Video Generation.”&#39;), Document(id=&#39;18300e82-7d35-4d98-8dd1-1bb30ab6a659&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2024-04-12-diffusion-video/&#39;, &#39;title&#39;: &quot;Diffusion Models for Video Generation | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Diffusion models have demonstrated strong results on image synthesis in past years. Now the research community has started working on a harder task—using it for video generation. The task itself is a superset of the image case, since an image is a video of 1 frame, and it is much more challenging because:\n\nIt has extra requirements on temporal consistency across frames in time, which naturally demands more world knowledge to be encoded into the model.\nIn comparison to text or images, it is more difficult to collect large amounts of high-quality, high-dimensional video data, let along text-video pairs.\n\n\n\n🥑 Required Pre-read: Please make sure you have read the previous blog on “What are Diffusion Models?” for image generation before continue here.\n&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;The overview of ControlVideo. (Image source: Zhang et al. 2023)\n\nCitation#\nCited as:\n\nWeng, Lilian. (Apr 2024). Diffusion Models Video Generation. Lil’Log. https://lilianweng.github.io/posts/2024-04-12-diffusion-video/.&#39;), Document(id=&#39;3c84a1f9-f354-4201-a1e9-de350db64ae3&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2024-04-12-diffusion-video/&#39;, &#39;title&#39;: &quot;Diffusion Models for Video Generation | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Diffusion models have demonstrated strong results on image synthesis in past years. Now the research community has started working on a harder task—using it for video generation. The task itself is a superset of the image case, since an image is a video of 1 frame, and it is much more challenging because:\n\nIt has extra requirements on temporal consistency across frames in time, which naturally demands more world knowledge to be encoded into the model.\nIn comparison to text or images, it is more difficult to collect large amounts of high-quality, high-dimensional video data, let along text-video pairs.\n\n\n\n🥑 Required Pre-read: Please make sure you have read the previous blog on “What are Diffusion Models?” for image generation before continue here.\n&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;Imagen Video also applies progressive distillation to speed up sampling and each distillation iteration can reduce the required sampling steps by half. Their experiments were able to distill all 7 video diffusion models down to just 8 sampling steps per model without any noticeable loss in perceptual quality.&#39;), Document(id=&#39;3180060e-b8a0-4729-95cb-ffa8c8949149&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2023-06-23-agent/&#39;, &#39;title&#39;: &quot;LLM Powered Autonomous Agents | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\n\nTool use\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\n\n\n\n\t\n\tOverview of a LLM-powered autonomous agent system.\n\nComponent One: Planning\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;}\n]\nChallenges#\nAfter going through key ideas and demos of building LLM-centered agents, I start to see a couple common limitations:&#39;), Document(id=&#39;1240a736-b436-419a-a638-9c2f3267e8c6&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2024-04-12-diffusion-video/&#39;, &#39;title&#39;: &quot;Diffusion Models for Video Generation | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Diffusion models have demonstrated strong results on image synthesis in past years. Now the research community has started working on a harder task—using it for video generation. The task itself is a superset of the image case, since an image is a video of 1 frame, and it is much more challenging because:\n\nIt has extra requirements on temporal consistency across frames in time, which naturally demands more world knowledge to be encoded into the model.\nIn comparison to text or images, it is more difficult to collect large amounts of high-quality, high-dimensional video data, let along text-video pairs.\n\n\n\n🥑 Required Pre-read: Please make sure you have read the previous blog on “What are Diffusion Models?” for image generation before continue here.\n&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;Adapting Image Models to Generate Videos\n\nFine-tuning on Video Data\n\nTraining-Free Adaptation\n\n\nCitation\n\nReferences\n\n\n\n\n\nDiffusion models have demonstrated strong results on image synthesis in past years. Now the research community has started working on a harder task—using it for video generation. The task itself is a superset of the image case, since an image is a video of 1 frame, and it is much more challenging because:&#39;), Document(id=&#39;037c7f37-27fc-41ac-8008-d59e342f076b&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2024-04-12-diffusion-video/&#39;, &#39;title&#39;: &quot;Diffusion Models for Video Generation | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Diffusion models have demonstrated strong results on image synthesis in past years. Now the research community has started working on a harder task—using it for video generation. The task itself is a superset of the image case, since an image is a video of 1 frame, and it is much more challenging because:\n\nIt has extra requirements on temporal consistency across frames in time, which naturally demands more world knowledge to be encoded into the model.\nIn comparison to text or images, it is more difficult to collect large amounts of high-quality, high-dimensional video data, let along text-video pairs.\n\n\n\n🥑 Required Pre-read: Please make sure you have read the previous blog on “What are Diffusion Models?” for image generation before continue here.\n&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;In the case of video generation, we need the diffusion model to run multiple steps of upsampling for extending video length or increasing the frame rate. This requires the capability of sampling a second video $\\mathbf{x}^b$ conditioned on the first $\\mathbf{x}^a$, $\\mathbf{x}^b \\sim p_\\theta(\\mathbf{x}^b \\vert \\mathbf{x}^a)$, where $\\mathbf{x}^b$ might be an autoregressive extension of $\\mathbf{x}^a$ or be the missing frames in-between for a video $\\mathbf{x}^a$ at a low frame rate.&#39;)], &#39;answer&#39;: &#39;The context provided focuses on two separate areas: the functioning of LLM-powered autonomous agents and the challenges in video generation using diffusion models. Below is an explanation based on the given text:\n\n### Agent Loops in LLM-Powered Systems\n1. **Planning and Memory**: \n   - The agents make use of large language models (LLMs) alongside mechanisms for memory, planning, and reflection. This setup allows them to act based on past experiences and interact with other agents effectively.\n   - Task decomposition is an essential part of the agent\&#39;s planning process, where complex tasks are broken down into manageable steps for easier execution.\n\n2. **System Overview**:\n   - The LLM acts as the core &quot;brain&quot; of the agent, integrating with other components to facilitate its functioning.\n   - As seen in applications like AutoGPT and GPT-Engineer, such agents can potentially serve as general problem solvers, performing tasks beyond generating text, such as scientific discoveries, planning, and executing complex tasks autonomously.\n\n### Challenges in Diffusion Video Generation\n1. **Complexity of Video over Images**:\n   - Video generation is inherently more complex than image synthesis. While an image can be seen as a single frame video, generating a sequence that constitutes a video requires more intricate processes.\n\n2. **Diffusion Models for Video**:\n   - Diffusion models need to handle multiple steps of upsampling to either extend video length or increase frame rates, a task more demanding than static image generation.\n   - The model must be able to generate subsequent video frames conditioned on initial frames, represented mathematically as sampling video \\(\\mathbf{x}^b\\) based on given frames \\(\\mathbf{x}^a\\).\n\n3. **Efficiency in Sampling**:\n   - Techniques such as progressive distillation are employed to make the sampling process more efficient, requiring fewer steps without compromising the quality of the video.\n\nOverall, the autonomous agents\&#39; loop involves a systematic approach to task planning and execution with LLMs as core enablers, while diffusion models face significant computational and design challenges for effective video generation due to the increased complexity compared to static images.&#39;}
+
+🔍 Sub-questions:
+- 1. What are agent loops, and how do they function within a broader system?
+- 2. What are the typical challenges encountered in the process of diffusion video generation?
+- 3. How do agent loops specifically impact or interact with the challenges faced in diffusion video generation?
+
+✅ Final Answer:
+ The context provided focuses on two separate areas: the functioning of LLM-powered autonomous agents and the challenges in video generation using diffusion models. Below is an explanation based on the given text:
+
+### Agent Loops in LLM-Powered Systems
+1. **Planning and Memory**: 
+   - The agents make use of large language models (LLMs) alongside mechanisms for memory, planning, and reflection. This setup allows them to act based on past experiences and interact with other agents effectively.
+   - Task decomposition is an essential part of the agent&#39;s planning process, where complex tasks are broken down into manageable steps for easier execution.
+
+2. **System Overview**:
+   - The LLM acts as the core &quot;brain&quot; of the agent, integrating with other components to facilitate its functioning.
+   - As seen in applications like AutoGPT and GPT-Engineer, such agents can potentially serve as general problem solvers, performing tasks beyond generating text, such as scientific discoveries, planning, and executing complex tasks autonomously.
+
+### Challenges in Diffusion Video Generation
+1. **Complexity of Video over Images**:
+   - Video generation is inherently more complex than image synthesis. While an image can be seen as a single frame video, generating a sequence that constitutes a video requires more intricate processes.
+
+2. **Diffusion Models for Video**:
+   - Diffusion models need to handle multiple steps of upsampling to either extend video length or increase frame rates, a task more demanding than static image generation.
+   - The model must be able to generate subsequent video frames conditioned on initial frames, represented mathematically as sampling video \(\mathbf{x}^b\) based on given frames \(\mathbf{x}^a\).
+
+3. **Efficiency in Sampling**:
+   - Techniques such as progressive distillation are employed to make the sampling process more efficient, requiring fewer steps without compromising the quality of the video.
+
+Overall, the autonomous agents&#39; loop involves a systematic approach to task planning and execution with LLMs as core enablers, while diffusion models face significant computational and design challenges for effective video generation due to the increased complexity compared to static images.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./7-AgenticRag"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="4-Selfreflection.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🧠 What is Self-Reflection in RAG?</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="6-Iterativeretrieval.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">🔁 What is Iterative Retrieval in Agentic RAG?</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Your Name
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -166,7 +166,8 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">1-langgraph Basics</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
@@ -182,9 +183,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/7-ReActAgents.html">ReAct Agent Architecture</a></li>
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2-langgraph advance</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
 
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">4- Workflows</span></p>
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1-prompting_chaining.html">Prompt Chaining</a></li>
 
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">What is Parallelization in LangGraph?</a></li>
@@ -195,6 +202,36 @@
 <li class="toctree-l1"><a class="reference internal" href="4-orchestrator-worker.html">Orchestrator-Worker</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">5-HumanintheLoop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../5-HumanintheLoop/1-Humanintheloop.html">Human In the Loop</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">6-RAGS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/1-AgenticRAG.html">Agentic RAG</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">7-AgenticRag</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/1-agenticrag.html">Agentic RAG</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/2-ReAct.html">🤖 Implement ReAct with LangGraph-What is ReAct?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/3-COTRag.html">CoT RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/4-Selfreflection.html">Self Reflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/5-QueryPlanningdecomposition.html">Query Planning &amp; Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/6-Iterativeretrieval.html">Iterative Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/7-answersynthesis.html">Answer Synthesis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/8-multiagent.html">🤖 What are Multi-Agent RAG Systems?</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">pydantic</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
 
 
@@ -393,7 +430,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello! How can I assist you today?&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;The user just says &quot;Hello&quot;. Need to respond politely. No special instructions. Use friendly greeting.&#39;}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 39, &#39;prompt_tokens&#39;: 72, &#39;total_tokens&#39;: 111, &#39;completion_time&#39;: 0.08111131, &#39;prompt_time&#39;: 0.002651904, &#39;queue_time&#39;: 0.052154206, &#39;total_time&#39;: 0.083763214}, &#39;model_name&#39;: &#39;openai/gpt-oss-120b&#39;, &#39;system_fingerprint&#39;: &#39;fp_fd1fe7f861&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--4658116a-5dd3-4910-9a27-0d1ab40841e1-0&#39;, usage_metadata={&#39;input_tokens&#39;: 72, &#39;output_tokens&#39;: 39, &#39;total_tokens&#39;: 111})
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello! How can I assist you today?&#39;, additional_kwargs={&#39;reasoning_content&#39;: &#39;The user just says &quot;Hello&quot;. We respond politely.&#39;}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 30, &#39;prompt_tokens&#39;: 72, &#39;total_tokens&#39;: 102, &#39;completion_time&#39;: 0.06181224, &#39;prompt_time&#39;: 0.002858543, &#39;queue_time&#39;: 0.050417777, &#39;total_time&#39;: 0.064670783}, &#39;model_name&#39;: &#39;openai/gpt-oss-120b&#39;, &#39;system_fingerprint&#39;: &#39;fp_70d048ba3c&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--d42483fa-9c8e-4cdc-88b2-c83b658a1347-0&#39;, usage_metadata={&#39;input_tokens&#39;: 72, &#39;output_tokens&#39;: 30, &#39;total_tokens&#39;: 102})
 </pre></div>
 </div>
 </div>
@@ -458,7 +495,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;langgraph.graph.state.StateGraph at 0x1d718310950&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;langgraph.graph.state.StateGraph at 0x18075556570&gt;
 </pre></div>
 </div>
 </div>
@@ -494,51 +531,45 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>**The Clockwork Lighthouse sang its lonely hymn, and the harbor held its breath.**  
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>**Chrono‑Harbor, Night‑Shift, 02:17 AM**
 
-Dr. Liora “Lia” Voss stood on the weather‑worn pier of the Chrono‑Harbor, the thin mist curling around her boots like a ghost that refused to leave. The perpetual twilight above smeared the sea in bruised indigo, the amber ribbons of a sun that never rose flickering on the water’s surface. In one hand she cradled the Chrono‑Key—a matte‑black slab of alloy etched with a lattice of quantum filaments that pulsed faintly, as if breathing. In the other, she twisted the worn pocket watch that never ticked, its still hands a stubborn reminder that some things refused to move forward.
+The fog rolled in thick as oil, swallowing the cracked dockboards and the low hum of the water’s metallic breath. From the gloom, the turquoise sheen of the harbor’s tide pulsed in slow, deliberate waves, each crest a thin ribbon of light that seemed to flicker forward and backward at once. Somewhere beyond the glass‑clad tower, a hover‑pod whispered past, leaving a ghostly trail of phosphorescent vapor that dissolved into the night like a sigh.
 
-She had built the Key to open brief windows—seconds, maybe minutes—into other eras, a device that could glimpse the past without stepping into it. The theory was elegant, the math flawless, but the reality was a trembling wire stretched across a canyon of unknown consequences. And now, with the Temporal Engine humming behind her, the wire was humming back.
+Dr. Selene Voss stood at the edge of the Victorian warehouse, her eyes narrowed behind the lenses of a chrono‑spectrometer she’d built herself. The brass gauges inside the boiler room clanged in a rhythm that matched the ticking of the pocket‑sized chronometer she kept in her coat pocket—a tiny, hand‑cranked device that, whenever she neared a temporal anomaly, began to tick **backward** with a soft, metallic click‑click. Tonight it was humming a frantic, reversed staccato, as if the very air around her were trying to unwind.
 
-The lighthouse’s brass gears turned both forward and backward in a maddening rhythm, each click a metronome for the tide of time itself. Its lantern glowed with liquid crystal, shifting through every hue of sunrise in a heartbeat, casting a kaleidoscope of light onto the cracked cobblestones. Vines that blossomed and wilted in sync with the gears slipped through the cracks of the warehouses, their petals whispering fragments of conversations from centuries ago—horse‑drawn carriage clatter, the distant roar of jet engines, a lover’s promise in a language no longer spoken.
+She adjusted the strap of her lab coat, the fabric brushing against the weathered oak planks that lay side‑by‑side with polymer‑composite boards glowing a soft blue under her boots. Each step sent a cascade of echoing sounds through the dock: the distant clip‑clop of horse hooves, the roar of a jet engine, the muted thud of rover wheels on Martian regolith. The echoes were not random; they were the world’s memory, layered like sediment in a riverbed of time.
 
-A figure slipped out of the shadows of the largest warehouse, his silhouette framed by the phosphorescent river that fed the Temporal Engine. Kade “Kade” Marlowe grinned, the crooked smile of someone who had learned to read the world by its stories rather than its statutes.
+“Mick,” she called, voice low, almost reverent. “Do you see it?”
 
-“Looks like the lighthouse finally decided to give us a proper welcome,” he called, his voice carrying the easy cadence of a street‑corner storyteller. He lifted his hand, revealing a small wooden amulet, its surface carved with a pattern that seemed to shift when you weren’t looking. “Grandma always said an anchor keeps you from drifting when the tide turns. Guess she was onto something.”
+From the shadows emerged Milo “Mick” Reyes, a lanky figure with a scar that traced the line of his jaw like a cracked compass rose. He brushed a stray strand of hair from his face, the tattoo of a compass on his forearm pulsing faintly, its needle twitching toward an invisible point. The compass had been a joke once—an inked trinket that shifted when he’d been near a temporal ripple during a botched heist in the lower districts. Now it was his warning system, a compass that pointed to the ripples he could no longer afford to ignore.
 
-Lia offered a thin smile, the kind she reserved for colleagues who asked about her childhood. “If we’re drifting, I’d rather we don’t lose the dock entirely.” She pressed the Chrono‑Key into the console of the Temporal Engine. The mercury vortex at its core swirled, reflecting not just the present but flickers of every possible past—a child’s laughter in a sun‑lit garden, a laboratory explosion, a silent hallway where a name was whispered and then forgotten.
+“Yeah,” he said, his tone a mix of sarcasm and awe. “It’s… it’s like the whole place is breathing. One second you’re hearing steam whistles, the next you hear the whine of a quantum rail‑cannon.” He glanced at the chronometer dangling from Selene’s belt. “Your toy’s going nuts again.”
 
-The Engine thrummed, and the air grew thick with the metallic taste of iron and the distant hum of machinery that seemed to come from nowhere and everywhere at once. A low, resonant tone rose from the lighthouse’s gears, vibrating through the dock, through the water, through the very marrow of Lia’s bones. She felt the familiar pull of the Chrono‑Key’s field, a tug at the edges of her consciousness, as if the past were reaching out with a trembling hand.
+Selene gave a thin smile, the kind that hid a thousand equations and a deeper, more personal terror. The Chrono‑Gate loomed ahead, a torus of copper and carbon‑nanotube lattice, its runes pulsing in a rhythm that seemed to echo the beat of the universe itself. When the gate was active, a silver‑blue veil rippled across its circumference, and for a heartbeat the water in the harbor froze, capturing a tableau of eras—a Roman trireme, a 21st‑century cargo ship, an anti‑gravity vessel from 2487—all locked in a single, shimmering instant.
 
-She closed her eyes and slipped the pocket watch into the pocket of her lab coat, feeling its cold, unmoving weight against her skin. The watch never ticked, but it anchored her thoughts, a point of stillness when the world threatened to unmoor her sense of self.
+“Ready to dive in?” Selene asked, her voice barely rising above the hiss of the boilers.
 
-“Ready to see the Golden Age?” Kade asked, his eyes alight with the thrill of the unknown. “Or are you more interested in watching the past catch up to you?”
+Mick rolled his eyes. “You know I’m not the ‘field partner’ you wanted. I’m the ‘reluctant’ one because I got stuck with a prototype time‑gate and a dead‑end job in the archives. But I’m not about to watch the timeline go to hell for the sake of a theory.”
 
-Lia opened her eyes to the flickering light of the lighthouse, to the swirling mercury that showed a flash of a moment she had tried desperately to forget: a laboratory fire, a scream, a hallway lined with fire‑scented ash, and a small, empty cradle that had once held the sibling she lost to a lab accident she’d blamed on a miscalculated field. The memory was a wound that never healed, a wound she had tried to stitch with equations and sleepless nights.
+Selene’s hand tightened around the chronometer. “It’s not a theory. It’s a **necessity**. The temporal currents are destabilizing. If we don’t intervene, the Chrono‑Harbor will collapse into a singularity that will erase every epoch stitched to this dock.”
 
-“Two minutes,” she said, voice steadier than she felt. “That’s all we have before the window collapses. I need to send a message—”
+Before Mick could retort, a soft, metallic clank rose from the far side of the dock—an old, rusted sign swinging in a wind that seemed to come from nowhere. The sound was accompanied by a faint perfume of jasmine, like a ghost of a 1920s garden party drifting across the water. The air thickened, and a faint, luminescent doorway flickered into existence at the base of the Victorian warehouse.
 
-Kade’s grin faded into a look of concern. “A message back? You know what that does, right? You could… rewrite everything.”
+Selene stepped forward, chronometer ticking backward faster, its hands whirring in a frantic dance. She turned to Mick, her eyes reflecting the swirling light of the doorway. “There’s a pocket in the Temporal Archive we missed. A hidden wing that the original designers sealed off. Every book inside… it’s a chronicle of a **future** that never happened. If we can retrieve the one that predicts the collapse, we might be able to rewrite the sequence before the timeline snaps.”
 
-She nodded, the weight of the Chrono‑Key suddenly feeling like a stone in her palm. “If I can warn my younger self about the reactor overload—about the moment that took everything—I might save her. But the risk… the risk is that the whole timeline could fracture. The Chrono‑Key was never meant to be a scalpel; it’s a mirror. We could shatter it.”
+Mick’s compass needle spun wildly, then settled, pointing directly at the doorway. He swallowed, feeling the familiar tug of a moral compass that had guided him through countless hustles and heists. “You know the risk. If you step into a book… you become a part of it. You could erase yourself, your family—everything you love.”
 
-The lighthouse’s beacon swept across the horizon, its light cutting through the mist like a blade through fabric. For a heartbeat, the harbor seemed to hold its breath, the whispers of centuries converging into a single, expectant silence.
+Selene’s breath caught. She had spent years building the Temporal Relay, obsessively cataloguing paradoxes, fearing that a single misstep could erase the faces of the people she cherished. The chronometer in her pocket ticked louder, a warning she could no longer ignore.
 
-Kade stepped closer, his amulet catching the shifting colors of the lantern. “Stories survive because they’re told, not because they’re perfect,” he murmured, the old proverb slipping from his tongue. “Maybe yours is a story that needs a different ending.”
+“Then we step together,” she said, voice steadier than she felt. “You’ve got the compass that can sense the ripples. I have the knowledge to navigate them. And… maybe, just maybe, we can keep the harbor from drowning in its own history.”
 
-Lia placed her hand on the Chrono‑Key, feeling the faint vibration of the temporal field. The pocket watch in her pocket steadied her thoughts, its stillness a reminder that even when time moves forward, some things can remain fixed. She inhaled the salty, ozone‑laden air, let the low hum of the gears fill her ears, and whispered into the void:
+Mick gave a half‑grin, the kind that hid a flicker of hope beneath a veneer of cynicism. “Alright, Doc. Let’s see what the future looks like when it’s written by us.”
 
-*“Listen. Don’t trust the reactor. Trust the watch. Trust the amulet.”*
+They approached the doorway, the copper and carbon lattice of the Chrono‑Gate humming in sympathetic resonance. As they crossed the threshold, the chronometer’s reverse ticking reached a crescendo, and the world behind them dissolved into a cascade of pages—each one a living chronicle, each one a possible future waiting to be lived.
 
-A pulse of blue‑white light erupted from the Core, the mercury vortex widening, the temporal window yawning open. In the split second before the collapse, Lia saw herself—Lia, twenty‑seven, hair in a messy bun, eyes wide with the same fierce curiosity that now drove her—standing in a lab, a coffee cup in hand, oblivious to the danger that would soon erupt.
+In the hidden pocket of the Temporal Archive, the archivist—once a disillusioned keeper of forgotten histories—watched from the shadows, her eyes wide with a mixture of dread and wonder. She had seen the shelves of the library, each volume a map of a timeline that diverged from the one she’d known. Now, as Selene and Mick vanished into the silver‑blue veil, she understood the weight of the choice before her: to let the pages remain untouched, allowing the collapse to consume the Chrono‑Harbor, or to step into the very stories she’d catalogued and rewrite the fate of every era stitched to this dock.
 
-The moment stretched, then snapped. The Chrono‑Key’s surface flared, then dimmed. The harbor’s lantern steadied, its heartbeat returning to its endless rhythm. The mist swirled once more, carrying the faint echo of a voice from a future that might never be.
-
-Kade stared at the empty dock, his amulet humming softly against his chest. “Well,” he said, half‑joking, half‑grave, “if the past decides to rewrite itself, I hope it remembers to bring us a decent story.”
-
-Lia lowered the Chrono‑Key, the pocket watch still silent in her pocket. The decision had been made, but the consequences—like the tide that lapped forever against the Chrono‑Harbor—were still unknown. The lighthouse’s beacon swept across the waters, a lighthouse keeper guiding ships of years, while two strangers stood at the edge of every possible moment, ready to watch the world they knew either hold together or unravel. 
-
-The harbor waited, as it always had, for the next tide of time to arrive.
+The harbor’s lanterns flickered, casting shadows that stretched a heartbeat into the past before snapping back, as if the universe itself held its breath, waiting for the next footfall on its living timeline.
 </pre></div>
 </div>
 </div>

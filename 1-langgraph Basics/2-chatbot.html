@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -166,7 +166,8 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">1-langgraph Basics</span></p>
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
 
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Implementing simple Chatbot Using LangGraph</a></li>
@@ -182,9 +183,15 @@
 <li class="toctree-l1"><a class="reference internal" href="6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="7-ReActAgents.html">ReAct Agent Architecture</a></li>
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2-langgraph advance</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
 
 
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">4- Workflows</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/1-prompting_chaining.html">Prompt Chaining</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/2-parallelization.html">What is Parallelization in LangGraph?</a></li>
@@ -195,6 +202,36 @@
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/4-orchestrator-worker.html">Orchestrator-Worker</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">5-HumanintheLoop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../5-HumanintheLoop/1-Humanintheloop.html">Human In the Loop</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">6-RAGS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/1-AgenticRAG.html">Agentic RAG</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">7-AgenticRag</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/1-agenticrag.html">Agentic RAG</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/2-ReAct.html">🤖 Implement ReAct with LangGraph-What is ReAct?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/3-COTRag.html">CoT RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/4-Selfreflection.html">Self Reflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/5-QueryPlanningdecomposition.html">Query Planning &amp; Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/6-Iterativeretrieval.html">Iterative Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/7-answersynthesis.html">Answer Synthesis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/8-multiagent.html">🤖 What are Multi-Agent RAG Systems?</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">pydantic</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
 
 
@@ -408,7 +445,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hi there! How can I assist you today?&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 10, &#39;prompt_tokens&#39;: 8, &#39;total_tokens&#39;: 18, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_provider&#39;: &#39;openai&#39;, &#39;model_name&#39;: &#39;gpt-4o-2024-08-06&#39;, &#39;system_fingerprint&#39;: &#39;fp_cbf1785567&#39;, &#39;id&#39;: &#39;chatcmpl-CVBwrLw8wm0IfTtyUm8B6RjJEWC2L&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, id=&#39;lc_run--cbf00413-dcbd-4b4c-97bc-70737a211c51-0&#39;, usage_metadata={&#39;input_tokens&#39;: 8, &#39;output_tokens&#39;: 10, &#39;total_tokens&#39;: 18, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}})
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello! How can I assist you today?&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 9, &#39;prompt_tokens&#39;: 8, &#39;total_tokens&#39;: 17, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_provider&#39;: &#39;openai&#39;, &#39;model_name&#39;: &#39;gpt-4o-2024-08-06&#39;, &#39;system_fingerprint&#39;: &#39;fp_65564d8ba5&#39;, &#39;id&#39;: &#39;chatcmpl-CU0xGEo69bJJ5k0518i5ORD5jHtDy&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, id=&#39;lc_run--1acdde10-b4d8-44be-b482-8517f33ec6f1-0&#39;, usage_metadata={&#39;input_tokens&#39;: 8, &#39;output_tokens&#39;: 9, &#39;total_tokens&#39;: 17, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}})
 </pre></div>
 </div>
 </div>
@@ -423,7 +460,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&quot;&lt;think&gt;\nOkay, the user introduced himself as Jagadesh and mentioned he likes to play cricket. I need to respond warmly. Let me start by acknowledging his name and expressing happiness to meet him. Then, since he mentioned cricket, I should ask a follow-up question to keep the conversation going. Maybe ask about his favorite team or if he plays any specific position. That way, I can understand his interests better and engage him in a more detailed discussion. Also, I should keep the tone friendly and approachable. Let me make sure the question is open-ended so he can elaborate. I should check for any typos or errors in the response. Alright, that should cover it.\n&lt;/think&gt;\n\nHello Jagadesh! Nice to meet you. 🏏 I&#39;m glad you enjoy cricket—it&#39;s such an exciting sport! Do you play any specific position, or are you a fan of a particular team? I&#39;d love to hear more about your cricket experience!&quot;, additional_kwargs={}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 193, &#39;prompt_tokens&#39;: 19, &#39;total_tokens&#39;: 212, &#39;completion_time&#39;: 0.45646968, &#39;prompt_time&#39;: 0.000904425, &#39;queue_time&#39;: 0.055373305, &#39;total_time&#39;: 0.457374105}, &#39;model_name&#39;: &#39;qwen/qwen3-32b&#39;, &#39;system_fingerprint&#39;: &#39;fp_5cf921caa2&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--56e9ac56-e068-4ffa-87b4-096aaade6afb-0&#39;, usage_metadata={&#39;input_tokens&#39;: 19, &#39;output_tokens&#39;: 193, &#39;total_tokens&#39;: 212})
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&quot;&lt;think&gt;\nOkay, so the user is Jagadesh and he likes to play cricket. Let me see how to respond appropriately. First, I should acknowledge his introduction and express interest in his hobby. Cricket is a popular sport, so maybe I can ask him about his favorite aspects of playing it. I should check if he plays often, what position he plays, or if he follows any particular teams. Also, maybe he has some favorite players or memorable matches he&#39;d like to talk about. I need to keep the conversation engaging and open-ended to encourage him to share more. Let me make sure my response is friendly and not too formal. I&#39;ll start by thanking him for introducing himself and then ask some follow-up questions about his cricket experience.\n&lt;/think&gt;\n\nHey Jagadesh! Nice to meet you! 🏏 I love that you enjoy playing cricket—it&#39;s such an exciting game. Have you been playing for a while, or are you just getting into it? Do you prefer batting or bowling, or maybe fielding? Also, do you follow any particular teams or players? Let me know if you&#39;d like to chat more about strategies, memorable matches, or even tips to improve your game!&quot;, additional_kwargs={}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 241, &#39;prompt_tokens&#39;: 19, &#39;total_tokens&#39;: 260, &#39;completion_time&#39;: 0.564609655, &#39;prompt_time&#39;: 0.00059063, &#39;queue_time&#39;: 0.05309315, &#39;total_time&#39;: 0.565200285}, &#39;model_name&#39;: &#39;qwen/qwen3-32b&#39;, &#39;system_fingerprint&#39;: &#39;fp_5cf921caa2&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--58e39a57-b274-49bc-b900-0721b46b25f7-0&#39;, usage_metadata={&#39;input_tokens&#39;: 19, &#39;output_tokens&#39;: 241, &#39;total_tokens&#39;: 260})
 </pre></div>
 </div>
 </div>
@@ -473,8 +510,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;messages&#39;: [HumanMessage(content=&#39;Hi,My name is jagadesh And I like cricket&#39;, additional_kwargs={}, response_metadata={}, id=&#39;01a6a451-bdb3-4feb-977d-32e918f8c617&#39;),
-  AIMessage(content=&quot;&lt;think&gt;\nOkay, let&#39;s see. The user introduced himself as Jagadesh and mentioned he likes cricket. I need to respond appropriately.\n\nFirst, I should acknowledge his introduction and express that I&#39;m nice to meet him. Maybe use an emoji to keep it friendly. Then, since he likes cricket, I should ask a question to engage him further. Like, what&#39;s his favorite part about cricket? That way, he can elaborate. Also, maybe ask if he plays or follows a particular team. But I should keep it open-ended so he can choose how to respond. Let me make sure the tone is welcoming and not too formal. Avoid any jargon, keep it simple. Check for any possible follow-up questions. Yeah, that should work.\n&lt;/think&gt;\n\nHi Jagadesh! Nice to meet you! 🏏 I love cricket too—such an exciting game! Do you follow any particular team or player? Or do you play yourself? Let me know your favorite part about the sport!&quot;, additional_kwargs={}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 201, &#39;prompt_tokens&#39;: 19, &#39;total_tokens&#39;: 220, &#39;completion_time&#39;: 0.516464411, &#39;prompt_time&#39;: 0.000770899, &#39;queue_time&#39;: 0.246872401, &#39;total_time&#39;: 0.51723531}, &#39;model_name&#39;: &#39;qwen/qwen3-32b&#39;, &#39;system_fingerprint&#39;: &#39;fp_efa9879028&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--8b591a61-ddf8-4066-a172-e8d667cffd46-0&#39;, usage_metadata={&#39;input_tokens&#39;: 19, &#39;output_tokens&#39;: 201, &#39;total_tokens&#39;: 220})]}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;messages&#39;: [HumanMessage(content=&#39;Hi,My name is jagadesh And I like cricket&#39;, additional_kwargs={}, response_metadata={}, id=&#39;c108187b-f318-4776-9cff-2283b892ac26&#39;),
+  AIMessage(content=&quot;&lt;think&gt;\nOkay, the user introduced himself as Jagadesh and mentioned he likes cricket. I should acknowledge his name first and then delve into his interest in cricket. Let me see... I need to respond in a friendly and engaging way. Maybe ask him to share more about why he likes cricket. He might appreciate some validation of his interest, so pointing out cricket&#39;s popularity and excitement could be good. Also, I should invite him to talk about specific aspects like favorite teams, players, or memorable matches. I should keep the tone positive and open-ended to encourage further conversation. Let me check if there&#39;s any cultural context I should consider, but since he&#39;s using English, it&#39;s probably safe to proceed. Avoid any assumptions beyond what he&#39;s stated. Make sure the response is concise but covers enough to prompt a detailed reply from him. Alright, time to put it all together.\n&lt;/think&gt;\n\nHello Jagadesh! It&#39;s great to meet you! 🏏 Cricket is an amazing sport—so dynamic and full of passion. Do you follow any specific teams or players? I&#39;d love to hear what draws you to the game! Whether it&#39;s the strategy, the thrill of a close match, or your favorite moments to watch, feel free to share! 😊&quot;, additional_kwargs={}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 255, &#39;prompt_tokens&#39;: 19, &#39;total_tokens&#39;: 274, &#39;completion_time&#39;: 0.6925116, &#39;prompt_time&#39;: 0.000835387, &#39;queue_time&#39;: 0.054637473, &#39;total_time&#39;: 0.693346987}, &#39;model_name&#39;: &#39;qwen/qwen3-32b&#39;, &#39;system_fingerprint&#39;: &#39;fp_5cf921caa2&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--833af730-761d-4a02-803d-4620f7d3e7d2-0&#39;, usage_metadata={&#39;input_tokens&#39;: 19, &#39;output_tokens&#39;: 255, &#39;total_tokens&#39;: 274})]}
 </pre></div>
 </div>
 </div>
@@ -489,7 +526,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;SuperBot&#39;: {&#39;messages&#39;: [AIMessage(content=&#39;&lt;think&gt;\nOkay, the user greeted me with their name, Jagadesh. I should respond in a friendly and welcoming manner. Let me make sure to acknowledge their name and offer assistance. Maybe something like, &quot;Hello Jagadesh! How can I assist you today?&quot; That\&#39;s straightforward and inviting. I should keep it simple and open-ended to encourage them to ask questions or share what they need help with. No need for any complex language or additional info unless they ask. Just a warm, polite response.\n&lt;/think&gt;\n\nHello Jagadesh! How can I assist you today?&#39;, additional_kwargs={}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 115, &#39;prompt_tokens&#39;: 14, &#39;total_tokens&#39;: 129, &#39;completion_time&#39;: 0.255507479, &#39;prompt_time&#39;: 0.000558631, &#39;queue_time&#39;: 0.050822449, &#39;total_time&#39;: 0.25606611}, &#39;model_name&#39;: &#39;qwen/qwen3-32b&#39;, &#39;system_fingerprint&#39;: &#39;fp_5cf921caa2&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--cf8e2ec0-ae3d-4fd2-a758-ffa6d61e4a83-0&#39;, usage_metadata={&#39;input_tokens&#39;: 14, &#39;output_tokens&#39;: 115, &#39;total_tokens&#39;: 129})]}}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;SuperBot&#39;: {&#39;messages&#39;: [AIMessage(content=&quot;&lt;think&gt;\nOkay, the user introduced themselves as Jagadesh. I should respond warmly and offer help. Maybe say hello and ask how I can assist them. Keep it friendly and open-ended. Make sure to use their name to personalize the interaction. Let them know I&#39;m here to answer questions or help with any tasks. Keep the tone positive and approachable.\n&lt;/think&gt;\n\nHello Jagadesh! Nice to meet you. How can I assist you today? Whether you have questions, need help with something specific, or just want to chat, I&#39;m here for you! 😊&quot;, additional_kwargs={}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 116, &#39;prompt_tokens&#39;: 14, &#39;total_tokens&#39;: 130, &#39;completion_time&#39;: 0.253172536, &#39;prompt_time&#39;: 0.000538841, &#39;queue_time&#39;: 0.049930888, &#39;total_time&#39;: 0.253711377}, &#39;model_name&#39;: &#39;qwen/qwen3-32b&#39;, &#39;system_fingerprint&#39;: &#39;fp_5cf921caa2&#39;, &#39;service_tier&#39;: &#39;on_demand&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None, &#39;model_provider&#39;: &#39;groq&#39;}, id=&#39;lc_run--1f14c5c3-c30e-4462-9448-2c293ede5c96-0&#39;, usage_metadata={&#39;input_tokens&#39;: 14, &#39;output_tokens&#39;: 116, &#39;total_tokens&#39;: 130})]}}
 </pre></div>
 </div>
 </div>
