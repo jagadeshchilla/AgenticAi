@@ -14,6 +14,10 @@ execute:
 # Jupyter Book settings
 sphinx:
   config:
+    exclude_patterns:
+      - _build/**
+      - venv/**
+      - venv
     html_theme_options:
       use_repository_button: false
       use_edit_page_button: false
