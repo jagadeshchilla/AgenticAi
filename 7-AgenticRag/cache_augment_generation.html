@@ -1,0 +1,1175 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>What is Cache-Augmented Generation (CAG)? &#8212; Agentic AI Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '7-AgenticRag/cache_augment_generation';</script>
+    <link rel="canonical" href="/7-AgenticRag/cache_augment_generation.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RAG With Persistance Memory Using LangGraph" href="ragmemory.html" />
+    <link rel="prev" title="🤖 What are Multi-Agent RAG Systems?" href="8-multiagent.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Agentic AI Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">1-langgraph Basics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/3-DataclassStateSchema.html">State Schema With DataClasses</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/4-pydantic.html">Pydantic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/5-ChainsLangGraph.html">Chain Using LangGraph</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/7-ReActAgents.html">ReAct Agent Architecture</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2-langgraph advance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">4- Workflows</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/1-prompting_chaining.html">Prompt Chaining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/2-parallelization.html">What is Parallelization in LangGraph?</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/3-Routing.html">What is Routing in LangGraph?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/4-orchestrator-worker.html">Orchestrator-Worker</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">5-HumanintheLoop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../5-HumanintheLoop/1-Humanintheloop.html">Human In the Loop</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">6-RAGS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/1-AgenticRAG.html">Agentic RAG</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/2-CorrectiveRAG.html">Corrective RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/3-COTRag.html">Chain of Thought RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/4-AdaptiveRAG.html">Adaptive RAG</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">7-AgenticRag</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1-agenticrag.html">Agentic RAG</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="2-ReAct.html">🤖 Implement ReAct with LangGraph-What is ReAct?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="3-COTRag.html">Chain of Thought RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4-Selfreflection.html">Self Reflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5-QueryPlanningdecomposition.html">Query Planning &amp; Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6-Iterativeretrieval.html">Iterative Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7-answersynthesis.html">Answer Synthesis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8-multiagent.html">🤖 What are Multi-Agent RAG Systems?</a></li>
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">What is Cache-Augmented Generation (CAG)?</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="ragmemory.html">RAG With Persistance Memory Using LangGraph</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">pydantic</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/7-AgenticRag/cache_augment_generation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>What is Cache-Augmented Generation (CAG)?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">What is Cache-Augmented Generation (CAG)?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-unpack-this-step-by-step">🧠 Let’s unpack this step-by-step</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reminder-how-normal-rag-works">🧩 1. Reminder: How normal RAG works</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-cag-improves-on-this">⚡ 2. How <strong>CAG</strong> improves on this</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step">🧠 Step-by-step:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concept-kv-cache">🧩 3. Key Concept: KV Cache</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-overview">🏗️ Architecture Overview</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-example">🔬 Practical Example</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits">🚀 Benefits</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">⚠️ Limitations</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-cag">Advanced CAG</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="what-is-cache-augmented-generation-cag">
+<h1>What is Cache-Augmented Generation (CAG)?<a class="headerlink" href="#what-is-cache-augmented-generation-cag" title="Link to this heading">#</a></h1>
+<p>CAG is a retrieval-free approach that bypasses the usual step of querying external knowledge sources at inference time. Instead, it preloads relevant documents into the LLM’s extended context window, precomputes the model’s key‑value (KV) cache, and reuses this during inference—so the model can generate responses without additional retrieval steps</p>
+<p>In simple terms
+<strong>Cache-Augmented Generation (CAG)</strong> is a <strong>retrieval-free optimization of RAG</strong>, designed to make LLM responses faster and cheaper <em>without losing access to external context</em>.</p>
+<p>Instead of performing <strong>retrieval queries at inference time</strong>, CAG <strong>pre-loads the relevant context into the model once</strong> (before inference) and <strong>stores the model’s internal attention state (KV cache)</strong> so it can be reused for subsequent queries.</p>
+<hr class="docutils" />
+</section>
+<section id="lets-unpack-this-step-by-step">
+<h1>🧠 Let’s unpack this step-by-step<a class="headerlink" href="#lets-unpack-this-step-by-step" title="Link to this heading">#</a></h1>
+<section id="reminder-how-normal-rag-works">
+<h2>🧩 1. Reminder: How normal RAG works<a class="headerlink" href="#reminder-how-normal-rag-works" title="Link to this heading">#</a></h2>
+<p>In <strong>RAG</strong>, every time you send a new query:</p>
+<ol class="arabic simple">
+<li><p>The system searches a vector database (e.g., FAISS, Chroma, Pinecone)</p></li>
+<li><p>Retrieves top-k documents</p></li>
+<li><p>Adds them to the LLM prompt</p></li>
+<li><p>The LLM processes both the retrieved data and your question to answer.</p></li>
+</ol>
+<p>That means:</p>
+<ul class="simple">
+<li><p>Each query repeats the <strong>retrieval + embedding + re-encoding</strong> cost</p></li>
+<li><p>The LLM must <strong>re-read all context tokens</strong> every time</p></li>
+<li><p>Latency grows with context length and retrieval time</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="how-cag-improves-on-this">
+<h2>⚡ 2. How <strong>CAG</strong> improves on this<a class="headerlink" href="#how-cag-improves-on-this" title="Link to this heading">#</a></h2>
+<p><strong>Cache-Augmented Generation (CAG)</strong> avoids redundant retrieval and re-encoding by caching the model’s <em>internal representation</em> of context.</p>
+<section id="step-by-step">
+<h3>🧠 Step-by-step:<a class="headerlink" href="#step-by-step" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Preload Context Once</strong></p>
+<ul class="simple">
+<li><p>Before answering questions, you feed the model all relevant background data (documents, codebase, knowledge base, etc.).</p></li>
+<li><p>The model reads and encodes these into its attention memory — the <strong>key-value (KV) cache</strong>.</p></li>
+</ul>
+</li>
+<li><p><strong>Cache the KV State</strong></p>
+<ul class="simple">
+<li><p>The model’s transformer layers generate <em>keys and values</em> for every token, used during self-attention.</p></li>
+<li><p>These are stored and reused later (instead of recomputing).</p></li>
+</ul>
+</li>
+<li><p><strong>Inference Time (Query Phase)</strong></p>
+<ul class="simple">
+<li><p>When a new question arrives, you don’t reload or re-embed the documents.</p></li>
+<li><p>You simply <strong>reuse the cached KV states</strong> — the model “remembers” the context instantly.</p></li>
+<li><p>The model can generate answers <em>as if it had already read those documents</em>, but without reprocessing them.</p></li>
+</ul>
+</li>
+</ol>
+<p>✅ <strong>No retrieval</strong>
+✅ <strong>No repeated encoding</strong>
+✅ <strong>Lower latency and cost</strong>
+✅ <strong>Faster multi-turn interactions</strong></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="key-concept-kv-cache">
+<h2>🧩 3. Key Concept: KV Cache<a class="headerlink" href="#key-concept-kv-cache" title="Link to this heading">#</a></h2>
+<p>Every transformer maintains <strong>Key–Value (KV) pairs</strong> at each layer during attention:</p>
+<ul class="simple">
+<li><p><strong>Key (K)</strong> = representation of “what I contain”</p></li>
+<li><p><strong>Value (V)</strong> = representation of “what I contribute”</p></li>
+<li><p><strong>Query (Q)</strong> = current input’s request for relevant past info</p></li>
+</ul>
+<p>In normal generation, the LLM recomputes attention for all past tokens.</p>
+<p>In <strong>CAG</strong>, these KVs for the “context documents” are <strong>precomputed and stored</strong>, so the LLM just appends new queries to the existing attention window.</p>
+<p>Think of it like:</p>
+<blockquote>
+<div><p>“The model has already read the textbook. Now it just reads the question and answers immediately — without reopening the book.”</p>
+</div></blockquote>
+<hr class="docutils" />
+</section>
+</section>
+<section id="architecture-overview">
+<h1>🏗️ Architecture Overview<a class="headerlink" href="#architecture-overview" title="Link to this heading">#</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>               ┌────────────────────────────┐
+               │  Preload Context (Offline) │
+               │   - Embed documents        │
+               │   - Run LLM once           │
+               │   - Store KV cache         │
+               └────────────┬───────────────┘
+                            │
+                            ▼
+   ┌──────────────────────────────────────────────┐
+   │             Inference / Query Time           │
+   │   - Load precomputed KV cache                │
+   │   - Inject user query                       │
+   │   - Generate answer instantly                │
+   └──────────────────────────────────────────────┘
+</pre></div>
+</div>
+</section>
+<section id="practical-example">
+<h1>🔬 Practical Example<a class="headerlink" href="#practical-example" title="Link to this heading">#</a></h1>
+<p>Imagine building a <strong>domain-specific chatbot for a law firm</strong>:</p>
+<ul class="simple">
+<li><p>You preload all legal documents into the LLM context (via cache).</p></li>
+<li><p>During daily use, the chatbot answers new queries instantly because it reuses the <strong>cached KV state</strong>.</p></li>
+<li><p>It doesn’t re-query a database or re-tokenize the docs each time.</p></li>
+</ul>
+<p>This is <strong>Cache-Augmented Generation</strong> — the model “remembers” efficiently through cache, not retrieval.</p>
+<hr class="docutils" />
+</section>
+<section id="benefits">
+<h1>🚀 Benefits<a class="headerlink" href="#benefits" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><strong>Faster inference</strong> (no retrieval latency)</p></li>
+<li><p><strong>Lower cost</strong> (reuse pre-encoded context)</p></li>
+<li><p><strong>Scalable to multi-turn sessions</strong></p></li>
+<li><p><strong>More stable outputs</strong> (no retrieval randomness)</p></li>
+<li><p><strong>Ideal for static or semi-static corpora</strong></p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="limitations">
+<h1>⚠️ Limitations<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Cache must fit within the model’s <strong>context window limit</strong> (e.g., 128K or 1M tokens)</p></li>
+<li><p>Updating cached data requires recomputing</p></li>
+<li><p>Not suitable for <em>rapidly changing</em> data sources</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="n">load_dotenv</span><span class="p">()</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.chat_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">init_chat_model</span>
+
+<span class="n">llm</span><span class="o">=</span><span class="n">init_chat_model</span><span class="p">(</span><span class="s2">&quot;openai:gpt-4o-mini&quot;</span><span class="p">)</span>
+
+<span class="n">llm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ChatOpenAI(client=&lt;openai.resources.chat.completions.completions.Completions object at 0x000001FE4A0CC890&gt;, async_client=&lt;openai.resources.chat.completions.completions.AsyncCompletions object at 0x000001FE4A2E76E0&gt;, root_client=&lt;openai.OpenAI object at 0x000001FE47B3C2F0&gt;, root_async_client=&lt;openai.AsyncOpenAI object at 0x000001FE4A533AA0&gt;, model_name=&#39;gpt-4o-mini&#39;, model_kwargs={}, openai_api_key=SecretStr(&#39;**********&#39;), stream_usage=True)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Cache variable</span>
+<span class="n">Model_Cache</span><span class="o">=</span><span class="p">{}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cache_model</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+    <span class="n">start_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">Model_Cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;**CAche Hit**&quot;</span><span class="p">)</span>
+        <span class="n">end_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">elapsed_time</span><span class="o">=</span><span class="n">end_time</span><span class="o">-</span><span class="n">start_time</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EXECUTION TIME: </span><span class="si">{</span><span class="n">elapsed_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Model_Cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***CACHE MISS – EXECUTING MODEL***&quot;</span><span class="p">)</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">elapsed</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EXECUTION TIME: </span><span class="si">{</span><span class="n">elapsed</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+        <span class="n">Model_Cache</span><span class="p">[</span><span class="n">query</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span>
+        <span class="k">return</span> <span class="n">response</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span><span class="o">=</span><span class="n">cache_model</span><span class="p">(</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
+<span class="n">response</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>***CACHE MISS – EXECUTING MODEL***
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EXECUTION TIME: 1.73 seconds
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello! How can I assist you today?&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 9, &#39;prompt_tokens&#39;: 8, &#39;total_tokens&#39;: 17, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_name&#39;: &#39;gpt-4o-mini-2024-07-18&#39;, &#39;system_fingerprint&#39;: &#39;fp_560af6e559&#39;, &#39;id&#39;: &#39;chatcmpl-CWNfHoEtpgz2zVwkhZv0uSgL4dqWg&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, id=&#39;run--79c60541-63fe-4007-bf1d-3a19c277428e-0&#39;, usage_metadata={&#39;input_tokens&#39;: 8, &#39;output_tokens&#39;: 9, &#39;total_tokens&#39;: 17, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}})
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Model_Cache</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;hi&#39;: AIMessage(content=&#39;Hello! How can I assist you today?&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 9, &#39;prompt_tokens&#39;: 8, &#39;total_tokens&#39;: 17, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_name&#39;: &#39;gpt-4o-mini-2024-07-18&#39;, &#39;system_fingerprint&#39;: &#39;fp_560af6e559&#39;, &#39;id&#39;: &#39;chatcmpl-CWNfHoEtpgz2zVwkhZv0uSgL4dqWg&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, id=&#39;run--79c60541-63fe-4007-bf1d-3a19c277428e-0&#39;, usage_metadata={&#39;input_tokens&#39;: 8, &#39;output_tokens&#39;: 9, &#39;total_tokens&#39;: 17, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}})}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span><span class="o">=</span><span class="n">cache_model</span><span class="p">(</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
+<span class="n">response</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>**CAche Hit**
+EXECUTION TIME: 0.00 seconds
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIMessage(content=&#39;Hello! How can I assist you today?&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 9, &#39;prompt_tokens&#39;: 8, &#39;total_tokens&#39;: 17, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_name&#39;: &#39;gpt-4o-mini-2024-07-18&#39;, &#39;system_fingerprint&#39;: &#39;fp_560af6e559&#39;, &#39;id&#39;: &#39;chatcmpl-CWNfHoEtpgz2zVwkhZv0uSgL4dqWg&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, id=&#39;run--79c60541-63fe-4007-bf1d-3a19c277428e-0&#39;, usage_metadata={&#39;input_tokens&#39;: 8, &#39;output_tokens&#39;: 9, &#39;total_tokens&#39;: 17, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}})
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;can you give me 500 words on langgraph?&quot;</span>
+<span class="n">response</span> <span class="o">=</span><span class="n">cache_model</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>***CACHE MISS – EXECUTING MODEL***
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EXECUTION TIME: 12.08 seconds
+content=&quot;LangGraph is a powerful and innovative tool designed to enhance and simplify the process of natural language processing (NLP) through the application of graph theory and advanced algorithms. By leveraging the intrinsic relationships within data, LangGraph enables users to create complex linguistic structures that can be utilized across various applications, such as chatbots, sentiment analysis, and automated content generation.\n\nAt its core, LangGraph operates on the premise that language is inherently structured in ways that can be effectively modeled as a graph. In this representation, words and phrases are treated as nodes, while the relationships between them—such as syntactic dependencies, semantic similarities, or contextual relevance—are represented as edges. This graph-based approach allows for a richer understanding of language, as it captures nuances that traditional linear text processing methods might overlook.\n\nOne of the primary advantages of LangGraph is its ability to manage and analyze large datasets efficiently. In an era where data is generated at an unprecedented rate, having tools that can parse, analyze, and derive insights from massive corpuses of text is essential. LangGraph&#39;s architecture is optimized for scalability, which means it can handle multilingual datasets, varying text structures, and diverse contexts without compromising performance.\n\nThe versatility of LangGraph also extends to its application across different domains. In the field of educational technology, it can assist in creating personalized learning experiences by analyzing student interactions and tailoring content to individual needs. In marketing, LangGraph can help companies understand consumer sentiment through analysis of online reviews and social media conversations, thus enabling more effective branding strategies.\n\nMoreover, LangGraph is not just a passive analysis tool; it is equipped with machine learning capabilities that allow it to adapt and improve over time. As it processes more data, it learns from patterns and outcomes, thereby refining its predictive models. This continuous learning aspect makes LangGraph particularly valuable in dynamic fields where language and trends evolve rapidly.\n\nAnother significant aspect of LangGraph is its user-friendly interface, which is designed to accommodate users with varying levels of technical expertise. Whether you are a seasoned data scientist or a business professional seeking to leverage data-driven insights, LangGraph offers intuitive features that simplify complex operations. This democratization of technology ensures that organizations can harness the power of NLP without requiring extensive resources or specialized knowledge.\n\nThe integration capabilities of LangGraph also set it apart. It can seamlessly connect with existing data pipelines, databases, and other software tools, making it a versatile component of any tech stack. By facilitating smooth data transfers and interoperability, LangGraph ensures that insights can be quickly translated into actionable strategies.\n\nIn conclusion, LangGraph presents a transformative approach to natural language processing that combines the analytical rigour of graph theory with the flexibility and scalability demanded by modern data environments. Its ability to understand language as a dynamic, relational construct opens up myriad possibilities for innovation in various sectors—from education to marketing and beyond. As organizations increasingly recognize the value of data-driven decision-making, tools like LangGraph will play a pivotal role in shaping the future of how we interact with and understand language. With its advanced capabilities, user-friendly design, and adaptability, LangGraph is poised to become a cornerstone in the evolution of natural language processing technologies.&quot; additional_kwargs={&#39;refusal&#39;: None} response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 628, &#39;prompt_tokens&#39;: 18, &#39;total_tokens&#39;: 646, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_name&#39;: &#39;gpt-4o-mini-2024-07-18&#39;, &#39;system_fingerprint&#39;: &#39;fp_560af6e559&#39;, &#39;id&#39;: &#39;chatcmpl-CWNfJcarYsmtV6r1jtSh0iS9U1FGa&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None} id=&#39;run--5a1f8f0e-7922-461f-bf96-feb66d5ccf2c-0&#39; usage_metadata={&#39;input_tokens&#39;: 18, &#39;output_tokens&#39;: 628, &#39;total_tokens&#39;: 646, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;can you give me 500 words on langgraph?&quot;</span>
+<span class="n">response</span> <span class="o">=</span><span class="n">cache_model</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>**CAche Hit**
+EXECUTION TIME: 0.00 seconds
+content=&quot;LangGraph is a powerful and innovative tool designed to enhance and simplify the process of natural language processing (NLP) through the application of graph theory and advanced algorithms. By leveraging the intrinsic relationships within data, LangGraph enables users to create complex linguistic structures that can be utilized across various applications, such as chatbots, sentiment analysis, and automated content generation.\n\nAt its core, LangGraph operates on the premise that language is inherently structured in ways that can be effectively modeled as a graph. In this representation, words and phrases are treated as nodes, while the relationships between them—such as syntactic dependencies, semantic similarities, or contextual relevance—are represented as edges. This graph-based approach allows for a richer understanding of language, as it captures nuances that traditional linear text processing methods might overlook.\n\nOne of the primary advantages of LangGraph is its ability to manage and analyze large datasets efficiently. In an era where data is generated at an unprecedented rate, having tools that can parse, analyze, and derive insights from massive corpuses of text is essential. LangGraph&#39;s architecture is optimized for scalability, which means it can handle multilingual datasets, varying text structures, and diverse contexts without compromising performance.\n\nThe versatility of LangGraph also extends to its application across different domains. In the field of educational technology, it can assist in creating personalized learning experiences by analyzing student interactions and tailoring content to individual needs. In marketing, LangGraph can help companies understand consumer sentiment through analysis of online reviews and social media conversations, thus enabling more effective branding strategies.\n\nMoreover, LangGraph is not just a passive analysis tool; it is equipped with machine learning capabilities that allow it to adapt and improve over time. As it processes more data, it learns from patterns and outcomes, thereby refining its predictive models. This continuous learning aspect makes LangGraph particularly valuable in dynamic fields where language and trends evolve rapidly.\n\nAnother significant aspect of LangGraph is its user-friendly interface, which is designed to accommodate users with varying levels of technical expertise. Whether you are a seasoned data scientist or a business professional seeking to leverage data-driven insights, LangGraph offers intuitive features that simplify complex operations. This democratization of technology ensures that organizations can harness the power of NLP without requiring extensive resources or specialized knowledge.\n\nThe integration capabilities of LangGraph also set it apart. It can seamlessly connect with existing data pipelines, databases, and other software tools, making it a versatile component of any tech stack. By facilitating smooth data transfers and interoperability, LangGraph ensures that insights can be quickly translated into actionable strategies.\n\nIn conclusion, LangGraph presents a transformative approach to natural language processing that combines the analytical rigour of graph theory with the flexibility and scalability demanded by modern data environments. Its ability to understand language as a dynamic, relational construct opens up myriad possibilities for innovation in various sectors—from education to marketing and beyond. As organizations increasingly recognize the value of data-driven decision-making, tools like LangGraph will play a pivotal role in shaping the future of how we interact with and understand language. With its advanced capabilities, user-friendly design, and adaptability, LangGraph is poised to become a cornerstone in the evolution of natural language processing technologies.&quot; additional_kwargs={&#39;refusal&#39;: None} response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 628, &#39;prompt_tokens&#39;: 18, &#39;total_tokens&#39;: 646, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_name&#39;: &#39;gpt-4o-mini-2024-07-18&#39;, &#39;system_fingerprint&#39;: &#39;fp_560af6e559&#39;, &#39;id&#39;: &#39;chatcmpl-CWNfJcarYsmtV6r1jtSh0iS9U1FGa&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None} id=&#39;run--5a1f8f0e-7922-461f-bf96-feb66d5ccf2c-0&#39; usage_metadata={&#39;input_tokens&#39;: 18, &#39;output_tokens&#39;: 628, &#39;total_tokens&#39;: 646, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;give me 500 words on langgraph?&quot;</span>
+<span class="n">response</span> <span class="o">=</span><span class="n">cache_model</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>***CACHE MISS – EXECUTING MODEL***
+EXECUTION TIME: 13.57 seconds
+content=&#39;LangGraph is a state-of-the-art language modeling framework designed to enhance natural language understanding and generation by utilizing graph-based structures. It leverages the concepts of graph theory to represent linguistic data in a way that captures the complex relationships between words, phrases, and ideas. The innovation behind LangGraph lies in its ability to create a multi-dimensional representation of language, moving beyond traditional linear sequences to encapsulate contextual and semantic nuances.\n\nAt its core, LangGraph combines elements of graph neural networks (GNNs) with powerful transformers architectures, facilitating the integration of various linguistic modalities. This hybrid approach allows for a more sophisticated understanding of how words and sentences connect in meaningful ways. Unlike conventional models that primarily operate on sequential data, LangGraph constructs a graph where nodes represent linguistic entities (such as words or phrases), and edges represent the relationships or dependencies between them. This graph structure helps to simulate the complexities of human communication, where meaning is often derived from the interplay of multiple components rather than a single linear trajectory.\n\nOne of the primary advantages of LangGraph is its ability to handle various linguistic phenomena, such as polysemy, synonymy, and context dependence. By mapping words not just to their immediate neighbors but also to a broader contextual network, LangGraph can disambiguate meanings based on surrounding information. This characteristic makes it particularly valuable for applications like machine translation, sentiment analysis, and dialogue systems, where the interpretation of language can vary significantly based on context.\n\nMoreover, LangGraph incorporates advanced techniques such as attention mechanisms, which allow the model to focus selectively on different parts of the graph when making predictions. This attention to context ensures that the model can prioritize relevant information while filtering out noise, thus improving its performance in tasks requiring nuanced language understanding.\n\nThe training process for LangGraph typically involves large-scale datasets that include diverse linguistic inputs. This can encompass anything from social media posts to formal academic texts, providing the model with a rich tapestry of language use. By training on comprehensive data, LangGraph develops a deep understanding of linguistic patterns and relationships, enhancing its ability to generalize to unseen data.\n\nIn addition to its technical architecture, LangGraph also emphasizes usability and accessibility for developers. It comes equipped with intuitive interfaces and documentation, enabling practitioners in the fields of computational linguistics, artificial intelligence, and software development to easily implement and adapt it to their specific needs. The model is designed to integrate seamlessly with existing natural language processing (NLP) frameworks, promoting collaboration and innovation within the broader AI community.\n\nAs the demand for more sophisticated language processing tools continues to escalate, LangGraph stands out as a promising solution. Its graph-based approach not only aligns closely with the intricacies of human language but also opens new avenues for research and development. Future enhancements may include expanding its capabilities to incorporate multimedia elements, such as visual context or auditory cues, further enriching the model’s understanding of language in its multifaceted forms.\n\nIn conclusion, LangGraph represents a significant leap forward in the realm of natural language processing. By harnessing the power of graph theory and advanced neural network architectures, it provides a more nuanced and effective way of understanding and generating human language. As developers and researchers continue to explore its potential, LangGraph is poised to play a crucial role in shaping the future of AI-driven communication technologies.&#39; additional_kwargs={&#39;refusal&#39;: None} response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 654, &#39;prompt_tokens&#39;: 16, &#39;total_tokens&#39;: 670, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_name&#39;: &#39;gpt-4o-mini-2024-07-18&#39;, &#39;system_fingerprint&#39;: &#39;fp_560af6e559&#39;, &#39;id&#39;: &#39;chatcmpl-CWNfVtjmk1jNPe2LYHKnUTZEN8dW6&#39;, &#39;service_tier&#39;: &#39;default&#39;, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None} id=&#39;run--d6fb435c-aac9-4003-a87d-59c9e4772612-0&#39; usage_metadata={&#39;input_tokens&#39;: 16, &#39;output_tokens&#39;: 654, &#39;total_tokens&#39;: 670, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}}
+</pre></div>
+</div>
+</div>
+</div>
+<section id="advanced-cag">
+<h2>Advanced CAG<a class="headerlink" href="#advanced-cag" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="c1"># ---- LangGraph / LangChain ----</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">END</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.checkpoint.memory</span><span class="w"> </span><span class="kn">import</span> <span class="n">MemorySaver</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.embeddings</span><span class="w"> </span><span class="kn">import</span> <span class="n">HuggingFaceEmbeddings</span>
+
+<span class="c1"># ---- FAISS vector stores ----</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">faiss</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.vectorstores</span><span class="w"> </span><span class="kn">import</span> <span class="n">FAISS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.docstore.in_memory</span><span class="w"> </span><span class="kn">import</span> <span class="n">InMemoryDocstore</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ================= CONFIG =================</span>
+<span class="n">EMBED_MODEL</span> <span class="o">=</span> <span class="s2">&quot;sentence-transformers/all-MiniLM-L6-v2&quot;</span>  <span class="c1"># 384-dim</span>
+<span class="n">VECTOR_DIM</span> <span class="o">=</span> <span class="mi">384</span>
+
+<span class="n">LLM_MODEL</span> <span class="o">=</span> <span class="s2">&quot;gpt-4o-mini&quot;</span>
+<span class="n">LLM_TEMPERATURE</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">RETRIEVE_TOP_K</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">CACHE_TOP_K</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">CACHE_DISTANCE_THRESHOLD</span> <span class="o">=</span> <span class="mf">0.45</span>
+
+<span class="c1"># Optional TTL for cache entries (seconds). 0 = disabled.</span>
+<span class="n">CACHE_TTL_SEC</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ================= STATE ==================</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RAGState</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">question</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">normalized_question</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">context_docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]</span>
+    <span class="n">answer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">citations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">cache_hit</span><span class="p">:</span> <span class="nb">bool</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============== GLOBALS ===================</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_huggingface</span><span class="w"> </span><span class="kn">import</span> <span class="n">HuggingFaceEmbeddings</span>
+<span class="n">EMBED</span> <span class="o">=</span> <span class="n">HuggingFaceEmbeddings</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">EMBED_MODEL</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ----- QA CACHE (EMPTY, SAFE INIT) -----</span>
+<span class="n">qa_index</span> <span class="o">=</span> <span class="n">faiss</span><span class="o">.</span><span class="n">IndexFlatL2</span><span class="p">(</span><span class="n">VECTOR_DIM</span><span class="p">)</span>  <span class="c1"># distance; lower is better</span>
+<span class="n">QA_CACHE</span> <span class="o">=</span> <span class="n">FAISS</span><span class="p">(</span>
+    <span class="n">embedding_function</span><span class="o">=</span><span class="n">EMBED</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">qa_index</span><span class="p">,</span>
+    <span class="n">docstore</span><span class="o">=</span><span class="n">InMemoryDocstore</span><span class="p">({}),</span>
+    <span class="n">index_to_docstore_id</span><span class="o">=</span><span class="p">{}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">QA_CACHE</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;langchain_community.vectorstores.faiss.FAISS at 0x1fe2f6b7440&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ----- RAG STORE (demo only) -----</span>
+<span class="n">RAG_STORE</span> <span class="o">=</span> <span class="n">FAISS</span><span class="o">.</span><span class="n">from_texts</span><span class="p">(</span>
+    <span class="n">texts</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;LangGraph lets you compose stateful LLM workflows as graphs.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;In LangGraph, nodes can be cached; node caching memoizes outputs keyed by inputs for a TTL.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Retrieval-Augmented Generation (RAG) retrieves external context and injects it into prompts.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Semantic caching reuses prior answers when new questions are semantically similar.&quot;</span>
+    <span class="p">],</span>
+    <span class="n">embedding</span><span class="o">=</span><span class="n">EMBED</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LLM</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">LLM_MODEL</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="n">LLM_TEMPERATURE</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LLM</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ChatOpenAI(client=&lt;openai.resources.chat.completions.completions.Completions object at 0x000001FE7913E660&gt;, async_client=&lt;openai.resources.chat.completions.completions.AsyncCompletions object at 0x000001FE2F6B6240&gt;, root_client=&lt;openai.OpenAI object at 0x000001FE7913F470&gt;, root_async_client=&lt;openai.AsyncOpenAI object at 0x000001FE7913F3B0&gt;, model_name=&#39;gpt-4o-mini&#39;, temperature=0.0, model_kwargs={}, openai_api_key=SecretStr(&#39;**********&#39;), stream_usage=True)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ================ NODES ===================</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">normalize_query</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RAGState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RAGState</span><span class="p">:</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;normalized_question&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">state</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">semantic_cache_lookup</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RAGState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RAGState</span><span class="p">:</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;normalized_question&quot;</span><span class="p">]</span>
+    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;cache_hit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># default</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">q</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">state</span>
+
+    <span class="c1"># ✅ Guard: FAISS crashes if ntotal == 0 and you ask for k&gt;0</span>
+    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">QA_CACHE</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">QA_CACHE</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">ntotal</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">state</span>
+
+    <span class="c1"># For FAISS L2 wrapper, this returns (Document, distance) with lower=better</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="n">QA_CACHE</span><span class="o">.</span><span class="n">similarity_search_with_score</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">CACHE_TOP_K</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">hits</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">state</span>
+
+    <span class="n">best_doc</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">hits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Optional TTL</span>
+    <span class="k">if</span> <span class="n">CACHE_TTL_SEC</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="n">best_doc</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ts&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ts</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">ts</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">CACHE_TTL_SEC</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">state</span>
+
+    <span class="c1"># L2 distance gate (lower = more similar)</span>
+    <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;=</span> <span class="n">CACHE_DISTANCE_THRESHOLD</span><span class="p">:</span>
+        <span class="n">cached_answer</span> <span class="o">=</span> <span class="n">best_doc</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;answer&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cached_answer</span><span class="p">:</span>
+            <span class="n">state</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cached_answer</span>
+            <span class="n">state</span><span class="p">[</span><span class="s2">&quot;citations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;(cache)&quot;</span><span class="p">]</span>
+            <span class="n">state</span><span class="p">[</span><span class="s2">&quot;cache_hit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="n">state</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">respond_from_cache</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RAGState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RAGState</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">state</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">retrieve</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RAGState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RAGState</span><span class="p">:</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;normalized_question&quot;</span><span class="p">]</span>
+    <span class="n">docs</span> <span class="o">=</span> <span class="n">RAG_STORE</span><span class="o">.</span><span class="n">similarity_search</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">RETRIEVE_TOP_K</span><span class="p">)</span>
+    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;context_docs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">docs</span>
+    <span class="k">return</span> <span class="n">state</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RAGState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RAGState</span><span class="p">:</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">]</span>
+    <span class="n">docs</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;context_docs&quot;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;[doc-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">d</span><span class="o">.</span><span class="n">page_content</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">)])</span>
+
+    <span class="n">system</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;You are a precise RAG assistant. Use the context when helpful. &quot;</span>
+        <span class="s2">&quot;Cite with [doc-i] markers if you use a fact from the context.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Question: </span><span class="si">{</span><span class="n">q</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Context:</span><span class="se">\n</span><span class="si">{</span><span class="n">ctx</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Write a concise answer with citations.&quot;</span>
+
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">LLM</span><span class="o">.</span><span class="n">invoke</span><span class="p">([{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system</span><span class="p">},</span>
+                       <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">}])</span>
+    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">content</span>
+    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;citations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;[doc-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">state</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cache_write</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RAGState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RAGState</span><span class="p">:</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;normalized_question&quot;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;answer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">q</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">a</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">state</span>
+
+    <span class="n">QA_CACHE</span><span class="o">.</span><span class="n">add_texts</span><span class="p">(</span>
+        <span class="n">texts</span><span class="o">=</span><span class="p">[</span><span class="n">q</span><span class="p">],</span>
+        <span class="n">metadatas</span><span class="o">=</span><span class="p">[{</span>
+            <span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="n">a</span><span class="p">,</span>
+            <span class="s2">&quot;ts&quot;</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">(),</span>
+        <span class="p">}]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">state</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============== GRAPH WIRING ==============</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">StateGraph</span><span class="p">(</span><span class="n">RAGState</span><span class="p">)</span>
+
+<span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;normalize_query&quot;</span><span class="p">,</span> <span class="n">normalize_query</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;semantic_cache_lookup&quot;</span><span class="p">,</span> <span class="n">semantic_cache_lookup</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;respond_from_cache&quot;</span><span class="p">,</span> <span class="n">respond_from_cache</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;retrieve&quot;</span><span class="p">,</span> <span class="n">retrieve</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;generate&quot;</span><span class="p">,</span> <span class="n">generate</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;cache_write&quot;</span><span class="p">,</span> <span class="n">cache_write</span><span class="p">)</span>
+
+<span class="n">graph</span><span class="o">.</span><span class="n">set_entry_point</span><span class="p">(</span><span class="s2">&quot;normalize_query&quot;</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;normalize_query&quot;</span><span class="p">,</span> <span class="s2">&quot;semantic_cache_lookup&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_branch</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RAGState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="s2">&quot;respond_from_cache&quot;</span> <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cache_hit&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;retrieve&quot;</span>
+
+<span class="n">graph</span><span class="o">.</span><span class="n">add_conditional_edges</span><span class="p">(</span>
+    <span class="s2">&quot;semantic_cache_lookup&quot;</span><span class="p">,</span>
+    <span class="n">_branch</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;respond_from_cache&quot;</span><span class="p">:</span> <span class="s2">&quot;respond_from_cache&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;retrieve&quot;</span><span class="p">:</span> <span class="s2">&quot;retrieve&quot;</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;respond_from_cache&quot;</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;retrieve&quot;</span><span class="p">,</span> <span class="s2">&quot;generate&quot;</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;generate&quot;</span><span class="p">,</span> <span class="s2">&quot;cache_write&quot;</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;cache_write&quot;</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
+
+<span class="n">memory</span> <span class="o">=</span> <span class="n">MemorySaver</span><span class="p">()</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">checkpointer</span><span class="o">=</span><span class="n">memory</span><span class="p">)</span>
+<span class="n">app</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/f85b64e43ae9e33ca1c798f4e269d49617fbe539d90178281b9501f3108b94cf.png" src="../_images/f85b64e43ae9e33ca1c798f4e269d49617fbe539d90178281b9501f3108b94cf.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ================= DEMO ===================</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">thread_cfg</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;configurable&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;thread_id&quot;</span><span class="p">:</span> <span class="s2">&quot;demo-user-1&quot;</span><span class="p">}}</span>
+
+    <span class="n">q1</span> <span class="o">=</span> <span class="s2">&quot;What is LangGraph ?&quot;</span>
+    <span class="n">out1</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="n">q1</span><span class="p">,</span> <span class="s2">&quot;context_docs&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;citations&quot;</span><span class="p">:</span> <span class="p">[]},</span> <span class="n">thread_cfg</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Answer:&quot;</span><span class="p">,</span> <span class="n">out1</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Citations:&quot;</span><span class="p">,</span> <span class="n">out1</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;citations&quot;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cache hit?:&quot;</span><span class="p">,</span> <span class="n">out1</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cache_hit&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Answer: LangGraph is a framework that allows users to compose stateful workflows for large language models (LLMs) in the form of graphs, enabling the management of complex interactions and data flows [doc-2]. It also features node caching, which memoizes outputs based on inputs for a specified time-to-live (TTL) [doc-1].
+Citations: [&#39;[doc-1]&#39;, &#39;[doc-2]&#39;, &#39;[doc-3]&#39;, &#39;[doc-4]&#39;]
+Cache hit?: False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q1</span> <span class="o">=</span> <span class="s2">&quot;Explain about LangGraph ?&quot;</span>
+<span class="n">out1</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="n">q1</span><span class="p">,</span> <span class="s2">&quot;context_docs&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;citations&quot;</span><span class="p">:</span> <span class="p">[]},</span> <span class="n">thread_cfg</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Answer:&quot;</span><span class="p">,</span> <span class="n">out1</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Citations:&quot;</span><span class="p">,</span> <span class="n">out1</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;citations&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cache hit?:&quot;</span><span class="p">,</span> <span class="n">out1</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cache_hit&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Answer: LangGraph is a framework that allows users to compose stateful workflows for large language models (LLMs) in the form of graphs, enabling the management of complex interactions and data flows [doc-2]. It also features node caching, which memoizes outputs based on inputs for a specified time-to-live (TTL) [doc-1].
+Citations: [&#39;(cache)&#39;]
+Cache hit?: True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q1</span> <span class="o">=</span> <span class="s2">&quot;Explain about LangGraph agents ?&quot;</span>
+<span class="n">out1</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="n">q1</span><span class="p">,</span> <span class="s2">&quot;context_docs&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;citations&quot;</span><span class="p">:</span> <span class="p">[]},</span> <span class="n">thread_cfg</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Answer:&quot;</span><span class="p">,</span> <span class="n">out1</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Citations:&quot;</span><span class="p">,</span> <span class="n">out1</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;citations&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cache hit?:&quot;</span><span class="p">,</span> <span class="n">out1</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cache_hit&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Answer: LangGraph agents are part of a framework that allows users to compose stateful workflows using large language models (LLMs) structured as graphs [doc-2]. These agents can utilize features like node caching, which memoizes outputs based on inputs for a specified time-to-live (TTL) [doc-1]. Additionally, they can leverage semantic caching to reuse previous answers when new questions are semantically similar, enhancing efficiency [doc-4]. This approach aligns with Retrieval-Augmented Generation (RAG), which retrieves external context to enrich prompts [doc-3].
+Citations: [&#39;[doc-1]&#39;, &#39;[doc-2]&#39;, &#39;[doc-3]&#39;, &#39;[doc-4]&#39;]
+Cache hit?: False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q1</span> <span class="o">=</span> <span class="s2">&quot;Explain about agents in Langgraph ?&quot;</span>
+<span class="n">out1</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="n">q1</span><span class="p">,</span> <span class="s2">&quot;context_docs&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;citations&quot;</span><span class="p">:</span> <span class="p">[]},</span> <span class="n">thread_cfg</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Answer:&quot;</span><span class="p">,</span> <span class="n">out1</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Citations:&quot;</span><span class="p">,</span> <span class="n">out1</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;citations&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cache hit?:&quot;</span><span class="p">,</span> <span class="n">out1</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cache_hit&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Answer: LangGraph agents are part of a framework that allows users to compose stateful workflows using large language models (LLMs) structured as graphs [doc-2]. These agents can utilize features like node caching, which memoizes outputs based on inputs for a specified time-to-live (TTL) [doc-1]. Additionally, they can leverage semantic caching to reuse previous answers when new questions are semantically similar, enhancing efficiency [doc-4]. This approach aligns with Retrieval-Augmented Generation (RAG), which retrieves external context to enrich prompts [doc-3].
+Citations: [&#39;(cache)&#39;]
+Cache hit?: True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./7-AgenticRag"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="8-multiagent.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🤖 What are Multi-Agent RAG Systems?</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ragmemory.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">RAG With Persistance Memory Using LangGraph</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">What is Cache-Augmented Generation (CAG)?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-unpack-this-step-by-step">🧠 Let’s unpack this step-by-step</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reminder-how-normal-rag-works">🧩 1. Reminder: How normal RAG works</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-cag-improves-on-this">⚡ 2. How <strong>CAG</strong> improves on this</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step">🧠 Step-by-step:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concept-kv-cache">🧩 3. Key Concept: KV Cache</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-overview">🏗️ Architecture Overview</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-example">🔬 Practical Example</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits">🚀 Benefits</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">⚠️ Limitations</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-cag">Advanced CAG</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Your Name
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
