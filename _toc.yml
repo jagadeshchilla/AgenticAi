@@ -76,6 +76,20 @@ parts:
       - file: 7-AgenticRag/ragmemory
         title: RAG Memory
 
+  - caption: 8-RAG EVALUATION
+    chapters:
+      - file: 8-RAG EVALUATION/1-rag_evaluation
+        title: RAG Evaluation
+
+  - caption: 9-Q&A WITH GRAPHDB
+    chapters:
+      - file: 9-Q&A WITH GRAPHDB/experiments
+        title: Experiments
+      - file: 9-Q&A WITH GRAPHDB/promptingstartegies
+        title: Prompting Strategies
+      - file: 9-Q&A WITH GRAPHDB/promptstatergies
+        title: Prompt Strategies
+
   - caption: pydantic
     chapters:
       - file: pydantic/intro
