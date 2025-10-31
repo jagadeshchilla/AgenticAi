@@ -1,0 +1,1255 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chatbot And RAG Evaluation &#8212; Agentic AI Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '8-RAG EVALUATION/1-rag_evaluation';</script>
+    <link rel="canonical" href="/8-RAG EVALUATION/1-rag_evaluation.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Build a Question Answering application over a Graph Database" href="../9-Q%26A%20WITH%20GRAPHDB/experiments.html" />
+    <link rel="prev" title="RAG With Persistance Memory Using LangGraph" href="../7-AgenticRag/ragmemory.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Agentic AI Tutorials</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">1-langgraph Basics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/1-simplegraph.html">Build a Simple Workflow or Graph Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/2-chatbot.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/3-DataclassStateSchema.html">State Schema With DataClasses</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/4-pydantic.html">Pydantic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/5-ChainsLangGraph.html">Chain Using LangGraph</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/6-chatbotswithmultipletools.html">Chatbots with Multiple Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-langgraph%20Basics/7-ReActAgents.html">ReAct Agent Architecture</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">2-langgraph advance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../2-langgraph%20advance/1-streaming.html">Implementing simple Chatbot Using LangGraph</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">4- Workflows</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/1-prompting_chaining.html">Prompt Chaining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/2-parallelization.html">What is Parallelization in LangGraph?</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/3-Routing.html">What is Routing in LangGraph?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/4-orchestrator-worker.html">Orchestrator-Worker</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../4-%20Workflows/5-Evaluator-optimizer.html">Evaluator-Optimizer Pattern</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">5-HumanintheLoop</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../5-HumanintheLoop/1-Humanintheloop.html">Human In the Loop</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">6-RAGS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/1-AgenticRAG.html">Agentic RAG</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/2-CorrectiveRAG.html">Corrective RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/3-COTRag.html">Chain of Thought RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6-RAGS/4-AdaptiveRAG.html">Adaptive RAG</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">7-AgenticRag</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/1-agenticrag.html">Agentic RAG</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/2-ReAct.html">🤖 Implement ReAct with LangGraph-What is ReAct?</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/3-COTRag.html">Chain of Thought RAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/4-Selfreflection.html">Self Reflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/5-QueryPlanningdecomposition.html">Query Planning &amp; Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/6-Iterativeretrieval.html">Iterative Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/7-answersynthesis.html">Answer Synthesis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/8-multiagent.html">🤖 What are Multi-Agent RAG Systems?</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/cache_augment_generation.html">What is Cache-Augmented Generation (CAG)?</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../7-AgenticRag/ragmemory.html">RAG With Persistance Memory Using LangGraph</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">8-RAG EVALUATION</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Chatbot And RAG Evaluation</a></li>
+
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">9-Q&amp;A WITH GRAPHDB</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../9-Q%26A%20WITH%20GRAPHDB/experiments.html">Experiments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">pydantic</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pydantic/intro.html">Pydantic Basics: Creating and Using Models</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/8-RAG EVALUATION/1-rag_evaluation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chatbot And RAG Evaluation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chatbot And RAG Evaluation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#chatbot-evaluation">Chatbot Evaluation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#define-metrics-llm-as-a-judge">Define Metrics (LLM As A Judge)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#run-evaluations">Run Evaluations</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-for-rag">Evaluation For RAG</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluators-or-metrics">Evaluators or Metrics</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#relevance-response-vs-input">Relevance: Response vs input</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#groundedness-response-vs-retrieved-docs">Groundedness: Response vs retrieved docs</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-relevance-retrieved-docs-vs-input">Retrieval Relevance: Retrieved docs vs input</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-evaluation">Run the evaluation</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="chatbot-and-rag-evaluation">
+<h1>Chatbot And RAG Evaluation<a class="headerlink" href="#chatbot-and-rag-evaluation" title="Link to this heading">#</a></h1>
+<p>Retrieval Augmented Generation (RAG) is a technique that enhances Large Language Models (LLMs) by providing them with relevant external knowledge. It has become one of the most widely used approaches for building LLM applications.</p>
+<p>This tutorial will show you how to evaluate your RAG applications using LangSmith. You’ll learn:</p>
+<ol class="arabic simple">
+<li><p>How to create test datasets</p></li>
+<li><p>How to run your RAG application on those datasets</p></li>
+<li><p>How to measure your application’s performance using different evaluation metrics</p></li>
+</ol>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>A typical RAG evaluation workflow consists of three main steps:</p>
+<ol class="arabic simple">
+<li><p>Creating a dataset with questions and their expected answers</p></li>
+<li><p>Running your RAG application on those questions</p></li>
+<li><p>Using evaluators to measure how well your application performed, looking at factors like:</p></li>
+</ol>
+<ul class="simple">
+<li><p>Answer relevance</p></li>
+<li><p>Answer accuracy</p></li>
+<li><p>Retrieval quality</p></li>
+</ul>
+<p>For this tutorial, we’ll create and evaluate a bot that answers questions about a few of Lilian Weng’s insightful blog posts.</p>
+</section>
+</section>
+<section id="chatbot-evaluation">
+<h1>Chatbot Evaluation<a class="headerlink" href="#chatbot-evaluation" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;LANGCHAIN_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;LANGCHAIN_API_KEY&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;LANGSMITH_TRACING&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langsmith</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="c1"># Define dataset: these are your test cases</span>
+<span class="n">dataset_name</span> <span class="o">=</span> <span class="s2">&quot;Chatbots Evaluation&quot;</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">create_examples</span><span class="p">(</span>
+    <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;inputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What is LangChain?&quot;</span><span class="p">},</span>
+            <span class="s2">&quot;outputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="s2">&quot;A framework for building LLM applications&quot;</span><span class="p">},</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;inputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What is LangSmith?&quot;</span><span class="p">},</span>
+            <span class="s2">&quot;outputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="s2">&quot;A platform for observing and evaluating LLM applications&quot;</span><span class="p">},</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;inputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What is OpenAI?&quot;</span><span class="p">},</span>
+            <span class="s2">&quot;outputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="s2">&quot;A company that creates Large Language Models&quot;</span><span class="p">},</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;inputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What is Google?&quot;</span><span class="p">},</span>
+            <span class="s2">&quot;outputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="s2">&quot;A technology company known for search&quot;</span><span class="p">},</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;inputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What is Mistral?&quot;</span><span class="p">},</span>
+            <span class="s2">&quot;outputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="s2">&quot;A company that creates Large Language Models&quot;</span><span class="p">},</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;example_ids&#39;: [&#39;0013ddb3-b95d-4c12-98a6-7db441cf5e7e&#39;,
+  &#39;bf8428b6-cee1-43f4-b382-d84e4c4e4c10&#39;,
+  &#39;d0272ece-7c00-4af4-b444-3126edf02b6c&#39;,
+  &#39;cf1740df-e695-48b0-94fe-cb3d3ca92c01&#39;,
+  &#39;8df0f503-821a-486f-a1cf-84cd6bc18a6e&#39;],
+ &#39;count&#39;: 5}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="define-metrics-llm-as-a-judge">
+<h1>Define Metrics (LLM As A Judge)<a class="headerlink" href="#define-metrics-llm-as-a-judge" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">openai</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langsmith</span><span class="w"> </span><span class="kn">import</span> <span class="n">wrappers</span>
+ 
+<span class="n">openai_client</span><span class="o">=</span><span class="n">wrappers</span><span class="o">.</span><span class="n">wrap_openai</span><span class="p">(</span><span class="n">openai</span><span class="o">.</span><span class="n">OpenAI</span><span class="p">())</span>
+
+<span class="n">eval_instructions</span> <span class="o">=</span> <span class="s2">&quot;You are an expert professor specialized in grading students&#39; answers to questions.&quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">correctness</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span><span class="n">outputs</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="n">reference_outputs</span><span class="p">:</span><span class="nb">dict</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">bool</span><span class="p">:</span>
+      <span class="n">user_content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;You are grading the following question:</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;question&#39;</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">    Here is the real answer:</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">reference_outputs</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">    You are grading the following predicted answer:</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">    Respond with CORRECT or INCORRECT:</span>
+<span class="s2">    Grade:</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+      <span class="n">response</span><span class="o">=</span><span class="n">openai_client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+            <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+                  <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span><span class="s2">&quot;system&quot;</span><span class="p">,</span><span class="s2">&quot;content&quot;</span><span class="p">:</span><span class="n">eval_instructions</span><span class="p">},</span>
+                  <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="s2">&quot;content&quot;</span><span class="p">:</span><span class="n">user_content</span><span class="p">}</span>
+            <span class="p">]</span>
+      <span class="p">)</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+
+      <span class="k">return</span> <span class="n">response</span> <span class="o">==</span> <span class="s2">&quot;CORRECT&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Concisions- checks whether the actual output is less than 2x the length of the expected result.</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">concision</span><span class="p">(</span><span class="n">outputs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">reference_outputs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="s2">&quot;response&quot;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">reference_outputs</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="run-evaluations">
+<h1>Run Evaluations<a class="headerlink" href="#run-evaluations" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">default_instructions</span> <span class="o">=</span> <span class="s2">&quot;Respond to the users question in a short, concise manner (one short sentence).&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_app</span><span class="p">(</span><span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span> <span class="n">instructions</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">default_instructions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">openai_client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">instructions</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">question</span><span class="p">},</span>
+        <span class="p">],</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Call my_app for every datapoints</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ls_target</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">my_app</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">])}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Run our evaluation</span>
+<span class="n">experiment_results</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
+    <span class="n">ls_target</span><span class="p">,</span> <span class="c1">## Your AI system</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">dataset_name</span><span class="p">,</span>
+    <span class="n">evaluators</span><span class="o">=</span><span class="p">[</span><span class="n">correctness</span><span class="p">,</span><span class="n">concision</span><span class="p">],</span>
+    <span class="n">experiment_prefix</span><span class="o">=</span><span class="s2">&quot;openai-4o-mini-chatbot&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>View the evaluation results for experiment: &#39;openai-4o-mini-chatbot-e841d797&#39; at:
+https://smith.langchain.com/o/bc49b288-224f-45a2-949a-f214f8948bf9/datasets/90c8bdce-b666-46d4-ab54-9c69d8b3a07b/compare?selectedSessions=98c5788b-af99-4937-ad33-ca2d14aa5fb3
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e38b29cbf61d47e9ad3e2dcca34fdcf9", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Call my_app for every datapoints</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ls_target</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">my_app</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">],</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4-turbo&quot;</span><span class="p">)}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Run our evaluation</span>
+<span class="n">experiment_results</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
+    <span class="n">ls_target</span><span class="p">,</span> <span class="c1">## Your AI system</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">dataset_name</span><span class="p">,</span>
+    <span class="n">evaluators</span><span class="o">=</span><span class="p">[</span><span class="n">correctness</span><span class="p">,</span><span class="n">concision</span><span class="p">],</span>
+    <span class="n">experiment_prefix</span><span class="o">=</span><span class="s2">&quot;openai-4-turbo-chatbot&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>View the evaluation results for experiment: &#39;openai-4-turbo-chatbot-394c3e99&#39; at:
+https://smith.langchain.com/o/bc49b288-224f-45a2-949a-f214f8948bf9/datasets/90c8bdce-b666-46d4-ab54-9c69d8b3a07b/compare?selectedSessions=83609af6-53aa-4b83-a55a-63e28074dbc8
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d5e91ea723604c45bd11a32067bf070c", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+<section id="evaluation-for-rag">
+<h1>Evaluation For RAG<a class="headerlink" href="#evaluation-for-rag" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## RAG</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebBaseLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.vectorstores</span><span class="w"> </span><span class="kn">import</span> <span class="n">InMemoryVectorStore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
+
+<span class="c1"># List of URLs to load documents from</span>
+<span class="n">urls</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;https://lilianweng.github.io/posts/2023-06-23-agent/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;https://lilianweng.github.io/posts/2023-10-25-adv-attack-llm/&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># Load documents from the URLs</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">WebBaseLoader</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">]</span>
+<span class="n">docs_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">docs</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+
+<span class="c1"># Initialize a text splitter with specified chunk size and overlap</span>
+<span class="n">text_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="o">.</span><span class="n">from_tiktoken_encoder</span><span class="p">(</span>
+    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>
+
+<span class="c1"># Split the documents into chunks</span>
+<span class="n">doc_splits</span> <span class="o">=</span> <span class="n">text_splitter</span><span class="o">.</span><span class="n">split_documents</span><span class="p">(</span><span class="n">docs_list</span><span class="p">)</span>
+
+<span class="c1"># Add the document chunks to the &quot;vector store&quot; using OpenAIEmbeddings</span>
+<span class="n">vectorstore</span> <span class="o">=</span> <span class="n">InMemoryVectorStore</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
+    <span class="n">documents</span><span class="o">=</span><span class="n">doc_splits</span><span class="p">,</span>
+    <span class="n">embedding</span><span class="o">=</span><span class="n">OpenAIEmbeddings</span><span class="p">(),</span>
+<span class="p">)</span>
+
+<span class="c1"># With langchain we can easily turn any vector store into a retrieval component:</span>
+<span class="n">retriever</span> <span class="o">=</span> <span class="n">vectorstore</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>USER_AGENT environment variable not set, consider setting it to identify your requests.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">retriever</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;what is agents&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Document(id=&#39;b41ac16d-0888-4162-938c-f8936ae9609c&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2023-06-23-agent/&#39;, &#39;title&#39;: &quot;LLM Powered Autonomous Agents | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\n\nTool use\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\n\n\n\n\t\n\tOverview of a LLM-powered autonomous agent system.\n\nComponent One: Planning\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;They also discussed the risks, especially with illicit drugs and bioweapons. They developed a test set containing a list of known chemical weapon agents and asked the agent to synthesize them. 4 out of 11 requests (36%) were accepted to obtain a synthesis solution and the agent attempted to consult documentation to execute the procedure. 7 out of 11 were rejected and among these 7 rejected cases, 5 happened after a Web search while 2 were rejected based on prompt only.\nGenerative Agents Simulation#\nGenerative Agents (Park, et al. 2023) is super fun experiment where 25 virtual characters, each controlled by a LLM-powered agent, are living and interacting in a sandbox environment, inspired by The Sims. Generative agents create believable simulacra of human behavior for interactive applications.\nThe design of generative agents combines LLM with memory, planning and reflection mechanisms to enable agents to behave conditioned on past experience, as well as to interact with other agents.\n\nMemory stream: is a long-term memory module (external database) that records a comprehensive list of agents’ experience in natural language.&#39;),
+ Document(id=&#39;6d5b8b35-0e3a-44b9-a0f8-187108647f10&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2023-06-23-agent/&#39;, &#39;title&#39;: &quot;LLM Powered Autonomous Agents | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\n\nTool use\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\n\n\n\n\t\n\tOverview of a LLM-powered autonomous agent system.\n\nComponent One: Planning\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview#\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory&#39;),
+ Document(id=&#39;5fd17dd3-fc4c-40b0-80ab-44f77b903fa1&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2023-06-23-agent/&#39;, &#39;title&#39;: &quot;LLM Powered Autonomous Agents | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\n\nTool use\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\n\n\n\n\t\n\tOverview of a LLM-powered autonomous agent system.\n\nComponent One: Planning\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&quot;Planning is essentially in order to optimize believability at the moment vs in time.\nPrompt template: {Intro of an agent X}. Here is X&#39;s plan today in broad strokes: 1)\nRelationships between agents and observations of one agent by another are all taken into consideration for planning and reacting.\nEnvironment information is present in a tree structure.\n\n\n\n\n\nThe generative agent architecture. (Image source: Park et al. 2023)&quot;),
+ Document(id=&#39;4711ab60-1684-4990-831f-5b2cecb1d7b3&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2023-06-23-agent/&#39;, &#39;title&#39;: &quot;LLM Powered Autonomous Agents | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\n\nTool use\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\n\n\n\n\t\n\tOverview of a LLM-powered autonomous agent system.\n\nComponent One: Planning\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&quot;LLM Powered Autonomous Agents | Lil&#39;Log\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLil&#39;Log\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n|\n\n\n\n\n\n\nPosts\n\n\n\n\nArchive\n\n\n\n\nSearch\n\n\n\n\nTags\n\n\n\n\nFAQ\n\n\n\n\n\n\n\n\n\n      LLM Powered Autonomous Agents\n    \nDate: June 23, 2023  |  Estimated Reading Time: 31 min  |  Author: Lilian Weng\n\n\n \n\n\nTable of Contents\n\n\n\nAgent System Overview\n\nComponent One: Planning\n\nTask Decomposition\n\nSelf-Reflection\n\n\nComponent Two: Memory\n\nTypes of Memory\n\nMaximum Inner Product Search (MIPS)\n\n\nComponent Three: Tool Use\n\nCase Studies\n\nScientific Discovery Agent\n\nGenerative Agents Simulation\n\nProof-of-Concept Examples\n\n\nChallenges\n\nCitation\n\nReferences&quot;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain.chat_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">init_chat_model</span>
+<span class="n">llm</span><span class="o">=</span><span class="n">init_chat_model</span><span class="p">(</span><span class="s2">&quot;openai:gpt-4o-mini&quot;</span><span class="p">)</span>
+<span class="n">llm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ChatOpenAI(client=&lt;openai.resources.chat.completions.completions.Completions object at 0x000001D38AF896D0&gt;, async_client=&lt;openai.resources.chat.completions.completions.AsyncCompletions object at 0x000001D38AF892E0&gt;, root_client=&lt;openai.OpenAI object at 0x000001D3F1ABBB30&gt;, root_async_client=&lt;openai.AsyncOpenAI object at 0x000001D38AF88530&gt;, model_name=&#39;gpt-4o-mini&#39;, model_kwargs={}, openai_api_key=SecretStr(&#39;**********&#39;), stream_usage=True)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langsmith</span><span class="w"> </span><span class="kn">import</span> <span class="n">traceable</span>
+
+<span class="c1">## Add decorator</span>
+<span class="nd">@traceable</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rag_bot</span><span class="p">(</span><span class="n">question</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">dict</span><span class="p">:</span>
+    <span class="c1">## Relevant context</span>
+    <span class="n">docs</span><span class="o">=</span><span class="n">retriever</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+    <span class="n">docs_string</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">)</span>
+
+    <span class="n">instructions</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;You are a helpful assistant who is good at analyzing source information and answering questions.       Use the following source documents to answer the user&#39;s questions.       If you don&#39;t know the answer, just say that you don&#39;t know.       Use three sentences maximum and keep the answer concise.</span>
+
+<span class="s2">Documents:</span>
+<span class="si">{</span><span class="n">docs_string</span><span class="si">}</span><span class="s2">&quot;&quot;&quot;</span>
+    
+    <span class="c1">## llm invoke</span>
+
+    <span class="n">ai_msg</span><span class="o">=</span><span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">([</span>
+         <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">instructions</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">question</span><span class="p">},</span>
+
+    <span class="p">])</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;answer&quot;</span><span class="p">:</span><span class="n">ai_msg</span><span class="o">.</span><span class="n">content</span><span class="p">,</span><span class="s2">&quot;documents&quot;</span><span class="p">:</span><span class="n">docs</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rag_bot</span><span class="p">(</span><span class="s2">&quot;What is agents&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;answer&#39;: &#39;Agents are autonomous entities powered by large language models (LLMs) that can perform tasks, interact in environments, and exhibit human-like behaviors. They utilize components such as planning, memory, and reflection to manage complex tasks efficiently and learn from experiences. In simulations like Generative Agents, they act as virtual characters that interact within a crafted environment.&#39;,
+ &#39;documents&#39;: [Document(id=&#39;b41ac16d-0888-4162-938c-f8936ae9609c&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2023-06-23-agent/&#39;, &#39;title&#39;: &quot;LLM Powered Autonomous Agents | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\n\nTool use\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\n\n\n\n\t\n\tOverview of a LLM-powered autonomous agent system.\n\nComponent One: Planning\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;They also discussed the risks, especially with illicit drugs and bioweapons. They developed a test set containing a list of known chemical weapon agents and asked the agent to synthesize them. 4 out of 11 requests (36%) were accepted to obtain a synthesis solution and the agent attempted to consult documentation to execute the procedure. 7 out of 11 were rejected and among these 7 rejected cases, 5 happened after a Web search while 2 were rejected based on prompt only.\nGenerative Agents Simulation#\nGenerative Agents (Park, et al. 2023) is super fun experiment where 25 virtual characters, each controlled by a LLM-powered agent, are living and interacting in a sandbox environment, inspired by The Sims. Generative agents create believable simulacra of human behavior for interactive applications.\nThe design of generative agents combines LLM with memory, planning and reflection mechanisms to enable agents to behave conditioned on past experience, as well as to interact with other agents.\n\nMemory stream: is a long-term memory module (external database) that records a comprehensive list of agents’ experience in natural language.&#39;),
+  Document(id=&#39;6d5b8b35-0e3a-44b9-a0f8-187108647f10&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2023-06-23-agent/&#39;, &#39;title&#39;: &quot;LLM Powered Autonomous Agents | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\n\nTool use\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\n\n\n\n\t\n\tOverview of a LLM-powered autonomous agent system.\n\nComponent One: Planning\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview#\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory&#39;),
+  Document(id=&#39;5fd17dd3-fc4c-40b0-80ab-44f77b903fa1&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2023-06-23-agent/&#39;, &#39;title&#39;: &quot;LLM Powered Autonomous Agents | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\n\nTool use\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\n\n\n\n\t\n\tOverview of a LLM-powered autonomous agent system.\n\nComponent One: Planning\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&quot;Planning is essentially in order to optimize believability at the moment vs in time.\nPrompt template: {Intro of an agent X}. Here is X&#39;s plan today in broad strokes: 1)\nRelationships between agents and observations of one agent by another are all taken into consideration for planning and reacting.\nEnvironment information is present in a tree structure.\n\n\n\n\n\nThe generative agent architecture. (Image source: Park et al. 2023)&quot;),
+  Document(id=&#39;4711ab60-1684-4990-831f-5b2cecb1d7b3&#39;, metadata={&#39;source&#39;: &#39;https://lilianweng.github.io/posts/2023-06-23-agent/&#39;, &#39;title&#39;: &quot;LLM Powered Autonomous Agents | Lil&#39;Log&quot;, &#39;description&#39;: &#39;Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\n\nMemory\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\n\nTool use\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\n\n\n\n\t\n\tOverview of a LLM-powered autonomous agent system.\n\nComponent One: Planning\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.&#39;, &#39;language&#39;: &#39;en&#39;}, page_content=&quot;LLM Powered Autonomous Agents | Lil&#39;Log\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLil&#39;Log\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n|\n\n\n\n\n\n\nPosts\n\n\n\n\nArchive\n\n\n\n\nSearch\n\n\n\n\nTags\n\n\n\n\nFAQ\n\n\n\n\n\n\n\n\n\n      LLM Powered Autonomous Agents\n    \nDate: June 23, 2023  |  Estimated Reading Time: 31 min  |  Author: Lilian Weng\n\n\n \n\n\nTable of Contents\n\n\n\nAgent System Overview\n\nComponent One: Planning\n\nTask Decomposition\n\nSelf-Reflection\n\n\nComponent Two: Memory\n\nTypes of Memory\n\nMaximum Inner Product Search (MIPS)\n\n\nComponent Three: Tool Use\n\nCase Studies\n\nScientific Discovery Agent\n\nGenerative Agents Simulation\n\nProof-of-Concept Examples\n\n\nChallenges\n\nCitation\n\nReferences&quot;)]}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dataset">
+<h1>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langsmith</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">client</span><span class="o">=</span><span class="n">Client</span><span class="p">()</span>
+
+<span class="c1"># Define the examples for the dataset</span>
+<span class="n">examples</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;inputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;How does the ReAct agent use self-reflection? &quot;</span><span class="p">},</span>
+        <span class="s2">&quot;outputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="s2">&quot;ReAct integrates reasoning and acting, performing actions - such tools like Wikipedia search API - and then observing / reasoning about the tool outputs.&quot;</span><span class="p">},</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;inputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What are the types of biases that can arise with few-shot prompting?&quot;</span><span class="p">},</span>
+        <span class="s2">&quot;outputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="s2">&quot;The biases that can arise with few-shot prompting include (1) Majority label bias, (2) Recency bias, and (3) Common token bias.&quot;</span><span class="p">},</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;inputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What are five types of adversarial attacks?&quot;</span><span class="p">},</span>
+        <span class="s2">&quot;outputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="s2">&quot;Five types of adversarial attacks are (1) Token manipulation, (2) Gradient based attack, (3) Jailbreak prompting, (4) Human red-teaming, (5) Model red-teaming.&quot;</span><span class="p">},</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1">### create the daatset and example in LAngsmith</span>
+<span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;RAG Test Evaluation&quot;</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">dataset_name</span><span class="o">=</span><span class="n">dataset_name</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">create_examples</span><span class="p">(</span>
+    <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">examples</span><span class="o">=</span><span class="n">examples</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;example_ids&#39;: [&#39;a868a4d3-c10d-4fb8-8f15-3eb2e89f9c07&#39;,
+  &#39;22567952-c0d3-4d6c-a198-8b4e58030b1b&#39;,
+  &#39;f65d511c-70c2-4205-82c0-0d9a9b60d7fc&#39;],
+ &#39;count&#39;: 3}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="evaluators-or-metrics">
+<h1>Evaluators or Metrics<a class="headerlink" href="#evaluators-or-metrics" title="Link to this heading">#</a></h1>
+<ol class="arabic simple">
+<li><p>Correctness: Response vs reference answer</p></li>
+</ol>
+<ul class="simple">
+<li><p>Goal: Measure “how similar/correct is the RAG chain answer, relative to a ground-truth answer”</p></li>
+<li><p>Mode: Requires a ground truth (reference) answer supplied through a dataset</p></li>
+<li><p>Evaluator: Use LLM-as-judge to assess answer correctness.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span><span class="p">,</span><span class="n">TypedDict</span>
+
+<span class="c1">## Correctness Output Schema</span>
+
+<span class="c1"># Grade output schema</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CorrectnessGrade</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="c1"># Note that the order in the fields are defined is the order in which the model will generate them.</span>
+    <span class="c1"># It is useful to put explanations before responses because it forces the model to think through</span>
+    <span class="c1"># its final response before generating it:</span>
+    <span class="n">explanation</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="s2">&quot;Explain your reasoning for the score&quot;</span><span class="p">]</span>
+    <span class="n">correct</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="s2">&quot;True if the answer is correct, False otherwise.&quot;</span><span class="p">]</span>
+
+<span class="c1">## correctness prompt</span>
+
+<span class="n">correctness_instructions</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are a teacher grading a quiz. </span>
+
+<span class="s2">You will be given a QUESTION, the GROUND TRUTH (correct) ANSWER, and the STUDENT ANSWER. </span>
+
+<span class="s2">Here is the grade criteria to follow:</span>
+<span class="s2">(1) Grade the student answers based ONLY on their factual accuracy relative to the ground truth answer. </span>
+<span class="s2">(2) Ensure that the student answer does not contain any conflicting statements.</span>
+<span class="s2">(3) It is OK if the student answer contains more information than the ground truth answer, as long as it is factually accurate relative to the  ground truth answer.</span>
+
+<span class="s2">Correctness:</span>
+<span class="s2">A correctness value of True means that the student&#39;s answer meets all of the criteria.</span>
+<span class="s2">A correctness value of False means that the student&#39;s answer does not meet all of the criteria.</span>
+
+<span class="s2">Explain your reasoning in a step-by-step manner to ensure your reasoning and conclusion are correct. </span>
+
+<span class="s2">Avoid simply stating the correct answer at the outset.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">grader_llm</span><span class="o">=</span><span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">with_structured_output</span><span class="p">(</span><span class="n">CorrectnessGrade</span><span class="p">,</span>
+                                                                         <span class="n">method</span><span class="o">=</span><span class="s2">&quot;json_schema&quot;</span><span class="p">,</span><span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">## evaluator</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">correctness</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">reference_outputs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An evaluator for RAG answer accuracy&quot;&quot;&quot;</span>
+    <span class="n">answers</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">QUESTION: </span><span class="si">{</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;question&#39;</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">GROUND TRUTH ANSWER: </span><span class="si">{</span><span class="n">reference_outputs</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">STUDENT ANSWER: </span><span class="si">{</span><span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;&quot;&quot;</span>
+
+    <span class="c1"># Run evaluator</span>
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">grader_llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">([</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">correctness_instructions</span><span class="p">},</span> 
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">answers</span><span class="p">}</span>
+    <span class="p">])</span>
+    <span class="k">return</span> <span class="n">grade</span><span class="p">[</span><span class="s2">&quot;correct&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="relevance-response-vs-input">
+<h1>Relevance: Response vs input<a class="headerlink" href="#relevance-response-vs-input" title="Link to this heading">#</a></h1>
+<p>The flow is similar to above, but we simply look at the inputs and outputs without needing the reference_outputs. Without a reference answer we can’t grade accuracy, but can still grade relevance—as in, did the model address the user’s question or not.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Grade output schema</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RelevanceGrade</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">explanation</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="s2">&quot;Explain your reasoning for the score&quot;</span><span class="p">]</span>
+    <span class="n">relevant</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="s2">&quot;Provide the score on whether the answer addresses the question&quot;</span><span class="p">]</span>
+
+<span class="c1"># Grade prompt</span>
+<span class="n">relevance_instructions</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;You are a teacher grading a quiz. </span>
+
+<span class="s2">You will be given a QUESTION and a STUDENT ANSWER. </span>
+
+<span class="s2">Here is the grade criteria to follow:</span>
+<span class="s2">(1) Ensure the STUDENT ANSWER is concise and relevant to the QUESTION</span>
+<span class="s2">(2) Ensure the STUDENT ANSWER helps to answer the QUESTION</span>
+
+<span class="s2">Relevance:</span>
+<span class="s2">A relevance value of True means that the student&#39;s answer meets all of the criteria.</span>
+<span class="s2">A relevance value of False means that the student&#39;s answer does not meet all of the criteria.</span>
+
+<span class="s2">Explain your reasoning in a step-by-step manner to ensure your reasoning and conclusion are correct. </span>
+
+<span class="s2">Avoid simply stating the correct answer at the outset.&quot;&quot;&quot;</span>
+
+<span class="c1"># Grader LLM</span>
+<span class="n">relevance_llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">with_structured_output</span><span class="p">(</span><span class="n">RelevanceGrade</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;json_schema&quot;</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Evaluator</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">relevance</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A simple evaluator for RAG answer helpfulness.&quot;&quot;&quot;</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;QUESTION: </span><span class="si">{</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;question&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">STUDENT ANSWER: </span><span class="si">{</span><span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">relevance_llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">([</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">relevance_instructions</span><span class="p">},</span> 
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">answer</span><span class="p">}</span>
+    <span class="p">])</span>
+    <span class="k">return</span> <span class="n">grade</span><span class="p">[</span><span class="s2">&quot;relevant&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="groundedness-response-vs-retrieved-docs">
+<h1>Groundedness: Response vs retrieved docs<a class="headerlink" href="#groundedness-response-vs-retrieved-docs" title="Link to this heading">#</a></h1>
+<p>Another useful way to evaluate responses without needing reference answers is to check if the response is justified by (or “grounded in”) the retrieved documents.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Grade output schema</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GroundedGrade</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">explanation</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="s2">&quot;Explain your reasoning for the score&quot;</span><span class="p">]</span>
+    <span class="n">grounded</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="s2">&quot;Provide the score on if the answer hallucinates from the documents&quot;</span><span class="p">]</span>
+
+<span class="c1"># Grade prompt</span>
+<span class="n">grounded_instructions</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are a teacher grading a quiz. </span>
+
+<span class="s2">You will be given FACTS and a STUDENT ANSWER. </span>
+
+<span class="s2">Here is the grade criteria to follow:</span>
+<span class="s2">(1) Ensure the STUDENT ANSWER is grounded in the FACTS. </span>
+<span class="s2">(2) Ensure the STUDENT ANSWER does not contain &quot;hallucinated&quot; information outside the scope of the FACTS.</span>
+
+<span class="s2">Grounded:</span>
+<span class="s2">A grounded value of True means that the student&#39;s answer meets all of the criteria.</span>
+<span class="s2">A grounded value of False means that the student&#39;s answer does not meet all of the criteria.</span>
+
+<span class="s2">Explain your reasoning in a step-by-step manner to ensure your reasoning and conclusion are correct. </span>
+
+<span class="s2">Avoid simply stating the correct answer at the outset.&quot;&quot;&quot;</span>
+
+<span class="c1"># Grader LLM </span>
+<span class="n">grounded_llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">with_structured_output</span><span class="p">(</span><span class="n">GroundedGrade</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;json_schema&quot;</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Evaluator</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">groundedness</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A simple evaluator for RAG answer groundedness.&quot;&quot;&quot;</span>
+    <span class="n">doc_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">[</span><span class="s2">&quot;documents&quot;</span><span class="p">])</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;FACTS: </span><span class="si">{</span><span class="n">doc_string</span><span class="si">}</span><span class="se">\n</span><span class="s2">STUDENT ANSWER: </span><span class="si">{</span><span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">grounded_llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">([{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">grounded_instructions</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">answer</span><span class="p">}])</span>
+    <span class="k">return</span> <span class="n">grade</span><span class="p">[</span><span class="s2">&quot;grounded&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="retrieval-relevance-retrieved-docs-vs-input">
+<h1>Retrieval Relevance: Retrieved docs vs input<a class="headerlink" href="#retrieval-relevance-retrieved-docs-vs-input" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Grade output schema</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RetrievalRelevanceGrade</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">explanation</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="s2">&quot;Explain your reasoning for the score&quot;</span><span class="p">]</span>
+    <span class="n">relevant</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="s2">&quot;True if the retrieved documents are relevant to the question, False otherwise&quot;</span><span class="p">]</span>
+
+<span class="c1"># Grade prompt</span>
+<span class="n">retrieval_relevance_instructions</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are a teacher grading a quiz. </span>
+
+<span class="s2">You will be given a QUESTION and a set of FACTS provided by the student. </span>
+
+<span class="s2">Here is the grade criteria to follow:</span>
+<span class="s2">(1) You goal is to identify FACTS that are completely unrelated to the QUESTION</span>
+<span class="s2">(2) If the facts contain ANY keywords or semantic meaning related to the question, consider them relevant</span>
+<span class="s2">(3) It is OK if the facts have SOME information that is unrelated to the question as long as (2) is met</span>
+
+<span class="s2">Relevance:</span>
+<span class="s2">A relevance value of True means that the FACTS contain ANY keywords or semantic meaning related to the QUESTION and are therefore relevant.</span>
+<span class="s2">A relevance value of False means that the FACTS are completely unrelated to the QUESTION.</span>
+
+<span class="s2">Explain your reasoning in a step-by-step manner to ensure your reasoning and conclusion are correct. </span>
+
+<span class="s2">Avoid simply stating the correct answer at the outset.&quot;&quot;&quot;</span>
+
+<span class="c1"># Grader LLM</span>
+<span class="n">retrieval_relevance_llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">with_structured_output</span><span class="p">(</span><span class="n">RetrievalRelevanceGrade</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;json_schema&quot;</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">retrieval_relevance</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An evaluator for document relevance&quot;&quot;&quot;</span>
+    <span class="n">doc_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">[</span><span class="s2">&quot;documents&quot;</span><span class="p">])</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;FACTS: </span><span class="si">{</span><span class="n">doc_string</span><span class="si">}</span><span class="se">\n</span><span class="s2">QUESTION: </span><span class="si">{</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;question&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># Run evaluator</span>
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">retrieval_relevance_llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">([</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">retrieval_relevance_instructions</span><span class="p">},</span> 
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">answer</span><span class="p">}</span>
+    <span class="p">])</span>
+    <span class="k">return</span> <span class="n">grade</span><span class="p">[</span><span class="s2">&quot;relevant&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="run-the-evaluation">
+<h1>Run the evaluation<a class="headerlink" href="#run-the-evaluation" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">rag_bot</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">])</span>
+
+<span class="n">experiment_results</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
+    <span class="n">target</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">dataset_name</span><span class="p">,</span>
+    <span class="n">evaluators</span><span class="o">=</span><span class="p">[</span><span class="n">correctness</span><span class="p">,</span> <span class="n">groundedness</span><span class="p">,</span> <span class="n">relevance</span><span class="p">,</span> <span class="n">retrieval_relevance</span><span class="p">],</span>
+    <span class="n">experiment_prefix</span><span class="o">=</span><span class="s2">&quot;rag-doc-relevance&quot;</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;LCEL context, gpt-4-0125-preview&quot;</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="c1"># Explore results locally as a dataframe if you have pandas installed</span>
+<span class="n">experiment_results</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>View the evaluation results for experiment: &#39;rag-doc-relevance-41c98a2c&#39; at:
+https://smith.langchain.com/o/bc49b288-224f-45a2-949a-f214f8948bf9/datasets/4f988096-2fe0-45f2-a5d6-a2cdd1b6631e/compare?selectedSessions=e15f6ffc-5745-448b-90fe-98b7314ffced
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "95c898f24e764a46a66148ab2c433391", "version_major": 2, "version_minor": 0}</script><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>inputs.question</th>
+      <th>outputs.answer</th>
+      <th>outputs.documents</th>
+      <th>error</th>
+      <th>reference.answer</th>
+      <th>feedback.correctness</th>
+      <th>feedback.groundedness</th>
+      <th>feedback.relevance</th>
+      <th>feedback.retrieval_relevance</th>
+      <th>execution_time</th>
+      <th>example_id</th>
+      <th>id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>What are the types of biases that can arise wi...</td>
+      <td>The types of biases that can arise with few-sh...</td>
+      <td>[page_content='Zero-shot and few-shot learning...</td>
+      <td>None</td>
+      <td>The biases that can arise with few-shot prompt...</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>3.332118</td>
+      <td>22567952-c0d3-4d6c-a198-8b4e58030b1b</td>
+      <td>fead793d-e814-43eb-90ab-98750aa8ea6d</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>How does the ReAct agent use self-reflection?</td>
+      <td>The ReAct agent utilizes self-reflection by in...</td>
+      <td>[page_content='Self-reflection is a vital aspe...</td>
+      <td>None</td>
+      <td>ReAct integrates reasoning and acting, perform...</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>3.325142</td>
+      <td>a868a4d3-c10d-4fb8-8f15-3eb2e89f9c07</td>
+      <td>92f54270-ebdd-4a52-94e3-24b71a723c2d</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>What are five types of adversarial attacks?</td>
+      <td>The five types of adversarial attacks are toke...</td>
+      <td>[page_content='Black-box attacks assume that a...</td>
+      <td>None</td>
+      <td>Five types of adversarial attacks are (1) Toke...</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>2.301592</td>
+      <td>f65d511c-70c2-4205-82c0-0d9a9b60d7fc</td>
+      <td>8f5d4305-2842-4162-97dc-06a107d4d0a3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./8-RAG EVALUATION"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../7-AgenticRag/ragmemory.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">RAG With Persistance Memory Using LangGraph</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../9-Q%26A%20WITH%20GRAPHDB/experiments.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Build a Question Answering application over a Graph Database</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chatbot And RAG Evaluation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#chatbot-evaluation">Chatbot Evaluation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#define-metrics-llm-as-a-judge">Define Metrics (LLM As A Judge)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#run-evaluations">Run Evaluations</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-for-rag">Evaluation For RAG</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluators-or-metrics">Evaluators or Metrics</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#relevance-response-vs-input">Relevance: Response vs input</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#groundedness-response-vs-retrieved-docs">Groundedness: Response vs retrieved docs</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-relevance-retrieved-docs-vs-input">Retrieval Relevance: Retrieved docs vs input</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-evaluation">Run the evaluation</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Your Name
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
